@@ -15,7 +15,7 @@ public class GameGroundPanel extends JPanel {
 
         // 단어 입력 버튼
         JTextField input = new JTextField(30);
-        input.setLocation(250, 700);
+        input.setLocation(250, 720);
         input.setSize(150, 30);
         add(input);
     }
