@@ -1,3 +1,7 @@
+package screen;
+
+import screen.menu.StartMenuPanel;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -11,6 +15,8 @@ public class GameFrame extends JFrame {
 
         Container c = getContentPane();
         c.add(new StartMenuPanel());
+
+        // c.add(new screen.GameToolBar(), BorderLayout.NORTH);
 
         setVisible(true);
         setResizable(false);

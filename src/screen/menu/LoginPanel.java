@@ -1,3 +1,5 @@
+package screen.menu;
+
 import javax.swing.*;
 import java.awt.*;
 

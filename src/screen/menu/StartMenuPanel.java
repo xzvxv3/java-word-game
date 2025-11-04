@@ -1,3 +1,5 @@
+package screen.menu;
+
 import runnable.*;
 
 import javax.swing.*;
