@@ -1,23 +1,33 @@
 package screen.play;
 
-import runnable.idle.Man;
-import runnable.idle.Wolf;
-import runnable.run.RunGunMan;
-import runnable.run.RunMan;
-import runnable.run.RunMotion;
-import runnable.run.RunSwordMan;
+import data.TextSource;
+import data.Word;
+import runnable.core.Man;
+import runnable.core.Wolf;
+import runnable.core.WordMaker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GameGroundPanel extends JPanel {
     private ImageIcon ground = new ImageIcon("resources/background/ground.png");
 
-    private Man Man;
-    private Wolf Wolf;
+    private Man man;
+    private Wolf wolf;
+    private WordMaker wordRain;
 
-    private Thread ManThread;
-    private Thread WolfThread;
+    private Thread manThread;
+    private Thread wolfThread;
+    private Thread wordMakerThread;
+
+    // 떨어지는 단어들을 저장할 리스트. synchronized로 동기화 걸 것
+    private ArrayList<Word> wordList = new ArrayList<>();
+
+    // 게임 종료
+    private boolean isFinish = false;
+
+
 
     public GameGroundPanel() {
         setLayout(null);
@@ -29,21 +39,33 @@ public class GameGroundPanel extends JPanel {
         input.setSize(150, 30);
         add(input);
 
+
         // idle 모션
-        idleMotion();
+        motionStart();
     }
 
-    private void idleMotion() {
+    // 단어 생성자 스레드
+    private void wordMakerStart() {
+        // 레벨은 임시로 0 설정. 추후에 변경할 것
+        WordMaker wordMaker = new WordMaker(this,0, wordList);
+        wordMakerThread = new Thread(wordMaker);
+        wordMakerThread.start();
+    }
+
+    // 단어 관리자 스레드
+
+
+    private void motionStart() {
         // RunMan 모션
-        Man = new Man(this);
+        man = new Man(this);
         // SwordMan 모션
-        Wolf = new Wolf(this);
+        wolf = new Wolf(this);
 
-        ManThread = new Thread(Man);
-        WolfThread = new Thread(Wolf);
+        manThread = new Thread(man);
+        wolfThread = new Thread(wolf);
 
-        ManThread.start();
-        WolfThread.start();
+        manThread.start();
+        wolfThread.start();
     }
 
     @Override
@@ -51,10 +73,10 @@ public class GameGroundPanel extends JPanel {
         super.paintComponent(g);
         g.drawImage(ground.getImage(), 0, 0, getWidth(), getHeight(), this);
 
-        ImageIcon ManImage = Man.getCurrentFrame();
-        g.drawImage(ManImage.getImage(), 200, 500, 200, 200, this);
+        ImageIcon ManImage = man.getCurrentFrame();
+        g.drawImage(ManImage.getImage(), 230, 530, 170, 170, this);
 
-        ImageIcon WolfImage = Wolf.getCurrentFrame();
+        ImageIcon WolfImage = wolf.getCurrentFrame();
         g.drawImage(WolfImage.getImage(), 300, 515, 250, 250, this);
     }
 }
