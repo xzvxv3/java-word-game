@@ -2,14 +2,10 @@ package runnable;
 
 import javax.swing.*;
 
-public class RunMan implements Runnable{
-    private ImageIcon[] runImages = new ImageIcon[8];
-    private JPanel panel;
-    private int frame = 0;
+public class RunMan extends RunMotion implements Runnable{
 
-    // 1. 부모의 패널 받아오기, 2. 이미지 설정하기
     public RunMan(JPanel panel) {
-        this.panel = panel;
+        super(panel);
         setRunImages();
     }
 
@@ -25,8 +21,6 @@ public class RunMan implements Runnable{
             }
         }
     }
-
-    public ImageIcon getCurrentFrame() {return runImages[frame];}
 
     private void setRunImages() {
         for (int i = 0; i < runImages.length; i++) {

@@ -2,14 +2,11 @@ package runnable;
 
 import javax.swing.*;
 
-public class RunGunMan implements Runnable{
-    private ImageIcon[] runImages = new ImageIcon[8];
-    private JPanel panel;
-    private int frame = 0;
+public class RunGunMan extends RunMotion implements Runnable{
 
     // 1. 부모의 패널 받아오기, 2. 이미지 설정하기
     public RunGunMan(JPanel panel) {
-        this.panel = panel;
+        super(panel);
         setRunImages();
     }
 
@@ -25,8 +22,6 @@ public class RunGunMan implements Runnable{
             }
         }
     }
-
-    public ImageIcon getCurrentFrame() {return runImages[frame];}
 
     private void setRunImages() {
         for (int i = 0; i < runImages.length; i++) {
