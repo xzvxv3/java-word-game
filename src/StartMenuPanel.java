@@ -5,22 +5,28 @@ public class StartMenuPanel extends JPanel {
     JButton startbtn = new JButton("Game Start");
     JButton showRanking = new JButton("Scores");
     JButton setWord = new JButton("Word Settings");
-
     JButton[] btns = {startbtn, showRanking, setWord};
+
+    private ImageIcon sky = new ImageIcon("resources/background/menu.png");
 
     public StartMenuPanel() {
         setLayout(null);
         setBackground(Color.BLACK);
-        // 1. 메뉴 화면 배경 추가할 것
 
+        // 로그인 판넬 위에 추가
         add(new LoginPanel());
 
-        // 2. 버튼 배경 추가할 것
         for(int i=0; i < btns.length; i++) {
             btns[i].setSize(330, 50);
-            btns[i].setLocation(300, 530 + 70 * i);
+            btns[i].setLocation(300, 350 + 70 * i);
             add(btns[i]);
         }
+    }
 
+    @Override
+    protected void paintComponent(Graphics g) { // 배경 화면 추가
+        super.paintComponent(g);
+        Image skyImg = sky.getImage();
+        g.drawImage(skyImg, 0, 0, this.getWidth(), this.getHeight(),this);
     }
 }
