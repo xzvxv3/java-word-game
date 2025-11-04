@@ -52,7 +52,7 @@ public class StartMenuPanel extends JPanel {
         // 전체 배경 화면
         g.drawImage(sky.getImage(), 0, 0, getWidth(), getHeight(), this);
 
-        // RunMotion, 3가지의 모
+        // RunMotion, 3가지의 모습
         RunMotion active = runSwitchMotion.getCurrentRunMotion();
         ImageIcon frame = active.getCurrentFrame();
         g.drawImage(frame.getImage(), 400, 550, 150, 150, this);
