@@ -5,6 +5,6 @@ import java.awt.*;
 
 public class ScorePanel extends JPanel {
     public ScorePanel() {
-        setBackground(Color.GRAY);
+        setBackground(Color.DARK_GRAY);
     }
 }
