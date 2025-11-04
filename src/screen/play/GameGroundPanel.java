@@ -52,9 +52,9 @@ public class GameGroundPanel extends JPanel {
         g.drawImage(ground.getImage(), 0, 0, getWidth(), getHeight(), this);
 
         ImageIcon ManImage = Man.getCurrentFrame();
-        g.drawImage(ManImage.getImage(), 300, 500, 200, 200, this);
+        g.drawImage(ManImage.getImage(), 200, 500, 200, 200, this);
 
         ImageIcon WolfImage = Wolf.getCurrentFrame();
-        g.drawImage(WolfImage.getImage(), 400, 515, 250, 250, this);
+        g.drawImage(WolfImage.getImage(), 300, 515, 250, 250, this);
     }
 }
