@@ -1,3 +1,7 @@
+import runnable.RunGunMan;
+import runnable.RunMan;
+import runnable.RunSwordMan;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -6,6 +10,10 @@ public class StartMenuPanel extends JPanel {
     JButton showRanking = new JButton("Scores");
     JButton setWord = new JButton("Word Settings");
     JButton[] btns = {startbtn, showRanking, setWord};
+
+    private RunMan runMan;
+    private RunSwordMan runSwordMan;
+    private RunGunMan  runGunMan;
 
     private ImageIcon sky = new ImageIcon("resources/background/menu.png");
 
@@ -21,6 +29,21 @@ public class StartMenuPanel extends JPanel {
             btns[i].setLocation(300, 350 + 70 * i);
             add(btns[i]);
         }
+
+        // RunMan 모션 스레드
+        runMan = new RunMan(this);
+        Thread runManThread = new Thread(runMan);
+        runManThread.start();
+
+        // SwordMan 모션 스레드
+        runSwordMan = new RunSwordMan(this);
+        Thread runSwordManThread = new Thread(runSwordMan);
+        runSwordManThread.start();
+
+        // GunMan 모션 스레드
+        runGunMan = new RunGunMan(this);
+        Thread runGunManThread = new Thread(runGunMan);
+        runGunManThread.start();
     }
 
     @Override
@@ -28,5 +51,18 @@ public class StartMenuPanel extends JPanel {
         super.paintComponent(g);
         Image skyImg = sky.getImage();
         g.drawImage(skyImg, 0, 0, this.getWidth(), this.getHeight(),this);
+
+        // RunMan 모션 실행
+        ImageIcon currentFrame1 = runMan.getCurrentFrame();
+        g.drawImage(currentFrame1.getImage(), 400, 550, 150, 150, this);
+
+        // RunSwordMan 모션 실행
+        ImageIcon currentFrame2 = runSwordMan.getCurrentFrame();
+        g.drawImage(currentFrame2.getImage(), 300, 550, 150, 150, this);
+
+        // RunGunMan 모션 실행
+        ImageIcon currentFrame3 = runGunMan.getCurrentFrame();
+        g.drawImage(currentFrame3.getImage(), 200, 550, 150, 150, this);
+
     }
 }
