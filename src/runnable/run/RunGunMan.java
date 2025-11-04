@@ -1,10 +1,11 @@
-package runnable;
+package runnable.run;
 
 import javax.swing.*;
 
-public class RunMan extends RunMotion implements Runnable{
+public class RunGunMan extends RunMotion implements Runnable{
 
-    public RunMan(JPanel panel) {
+    // 1. 부모의 패널 받아오기, 2. 이미지 설정하기
+    public RunGunMan(JPanel panel) {
         super(panel);
         setRunImages();
     }
@@ -12,8 +13,8 @@ public class RunMan extends RunMotion implements Runnable{
     @Override
     public void run() {
         while (true) {
-            frame = (frame + 1) % runImages.length; // 프레임 변경
-            panel.repaint(); // 부모 패널 다시 그리기, 부모는 바뀐 프레임을 호출할 예정
+            frame = (frame + 1) % runImages.length;
+            panel.repaint();
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -24,7 +25,8 @@ public class RunMan extends RunMotion implements Runnable{
 
     private void setRunImages() {
         for (int i = 0; i < runImages.length; i++) {
-            runImages[i] = new ImageIcon("resources/sprites/original/run/Run0" + (i + 1) + ".png");
+            runImages[i] = new ImageIcon("resources/sprites/gun/run/GunRun0" + (i + 1) + ".png");
         }
     }
 }
+

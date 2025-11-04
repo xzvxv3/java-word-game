@@ -1,4 +1,4 @@
-package runnable.idle;
+package runnable.core;
 
 import javax.swing.*;
 

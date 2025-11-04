@@ -1,4 +1,4 @@
-package runnable;
+package runnable.run;
 
 import javax.swing.*;
 

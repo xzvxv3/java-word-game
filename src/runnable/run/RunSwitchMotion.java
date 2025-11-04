@@ -1,4 +1,4 @@
-package runnable;
+package runnable.run;
 
 import javax.swing.*;
 
@@ -26,7 +26,7 @@ public class RunSwitchMotion implements Runnable {
             currentRunMotion = motions[idx];
             panel.repaint();
 
-            // 다음 캐릭터로 전환
+            // 다음 장면으로 전환
             idx = (idx + 1) % motions.length;
 
             try {

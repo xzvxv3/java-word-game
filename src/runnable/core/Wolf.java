@@ -1,11 +1,9 @@
-package runnable.idle;
-
-import runnable.run.RunMotion;
+package runnable.core;
 
 import javax.swing.*;
 
 public class Wolf extends Motion implements Runnable {
-    protected ImageIcon[] idleImages = new ImageIcon[5];
+    protected ImageIcon[] idleImages = new ImageIcon[14];
 
     public Wolf(JPanel panel) {
         super(panel);
@@ -33,7 +31,12 @@ public class Wolf extends Motion implements Runnable {
     // 추후 수정 필요. 각 상황에 맞게
     private void setImages() {
         for (int i = 0; i < idleImages.length; i++) {
-            idleImages[i] = new ImageIcon("resources/sprites/wolf/idle/LoboSombriuIdlle000" + (i + 1) + ".png");
+
+            if(i >= 9) {
+                idleImages[i] = new ImageIcon("resources/sprites/wolf/attack/LoboSombriuAttack001" + (i - 9) + ".png");
+            } else {
+                idleImages[i] = new ImageIcon("resources/sprites/wolf/attack/LoboSombriuAttack000" + (i + 1) + ".png");
+            }
         }
     }
 }
