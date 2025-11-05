@@ -2,7 +2,7 @@ package runnable;
 
 import javax.swing.*;
 
-public class Run implements Runnable{
+public class RunAnimation implements Runnable{
     private ImageIcon[] runManImages = new ImageIcon[8];
     private ImageIcon[] runSwordManImages = new ImageIcon[8];
     private ImageIcon[] runGunManImages = new ImageIcon[8];
@@ -21,7 +21,7 @@ public class Run implements Runnable{
         }
     }
 
-    public Run(JPanel panel) {
+    public RunAnimation(JPanel panel) {
         this.panel = panel;
         setRunImages();
     }
