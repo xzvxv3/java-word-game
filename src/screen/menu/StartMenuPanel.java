@@ -34,6 +34,7 @@ public class StartMenuPanel extends JPanel {
         runMotion();
     }
 
+    // 버튼 설정
     private void setBtns() {
         for(int i=0; i < btns.length; i++) {
             btns[i].setSize(330, 50);
