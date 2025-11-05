@@ -1,7 +1,6 @@
 package screen.menu;
 
-import runnable.Run;
-import runnable.core.Man;
+import runnable.RunAnimation;
 import screen.play.GameSplitPane;
 
 import javax.swing.*;
@@ -16,7 +15,7 @@ public class StartMenuPanel extends JPanel {
     JButton[] btns = {startbtn, showRanking, setWord};
 
 
-    private Run run; // 달리는 모션 Runnable
+    private RunAnimation runAnimation; // 달리는 모션 Runnable
     private Thread runThread; // 달리는 모션 스레드
 
     private ImageIcon sky = new ImageIcon("resources/background/menu.png");
@@ -67,8 +66,8 @@ public class StartMenuPanel extends JPanel {
     }
     // 달리는 모션 실행
     private void runMotion() {
-        run = new Run(this);
-        runThread = new Thread(run);
+        runAnimation = new RunAnimation(this);
+        runThread = new Thread(runAnimation);
         runThread.start();
     }
 
@@ -79,7 +78,7 @@ public class StartMenuPanel extends JPanel {
         g.drawImage(sky.getImage(), 0, 0, getWidth(), getHeight(), this);
 
         // 달리는 모션
-        ImageIcon frame = run.getCurrentFrame();
+        ImageIcon frame = runAnimation.getCurrentFrame();
         g.drawImage(frame.getImage(), 400, 550, 150, 150, this);
     }
 }
