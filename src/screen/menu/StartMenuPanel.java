@@ -1,7 +1,7 @@
 package screen.menu;
 
-import runnable.*;
-import screen.GameFrame;
+import runnable.Run;
+import runnable.core.Man;
 import screen.play.GameSplitPane;
 
 import javax.swing.*;
@@ -15,15 +15,9 @@ public class StartMenuPanel extends JPanel {
     JButton setWord = new JButton("Word Settings");
     JButton[] btns = {startbtn, showRanking, setWord};
 
-    private RunMan runMan;
-    private RunSwordMan runSwordMan;
-    private RunGunMan runGunMan;
-    private RunSwitchMotion runSwitchMotion;
 
-    private Thread runManTherad;
-    private Thread runSwordManTherad;
-    private Thread runGunManTherad;
-    private Thread runSwitchMotionThread;
+    private Run run; // 달리는 모션 Runnable
+    private Thread runThread; // 달리는 모션 스레드
 
     private ImageIcon sky = new ImageIcon("resources/background/menu.png");
 
@@ -34,10 +28,10 @@ public class StartMenuPanel extends JPanel {
         // 로그인 판넬 추가
         add(new LoginPanel());
 
-        // 버튼 추가
+        // 버튼 추가(시작 버튼, 점수, 단어 설정)
         setBtns();
 
-        // 모션 추가
+        // 달리는 모션 추가
         runMotion();
     }
 
@@ -62,41 +56,20 @@ public class StartMenuPanel extends JPanel {
                 frame.getContentPane().revalidate();
                 frame.getContentPane().repaint();
 
-                runManTherad.interrupt();
-                runSwordManTherad.interrupt();
-                runGunManTherad.interrupt();
-                runSwitchMotionThread.interrupt();
+                runThread.interrupt();
             }
         });
 
-        // scores 버튼 클릭시 작동
+        // 1. scores 버튼 클릭시 작동
 
-
-        // Word Settings 버튼 클릭시 작동
+        // 2. Word Settings 버튼 클릭시 작동
 
     }
-
+    // 달리는 모션 실행
     private void runMotion() {
-        // RunMan 모션
-        runMan = new RunMan(this);
-        // SwordMan 모션
-        runSwordMan = new RunSwordMan(this);
-        // GunMan 모션
-        runGunMan = new RunGunMan(this);
-
-        // 각각의 모션 스레드 실행
-
-        runManTherad = new Thread(runMan);
-        runSwordManTherad = new Thread(runSwordMan);
-        runGunManTherad = new Thread(runGunMan);
-
-        runManTherad.start();
-        runSwordManTherad.start();
-        runGunManTherad.start();
-
-        runSwitchMotion = new RunSwitchMotion(runMan, runSwordMan, runGunMan, this);
-        runSwitchMotionThread = new Thread(runSwitchMotion);
-        runSwitchMotionThread.start();
+        run = new Run(this);
+        runThread = new Thread(run);
+        runThread.start();
     }
 
     @Override
@@ -105,9 +78,8 @@ public class StartMenuPanel extends JPanel {
         // 전체 배경 화면
         g.drawImage(sky.getImage(), 0, 0, getWidth(), getHeight(), this);
 
-        // RunMotion, 3가지의 모습
-        RunMotion active = runSwitchMotion.getCurrentRunMotion();
-        ImageIcon frame = active.getCurrentFrame();
+        // 달리는 모션
+        ImageIcon frame = run.getCurrentFrame();
         g.drawImage(frame.getImage(), 400, 550, 150, 150, this);
     }
 }
