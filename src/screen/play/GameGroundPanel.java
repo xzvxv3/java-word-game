@@ -56,9 +56,9 @@ public class GameGroundPanel extends JPanel {
                         WordLabel word = it.next();
                         if(word.getWord().equals(inputText)) {
                             it.remove();
-                            remove(word);
-                            revalidate();
-                            repaint();
+                            remove(word); // 현재 패널에서 단어 삭제
+                            revalidate(); // 내부 배치 정보 갱신
+                            repaint(); // 화면 다시 그리기
                             break;
                         }
                     }
