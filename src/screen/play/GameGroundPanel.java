@@ -60,11 +60,13 @@ public class GameGroundPanel extends JPanel {
                             revalidate(); // 내부 배치 정보 갱신
                             repaint(); // 화면 다시 그리기
 
+                            String weapon = manController.getCurrentWeapon();
+
                             int r = (int) (Math.random() * 4);
-                            if(r == 0) manController.setCurrentState("KICK01");
-                            else if(r == 1) manController.setCurrentState("KICK02");
-                            else if(r == 2) manController.setCurrentState("PUNCH01"); // MISS
-                            else if(r == 3) manController.setCurrentState("PUNCH02");
+                            if(r == 0) manController.setCurrentState("ATTACK01", weapon);
+                            else if(r == 1) manController.setCurrentState("ATTACK02", weapon);
+                            else if(r == 2) manController.setCurrentState("ATTACK03", weapon); // MISS
+                            else if(r == 3) manController.setCurrentState("ATTACK04", weapon);
 
                             break;
                         }
@@ -106,7 +108,7 @@ public class GameGroundPanel extends JPanel {
 
     // Man 모션
     private void manMotionStart() {
-        manController = new ManController(this);
+        manController = new ManController(this, "EMPTY");
         manControllerThread = new Thread(manController);
         manControllerThread.start();
     }
