@@ -5,8 +5,12 @@ import java.awt.*;
 
 public class WordLabel extends JLabel {
 
+    private String text = null;
+
     public WordLabel(String text, int width, int height, int x, int y) {
         super(text); // 단어 이름
+        this.text = text;
+
         setHorizontalAlignment(SwingConstants.CENTER); // 라벨 안 단어 가운데 정렬
 
         setFont(new Font("맑은 고딕", Font.BOLD, 20)); // 단어 폰트, 크기
@@ -30,4 +34,7 @@ public class WordLabel extends JLabel {
     public boolean isAtBottom(int panelHeight) {
         return getY() > panelHeight - getHeight() - 65;
     }
+
+    // 단어 이름 반환
+    public String getWord() {return text;}
 }
