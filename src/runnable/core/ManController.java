@@ -1,29 +1,14 @@
 package runnable.core;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.HashMap;
 
-public class ManController extends Character implements Runnable {
-    protected ImageIcon[] motionFrames;
-    private JPanel panel;
-    private String currentState;
-    private String weapon = "SWORD"; // 무기
+public class ManController extends BaseCharacter implements Runnable {
+    private String weapon = "SWORD";
 
-    public ManController(JPanel panel, String weapon) {
-        super(panel);
-        this.panel = panel;
+    public ManController(JPanel panel, String weapon, int hp) {
+        super(panel, hp);
         this.weapon = weapon;
-
-        if(this.weapon.equals("EMPTY")) {
-            currentState = "IDLE";
-            loadImages(currentState, weapon); // 기본 상태
-        }
-        else if(this.weapon.equals("SWORD")) {
-            currentState = "SWORD_IDLE";
-            loadImages(currentState, weapon);
-        }
-
+        initCharacter();
     }
 
     @Override
@@ -34,44 +19,42 @@ public class ManController extends Character implements Runnable {
 
             // Idle 상태가 아니면서 Attack 모션이 끝날 경우 Idle 상태로 복귀
             if(idx == motionFrames.length - 1) {
-                if(weapon.equals("EMPTY") && !currentState.equals("IDLE")) {
-                    setCurrentState("IDLE", weapon);
+                // 기본 모드의 IDLE 전환
+                if(weapon.equals("EMPTY") && !currentMotion.equals("IDLE")) {
+                    setMotion("IDLE");
                 }
-
-                else if(weapon.equals("SWORD") && !currentState.equals("SWORD_IDLE")) {
-                    setCurrentState("SWORD_IDLE", weapon);
+                // 검 모드의 IDLE 전환
+                else if(weapon.equals("SWORD") && !currentMotion.equals("SWORD_IDLE")) {
+                    setMotion("SWORD_IDLE");
                 }
-
-                try { Thread.sleep(100); } catch (InterruptedException e) { break; } // 마지막 장면 0.15초 딜레이 (자연스러운 모션 유도)
+                // 마지막 장면 0.15초 딜레이 (자연스러운 모션 유도)
+                try { Thread.sleep(100); } catch (InterruptedException e) { break; }
             }
 
             // 프레임 전환속도
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                break;
-            }
+            try { Thread.sleep(100); } catch (InterruptedException e) { break; }
         }
     }
 
+    private void initCharacter() {
+        // 기본 모드
+        if(weapon.equals("EMPTY")) {
+            currentMotion = "IDLE";
+            loadMotionImages(currentMotion); // 기본 상태
+        }
 
+        // 검 모드
+        else if(weapon.equals("SWORD")) {
+            currentMotion = "SWORD_IDLE";
+            loadMotionImages(currentMotion);
+        }
+    }
+
+    // 현재 무기 상태 반환
     public String getCurrentWeapon() {return weapon;}
-    // 모션 프레임 반환
-    public ImageIcon getCurrentFrame() {
-        return motionFrames[idx];
-    }
 
-
-    public void setCurrentState(String currentState, String weapon) {
-        this.currentState = currentState;
-        this.weapon = weapon;
-        idx = 0;
-        loadImages(currentState, weapon);
-    }
-
-
-    private void loadImages(String motion, String weapon) {
-
+    // 모션 이미지 설정
+    protected void loadMotionImages(String motion) {
         if(weapon.equals("EMPTY")) {
             switch (motion) {
                 case "IDLE" : setIdleMotion(); break;
@@ -80,7 +63,6 @@ public class ManController extends Character implements Runnable {
                 case "ATTACK03" : setPunchMotion01(); break;
                 case "ATTACK04" : setPunchMotion02(); break;
                 case "DIE" : setDieMotion(); break;
-                default: return;
             }
         }
 
@@ -96,6 +78,7 @@ public class ManController extends Character implements Runnable {
 
     }
 
+    // 기본 모션
     private void setIdleMotion() {
         motionFrames = new ImageIcon[7];
         for(int i=0; i<7; i++) {
@@ -133,6 +116,7 @@ public class ManController extends Character implements Runnable {
         }
     } // 죽음 모션
 
+    // 검 모션
     private void setSwordIdleMotion() {
         motionFrames = new ImageIcon[7];
         for(int i=0; i<7; i++) {
@@ -163,5 +147,4 @@ public class ManController extends Character implements Runnable {
             motionFrames[i] = new ImageIcon("resources/sprites/sword/attack4/StandingSlash0" + (i + 1) + ".png");
         }
     } // 검 공격 4
-
 }
