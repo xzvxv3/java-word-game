@@ -17,8 +17,8 @@ public abstract class BaseCharacter {
 
     // 모션 설정
     public void setMotion(String currentMotion) {
-        this.currentMotion = currentMotion;
         idx = 0; // 모션 프레임 첫장면 idx
+        this.currentMotion = currentMotion;
         loadMotionImages(currentMotion); // 입력 받은 모션 설정
     }
 

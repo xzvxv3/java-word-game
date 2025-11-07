@@ -63,11 +63,13 @@ public class GameGroundPanel extends JPanel {
                             String weapon = manController.getCurrentWeapon();
 
                             int r = (int) (Math.random() * 4);
-                            if(r == 0) manController.setCurrentState("ATTACK01", weapon);
-                            else if(r == 1) manController.setCurrentState("ATTACK02", weapon);
-                            else if(r == 2) manController.setCurrentState("ATTACK03", weapon); // MISS
-                            else if(r == 3) manController.setCurrentState("ATTACK04", weapon);
 
+                            if(manController.getCurrentWeapon().equals("SWORD")) {
+                                if(r == 0) manController.setMotion("ATTACK01");
+                                else if(r == 1) manController.setMotion("ATTACK02");
+                                else if(r == 2) manController.setMotion("ATTACK03"); // MISS
+                                else if(r == 3) manController.setMotion("ATTACK04");
+                            }
                             break;
                         }
                     }
@@ -101,21 +103,21 @@ public class GameGroundPanel extends JPanel {
 
     // 단어 관리자 스레드
     private void wordFallManagerStart() {
-        WordFallManager wordFallManager = new WordFallManager(this, wordList, 1);
+        WordFallManager wordFallManager = new WordFallManager(this, wordList,  wolfController, 1);
         wordFallManagerThread = new Thread(wordFallManager);
         wordFallManagerThread.start();
     }
 
     // Man 모션
     private void manMotionStart() {
-        manController = new ManController(this, "EMPTY");
+        manController = new ManController(this, "SWORD", 5);
         manControllerThread = new Thread(manController);
         manControllerThread.start();
     }
 
     // Wolf 모션
     private void wolfMotionStart() {
-        wolfController = new WolfController(this);
+        wolfController = new WolfController(this, 100);
         wolfControllerThread = new Thread(wolfController);
         wolfControllerThread.start();
     }
@@ -131,9 +133,13 @@ public class GameGroundPanel extends JPanel {
         // 움직이는 모션을 사람에 넣으면 된다.
         ImageIcon ManImage;
         ManImage = manController.getCurrentFrame();
-        g.drawImage(ManImage.getImage(), 185, 530, 170, 170, this);
+        if(ManImage != null) {
+            g.drawImage(ManImage.getImage(), 185, 530, 170, 170, this);
+        }
 
         ImageIcon WolfImage = wolfController.getCurrentFrame();
-        g.drawImage(WolfImage.getImage(), 230, 515, 250, 250, this);
+        if(WolfImage != null) {
+            g.drawImage(WolfImage.getImage(), 230, 515, 250, 250, this);
+        }
     }
 }
