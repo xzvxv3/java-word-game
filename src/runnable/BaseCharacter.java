@@ -50,6 +50,4 @@ public abstract class BaseCharacter {
     public void decreaseHP() {
         hp--;
     }
-
-
 }

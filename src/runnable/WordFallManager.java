@@ -16,17 +16,20 @@ public class WordFallManager implements Runnable{
     private ManController manController;
     private MushroomController mushroomController;
     private ScareCrowController scareCrowController;
+    private SkeletonController skeletonController;
 
     public WordFallManager(JPanel panel, ArrayList<WordLabel> wordlist,
                            WolfController wolfController, ManController manController,
                            MushroomController mushroomController, ScareCrowController scareCrowController,
-                           int level) {
+                           SkeletonController skeletonController, int level) {
+
         this.panel = panel; // 부모 패널
         this.wordList = wordlist; // 단어 라벨 리스트
         this.wolfController = wolfController;
         this.manController = manController;
         this.mushroomController = mushroomController;
         this.scareCrowController = scareCrowController;
+        this.skeletonController = skeletonController;
 
         switch (level) {
             case 0: FALL_SPEED = 1; break; // 레벨0 -> 떨어지는 속도 1
@@ -67,7 +70,9 @@ public class WordFallManager implements Runnable{
                 if(word.isAtBottom(panel.getHeight())) {
                     // 늑대 상태 변화
                     // wolfController.setMotion("ATTACK");
-                    mushroomController.setMotion("ATTACK");
+                    // mushroomController.setMotion("ATTACK");
+                    skeletonController.setMotion("ATTACK01");
+
                     manController.onAttacked();
                     manController.decreaseHP();
 

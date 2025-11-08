@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class GameGroundPanel extends JPanel {
-    private ImageIcon ground = new ImageIcon("resources/background/ground.png");
+    private ImageIcon ground = new ImageIcon("resources/background/stage3.png");
 
     private ManController manController;
     private WolfController wolfController;
@@ -21,10 +21,12 @@ public class GameGroundPanel extends JPanel {
     private WordFallManager wordFallManager;
     private MushroomController mushroomController;
     private ScareCrowController scareCrowController;
+    private SkeletonController skeletonController;
 
     // 캐릭터 스레드
     private Thread manControllerThread, wolfControllerThread,
-                   mushroomControllerThread, scareCrowControllerThread;
+                   mushroomControllerThread, scareCrowControllerThread,
+                   skeletonControllerThread;
 
     // 단어 관리 스레드
     private Thread wordMakerThread, wordFallManagerThread;
@@ -66,14 +68,14 @@ public class GameGroundPanel extends JPanel {
 
                             int r = (int) (Math.random() * 4);
 
-                            if(manController.getCurrentWeapon().equals("EMPTY")) {
-                                if(r == 0) manController.setMotion("ATTACK01");
-                                else if(r == 1) manController.setMotion("ATTACK02");
-                                else if(r == 2) manController.setMotion("ATTACK03"); // MISS
-                                else if(r == 3) manController.setMotion("ATTACK04");
+                            if(manController.getCurrentWeapon().equals("SWORD")) {
+                                if(r == 0) manController.setMotion("SWORD_ATTACK01");
+                                else if(r == 1) manController.setMotion("SWORD_ATTACK02");
+                                else if(r == 2) manController.setMotion("SWORD_ATTACK03"); // MISS
+                                else if(r == 3) manController.setMotion("SWORD_ATTACK04");
 
-                                mushroomController.onAttacked();
-                                mushroomController.decreaseHP();
+                                skeletonController.onAttacked();
+                                skeletonController.decreaseHP();
                             }
                             break;
                         }
@@ -92,10 +94,13 @@ public class GameGroundPanel extends JPanel {
         // wolfMotionStart();
 
         // Mushroom 모션 스레드 시작
-        mushroomMotionStart();
+        // mushroomMotionStart();
 
         // ScareCrow 모션 스레드 시작
         // scareCrowMotionStart();
+
+        // Skeleton 모션 스레드 시작
+        skeletonMotionStart();
 
         // 단어 생성 스레드 시작
         wordMakerStart();
@@ -114,37 +119,44 @@ public class GameGroundPanel extends JPanel {
 
     // 단어 관리자 스레드
     private void wordFallManagerStart() {
-        WordFallManager wordFallManager = new WordFallManager(this, wordList,  wolfController, manController  ,mushroomController, scareCrowController, 1);
+        WordFallManager wordFallManager = new WordFallManager(this, wordList,  wolfController, manController  ,mushroomController, scareCrowController, skeletonController, 1);
         wordFallManagerThread = new Thread(wordFallManager);
         wordFallManagerThread.start();
     }
 
     // Man 모션
     private void manMotionStart() {
-        manController = new ManController(this, "EMPTY", 3);
+        manController = new ManController(this, "SWORD", 30);
         manControllerThread = new Thread(manController);
         manControllerThread.start();
     }
 
     // Wolf 모션
     private void wolfMotionStart() {
-        wolfController = new WolfController(this, 3);
+        wolfController = new WolfController(this, 30);
         wolfControllerThread = new Thread(wolfController);
         wolfControllerThread.start();
     }
 
     // Mushroom 모션
     private void mushroomMotionStart() {
-        mushroomController = new MushroomController(this, 3);
+        mushroomController = new MushroomController(this, 20);
         mushroomControllerThread = new Thread(mushroomController);
         mushroomControllerThread.start();
     }
 
     // ScareCrow 모션
     private void scareCrowMotionStart() {
-        scareCrowController = new ScareCrowController(this, 3);
+        scareCrowController = new ScareCrowController(this, 10);
         scareCrowControllerThread = new Thread(scareCrowController);
         scareCrowControllerThread.start();
+    }
+
+    // Skeleton 모션
+    private void skeletonMotionStart() {
+        skeletonController = new SkeletonController(this, 10);
+        skeletonControllerThread = new Thread(skeletonController);
+        skeletonControllerThread.start();
     }
 
 
@@ -167,14 +179,16 @@ public class GameGroundPanel extends JPanel {
 //            g.drawImage(wolfImage.getImage(), 230, 515, 250, 250, this);
 //        }
 
-        ImageIcon mushroomImage = mushroomController.getCurrentFrame();
-        if(mushroomImage != null) {
-            g.drawImage(mushroomImage.getImage(), 190, 430, 300, 400, this);
+//        ImageIcon mushroomImage = mushroomController.getCurrentFrame();
+//        if(mushroomImage != null) {
+//            g.drawImage(mushroomImage.getImage(), 190, 430, 300, 400, this);
+//        }
+
+        ImageIcon skeletonImage = skeletonController.getCurrentFrame();
+        if(skeletonImage != null) {
+            g.drawImage(skeletonImage.getImage(), 200, 430, 300, 400, this);
         }
 
-//        ImageIcon scareCrowImage = scareCrowController.getCurrentFrame();
-//        if(scareCrowImage != null) {
-//            g.drawImage(scareCrowImage.getImage(), 240, 590, 180, 110, this);
-//        }
+
     }
 }
