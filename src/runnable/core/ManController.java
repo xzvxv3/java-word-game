@@ -10,18 +10,27 @@ public class ManController extends BaseCharacter implements Runnable {
         this.weapon = weapon; // 캐릭터 무기
         setImageMotions(); // 캐릭터의 모션들 초기화
         initCharacter(); // 시작 시, 캐릭터의 모션 설정 (기본 IDLE)
+        damageDelay = 450;
     }
 
     @Override
     public void run() {
         while (true) {
-            // 공격 당했을 경우
-            if (attacked) {
-                nowTime = System.currentTimeMillis();
-                if (nowTime - attackTime >= 450) { // 1초 지연 후
-                    setMotion("DAMAGE");
-                    attacked = false;
+            if (attacked) { // 공격 당했을 경우
+                if(!isDead) { // 살아 있는 경우에만 공격
+                    nowTime = System.currentTimeMillis();
+                    if (nowTime - attackTime >= 450) { // 1초 지연 후
+                        setMotion("DAMAGE");
+                        attacked = false;
+                    }
                 }
+            }
+
+            // 죽었을 경우
+            if(hp <= 0 && !isDead) {
+                isDead = true;
+                try { Thread.sleep(800); } catch (InterruptedException e) { break; } // 자연스러운 모션 유도
+                setMotion("DEAD");
             }
 
             idx = (idx + 1) % motionFrames.length; // 프레임 변경
@@ -29,6 +38,10 @@ public class ManController extends BaseCharacter implements Runnable {
 
             // Idle 상태가 아니면서 Attack 모션이 끝날 경우 Idle 상태로 복귀
             if(idx == motionFrames.length - 1) {
+
+                // 죽으면 더이상 모션 X
+                if(isDead) break;
+
                 // 기본 모드의 IDLE 전환
                 if(weapon.equals("EMPTY") && !currentMotion.equals("IDLE")) {
                     motionFrames = motionMap.get("IDLE");
@@ -78,7 +91,7 @@ public class ManController extends BaseCharacter implements Runnable {
         motionMap.put("SWORD_ATTACK04", setSwordAttackMotion04());
 
         // 공통 모션
-        motionMap.put("DIE", setDieMotion());
+        motionMap.put("DEAD", setDeadMotion());
         motionMap.put("DAMAGE", setDamageMotion());
     }
 
@@ -90,7 +103,7 @@ public class ManController extends BaseCharacter implements Runnable {
         }
         return tmp;
     } // 데미지 모션
-    private ImageIcon[] setDieMotion() {
+    private ImageIcon[] setDeadMotion() {
         ImageIcon[] tmp = new ImageIcon[9];
         for (int i = 0; i < 9; i++) {
             tmp[i] = new ImageIcon("resources/sprites/original/die/Die0" + (i + 1) + ".png");

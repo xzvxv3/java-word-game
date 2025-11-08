@@ -71,6 +71,7 @@ public class GameGroundPanel extends JPanel {
                                 else if(r == 3) manController.setMotion("SWORD_ATTACK04");
 
                                 wolfController.onAttacked();
+                                wolfController.decreaseHP();
                             }
                             break;
                         }
@@ -112,14 +113,14 @@ public class GameGroundPanel extends JPanel {
 
     // Man 모션
     private void manMotionStart() {
-        manController = new ManController(this, "SWORD", 5);
+        manController = new ManController(this, "SWORD", 3);
         manControllerThread = new Thread(manController);
         manControllerThread.start();
     }
 
     // Wolf 모션
     private void wolfMotionStart() {
-        wolfController = new WolfController(this, 100);
+        wolfController = new WolfController(this, 3);
         wolfControllerThread = new Thread(wolfController);
         wolfControllerThread.start();
     }

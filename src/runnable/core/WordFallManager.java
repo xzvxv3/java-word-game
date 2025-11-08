@@ -61,6 +61,8 @@ public class WordFallManager implements Runnable{
                     // 늑대 상태 변화
                     wolfController.setMotion("ATTACK");
                     manController.onAttacked();
+                    manController.decreaseHP();
+
                     panel.remove(word); // 부모 패널에서 삭제
                     it.remove(); // 배열 리스트에서 삭제
                 }
