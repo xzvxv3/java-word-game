@@ -65,10 +65,12 @@ public class GameGroundPanel extends JPanel {
                             int r = (int) (Math.random() * 4);
 
                             if(manController.getCurrentWeapon().equals("SWORD")) {
-                                if(r == 0) manController.setMotion("ATTACK01");
-                                else if(r == 1) manController.setMotion("ATTACK02");
-                                else if(r == 2) manController.setMotion("ATTACK03"); // MISS
-                                else if(r == 3) manController.setMotion("ATTACK04");
+                                if(r == 0) manController.setMotion("SWORD_ATTACK01");
+                                else if(r == 1) manController.setMotion("SWORD_ATTACK02");
+                                else if(r == 2) manController.setMotion("SWORD_ATTACK03"); // MISS
+                                else if(r == 3) manController.setMotion("SWORD_ATTACK04");
+
+                                wolfController.onAttacked();
                             }
                             break;
                         }
@@ -103,7 +105,7 @@ public class GameGroundPanel extends JPanel {
 
     // 단어 관리자 스레드
     private void wordFallManagerStart() {
-        WordFallManager wordFallManager = new WordFallManager(this, wordList,  wolfController, 1);
+        WordFallManager wordFallManager = new WordFallManager(this, wordList,  wolfController, manController ,1);
         wordFallManagerThread = new Thread(wordFallManager);
         wordFallManagerThread.start();
     }

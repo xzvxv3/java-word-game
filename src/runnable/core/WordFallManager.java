@@ -13,11 +13,13 @@ public class WordFallManager implements Runnable{
     private JPanel panel; // 부모 패널
     private boolean running = true; // 단어 생성 작동 여부
     private WolfController wolfController;
+    private ManController manController;
 
-    public WordFallManager(JPanel panel, ArrayList<WordLabel> wordlist,  WolfController wolfController, int level) {
+    public WordFallManager(JPanel panel, ArrayList<WordLabel> wordlist,  WolfController wolfController, ManController manController, int level) {
         this.panel = panel; // 부모 패널
         this.wordList = wordlist; // 단어 라벨 리스트
         this.wolfController = wolfController;
+        this.manController = manController;
 
         switch (level) {
             case 0: FALL_SPEED = 1; break; // 레벨0 -> 떨어지는 속도 1
@@ -33,7 +35,7 @@ public class WordFallManager implements Runnable{
             fallWord(); // 단어를 떨어트림
             panel.repaint(); // 좌표값이 바뀐걸 다시 그림(버벅임 방지)
             try {
-                Thread.sleep(300);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 break;
             }
@@ -58,6 +60,7 @@ public class WordFallManager implements Runnable{
                 if(word.isAtBottom(panel.getHeight())) {
                     // 늑대 상태 변화
                     wolfController.setMotion("ATTACK");
+                    manController.onAttacked();
                     panel.remove(word); // 부모 패널에서 삭제
                     it.remove(); // 배열 리스트에서 삭제
                 }
