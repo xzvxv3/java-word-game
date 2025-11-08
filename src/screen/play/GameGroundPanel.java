@@ -3,10 +3,7 @@ package screen.play;
 import data.WordLabel;
 
 // import runnable.InputTextManager;
-import runnable.core.ManController;
-import runnable.core.WolfController;
-import runnable.core.WordFallManager;
-import runnable.core.WordMaker;
+import runnable.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,10 +19,15 @@ public class GameGroundPanel extends JPanel {
     private WolfController wolfController;
     private WordMaker wordRain;
     private WordFallManager wordFallManager;
-    // private InputTextManager inputTextManager;
+    private MushroomController mushroomController;
+    private ScareCrowController scareCrowController;
 
-    // 스레드
-    private Thread manControllerThread, wolfControllerThread, wordMakerThread, wordFallManagerThread, inputTextManagerThread;
+    // 캐릭터 스레드
+    private Thread manControllerThread, wolfControllerThread,
+                   mushroomControllerThread, scareCrowControllerThread;
+
+    // 단어 관리 스레드
+    private Thread wordMakerThread, wordFallManagerThread;
 
     // 떨어지는 단어들을 저장할 리스트. synchronized로 동기화 걸 것
     private ArrayList<WordLabel> wordList = new ArrayList<>();
@@ -64,14 +66,14 @@ public class GameGroundPanel extends JPanel {
 
                             int r = (int) (Math.random() * 4);
 
-                            if(manController.getCurrentWeapon().equals("SWORD")) {
-                                if(r == 0) manController.setMotion("SWORD_ATTACK01");
-                                else if(r == 1) manController.setMotion("SWORD_ATTACK02");
-                                else if(r == 2) manController.setMotion("SWORD_ATTACK03"); // MISS
-                                else if(r == 3) manController.setMotion("SWORD_ATTACK04");
+                            if(manController.getCurrentWeapon().equals("EMPTY")) {
+                                if(r == 0) manController.setMotion("ATTACK01");
+                                else if(r == 1) manController.setMotion("ATTACK02");
+                                else if(r == 2) manController.setMotion("ATTACK03"); // MISS
+                                else if(r == 3) manController.setMotion("ATTACK04");
 
-                                wolfController.onAttacked();
-                                wolfController.decreaseHP();
+                                mushroomController.onAttacked();
+                                mushroomController.decreaseHP();
                             }
                             break;
                         }
@@ -87,7 +89,13 @@ public class GameGroundPanel extends JPanel {
         manMotionStart();
 
         // Wolf 모션 스레드 시작
-        wolfMotionStart();
+        // wolfMotionStart();
+
+        // Mushroom 모션 스레드 시작
+        mushroomMotionStart();
+
+        // ScareCrow 모션 스레드 시작
+        // scareCrowMotionStart();
 
         // 단어 생성 스레드 시작
         wordMakerStart();
@@ -106,14 +114,14 @@ public class GameGroundPanel extends JPanel {
 
     // 단어 관리자 스레드
     private void wordFallManagerStart() {
-        WordFallManager wordFallManager = new WordFallManager(this, wordList,  wolfController, manController ,1);
+        WordFallManager wordFallManager = new WordFallManager(this, wordList,  wolfController, manController  ,mushroomController, scareCrowController, 1);
         wordFallManagerThread = new Thread(wordFallManager);
         wordFallManagerThread.start();
     }
 
     // Man 모션
     private void manMotionStart() {
-        manController = new ManController(this, "SWORD", 3);
+        manController = new ManController(this, "EMPTY", 3);
         manControllerThread = new Thread(manController);
         manControllerThread.start();
     }
@@ -125,6 +133,20 @@ public class GameGroundPanel extends JPanel {
         wolfControllerThread.start();
     }
 
+    // Mushroom 모션
+    private void mushroomMotionStart() {
+        mushroomController = new MushroomController(this, 3);
+        mushroomControllerThread = new Thread(mushroomController);
+        mushroomControllerThread.start();
+    }
+
+    // ScareCrow 모션
+    private void scareCrowMotionStart() {
+        scareCrowController = new ScareCrowController(this, 3);
+        scareCrowControllerThread = new Thread(scareCrowController);
+        scareCrowControllerThread.start();
+    }
+
 
 
     @Override
@@ -134,15 +156,25 @@ public class GameGroundPanel extends JPanel {
 
 
         // 움직이는 모션을 사람에 넣으면 된다.
-        ImageIcon ManImage;
-        ManImage = manController.getCurrentFrame();
-        if(ManImage != null) {
-            g.drawImage(ManImage.getImage(), 185, 530, 170, 170, this);
+        ImageIcon manImage;
+        manImage = manController.getCurrentFrame();
+        if(manImage != null) {
+            g.drawImage(manImage.getImage(), 185, 530, 170, 170, this);
         }
 
-        ImageIcon WolfImage = wolfController.getCurrentFrame();
-        if(WolfImage != null) {
-            g.drawImage(WolfImage.getImage(), 230, 515, 250, 250, this);
+//        ImageIcon wolfImage = wolfController.getCurrentFrame();
+//        if(wolfImage != null) {
+//            g.drawImage(wolfImage.getImage(), 230, 515, 250, 250, this);
+//        }
+
+        ImageIcon mushroomImage = mushroomController.getCurrentFrame();
+        if(mushroomImage != null) {
+            g.drawImage(mushroomImage.getImage(), 190, 430, 300, 400, this);
         }
+
+//        ImageIcon scareCrowImage = scareCrowController.getCurrentFrame();
+//        if(scareCrowImage != null) {
+//            g.drawImage(scareCrowImage.getImage(), 240, 590, 180, 110, this);
+//        }
     }
 }

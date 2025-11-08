@@ -1,7 +1,6 @@
-package runnable.core;
+package runnable;
 
 import data.TextSource;
-import data.WordLabel;
 import data.WordLabel;
 
 import javax.swing.*;
@@ -37,7 +36,7 @@ public class WordMaker implements Runnable{
         while(running) { // 외부에서 단어 생성
             makeWord(); // 단어 생성
             try {
-              Thread.sleep(1000); // 1초마다 생성
+              Thread.sleep(2000); // 1초마다 생성
             } catch (InterruptedException e) {
                 break;
             }

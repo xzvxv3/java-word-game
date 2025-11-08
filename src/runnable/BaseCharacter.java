@@ -1,4 +1,4 @@
-package runnable.core;
+package runnable;
 
 import javax.swing.*;
 import java.util.HashMap;

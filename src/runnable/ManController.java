@@ -1,4 +1,4 @@
-package runnable.core;
+package runnable;
 
 import javax.swing.*;
 
@@ -80,8 +80,8 @@ public class ManController extends BaseCharacter implements Runnable {
         motionMap.put("IDLE", setIdleMotion());
         motionMap.put("ATTACK01", setKickMotion01());
         motionMap.put("ATTACK02", setKickMotion02());
-        motionMap.put("ATTACK03", setPunchMotion01());
-        motionMap.put("ATTACK04", setPunchMotion02());
+        motionMap.put("ATTACK03", setKickMotion03());
+        motionMap.put("ATTACK04", setPunchMotion01());
 
         // 검 모션
         motionMap.put("SWORD_IDLE", setSwordIdleMotion());
@@ -133,14 +133,14 @@ public class ManController extends BaseCharacter implements Runnable {
         }
         return tmp;
     } // 킥 모션 2
-    private ImageIcon[] setPunchMotion01() {
-        ImageIcon[] tmp = new ImageIcon[7];
-        for (int i = 0; i < 7; i++) {
-            tmp[i] = new ImageIcon("resources/sprites/original/punch01/Punch030" + (i + 1) + ".png");
+    private ImageIcon[] setKickMotion03() {
+        ImageIcon[] tmp = new ImageIcon[8];
+        for (int i = 0; i < 8; i++) {
+            tmp[i] = new ImageIcon("resources/sprites/original/kick03/KickB0" + (i + 1) + ".png");
         }
         return tmp;
     } // 펀치 모션 1
-    private ImageIcon[] setPunchMotion02() { // 펀치 모션 2
+    private ImageIcon[] setPunchMotion01() { // 펀치 모션 2
         ImageIcon[] tmp = new ImageIcon[6];
         for (int i = 0; i < 6; i++) {
             tmp[i] = new ImageIcon("resources/sprites/original/punch02/Punch010" + (i + 1) + ".png");

@@ -1,4 +1,4 @@
-package runnable.core;
+package runnable;
 
 import javax.swing.*;
 
@@ -17,7 +17,7 @@ public class WolfController extends BaseCharacter implements Runnable {
             if (attacked) { // 공격 당했을 경우
                 if(!isDead) { // 살아 있는 경우에만 공격
                     nowTime = System.currentTimeMillis();
-                    if (nowTime - attackTime >= 450) { // 1초 지연 후
+                    if (nowTime - attackTime >= 350) { // 1초 지연 후
                         setMotion("DAMAGE");
                         attacked = false;
                     }
@@ -27,7 +27,7 @@ public class WolfController extends BaseCharacter implements Runnable {
             // 죽었을 경우
             if(hp <= 0 && !isDead) {
                 isDead = true;
-                try { Thread.sleep(800); } catch (InterruptedException e) { break; } // 자연스러운 모션 유도
+                try { Thread.sleep(600); } catch (InterruptedException e) { break; } // 자연스러운 모션 유도
                 setMotion("DEAD");
             }
 

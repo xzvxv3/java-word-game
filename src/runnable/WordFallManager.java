@@ -1,4 +1,4 @@
-package runnable.core;
+package runnable;
 
 import data.WordLabel;
 
@@ -14,12 +14,19 @@ public class WordFallManager implements Runnable{
     private boolean running = true; // 단어 생성 작동 여부
     private WolfController wolfController;
     private ManController manController;
+    private MushroomController mushroomController;
+    private ScareCrowController scareCrowController;
 
-    public WordFallManager(JPanel panel, ArrayList<WordLabel> wordlist,  WolfController wolfController, ManController manController, int level) {
+    public WordFallManager(JPanel panel, ArrayList<WordLabel> wordlist,
+                           WolfController wolfController, ManController manController,
+                           MushroomController mushroomController, ScareCrowController scareCrowController,
+                           int level) {
         this.panel = panel; // 부모 패널
         this.wordList = wordlist; // 단어 라벨 리스트
         this.wolfController = wolfController;
         this.manController = manController;
+        this.mushroomController = mushroomController;
+        this.scareCrowController = scareCrowController;
 
         switch (level) {
             case 0: FALL_SPEED = 1; break; // 레벨0 -> 떨어지는 속도 1
@@ -59,7 +66,8 @@ public class WordFallManager implements Runnable{
                 // 단어 라벨 충돌 판정
                 if(word.isAtBottom(panel.getHeight())) {
                     // 늑대 상태 변화
-                    wolfController.setMotion("ATTACK");
+                    // wolfController.setMotion("ATTACK");
+                    mushroomController.setMotion("ATTACK");
                     manController.onAttacked();
                     manController.decreaseHP();
 
