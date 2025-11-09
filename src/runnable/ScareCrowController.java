@@ -4,63 +4,39 @@ import javax.swing.*;
 
 public class ScareCrowController extends BaseCharacter implements Runnable{
     public ScareCrowController(JPanel panel, int hp) {
-        super(panel,  hp);
-        setImageMotions();
-        initCharacter();
+        super(panel,  hp, 350, 400, 140, 100);
+        setImageMotions(); // 캐릭터의 모션들 초기화
+        initCharacter(); // 시작 시, 캐릭터의 모션 설정 (기본 IDLE)
     }
 
 
     @Override
     public void run() {
-        while (true) {
-            if (attacked) { // 공격 당했을 경우
-                if(!isDead) { // 살아 있는 경우에만 공격
-                    nowTime = System.currentTimeMillis();
-                    if (nowTime - attackTime >= 350) { // 1초 지연 후
-                        setMotion("DAMAGE");
-                        attacked = false;
-                    }
-                }
-            }
+        while (characterLifeCycle()) {} // 캐릭터 모션 실행
+    }
 
-            // 죽었을 경우
-            if(hp <= 0 && !isDead) {
-                isDead = true;
-                try { Thread.sleep(400); } catch (InterruptedException e) { break; } // 자연스러운 모션 유도
-                setMotion("DEAD");
-            }
-
-            idx = (idx + 1) % motionFrames.length; // 프레임 변경
-            panel.repaint(); // 부모 패널 다시 그리기, 부모는 바뀐 프레임을 호출할 예정
-
-            if(idx == motionFrames.length - 1) {
-
-                if(isDead) break;
-
-                if(!currentMotion.equals("IDLE")) {
-                    motionFrames = motionMap.get("IDLE");
-                }
-
-                // 마지막 장면 0.15초 딜레이 (자연스러운 모션 유도)
-                try { Thread.sleep(140); } catch (InterruptedException e) { break; }
-            }
-            // 프레임 속도
-            try { Thread.sleep(100); } catch (InterruptedException e) { break; }
+    // Idle 모션으로 전환
+    @Override
+    protected void onMotionEnd() {
+        if(!currentMotion.equals("IDLE")) {
+            motionFrames = motionMap.get("IDLE");
         }
     }
 
+    // 캐릭터 모션 초기화
     private void initCharacter() {
         currentMotion = "IDLE";
         motionFrames = motionMap.get(currentMotion);
     }
 
+    // 캐릭터 모션 저장
     protected void setImageMotions() {
         motionMap.put("IDLE", setIdleMotion());
         motionMap.put("DEAD", setDeadMotion());
         motionMap.put("DAMAGE", setDamageMotion());
     }
 
-    // 버섯 모션
+    // 허수아비 모션
     private ImageIcon[] setIdleMotion() {
         ImageIcon[] tmp = new ImageIcon[3];
         for(int i=0; i<3; i++) {
