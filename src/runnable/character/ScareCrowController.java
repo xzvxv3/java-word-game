@@ -1,10 +1,10 @@
-package runnable;
+package runnable.character;
 
 import javax.swing.*;
 
 public class ScareCrowController extends BaseCharacter implements Runnable{
     public ScareCrowController(JPanel panel, int hp) {
-        super(panel,  hp, 350, 400, 140, 100);
+        super(panel,  hp, 350, 400, 140, 50);
         setImageMotions(); // 캐릭터의 모션들 초기화
         initCharacter(); // 시작 시, 캐릭터의 모션 설정 (기본 IDLE)
     }

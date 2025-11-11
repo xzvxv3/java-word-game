@@ -1,4 +1,4 @@
-package runnable;
+package runnable.character;
 
 import javax.swing.*;
 

@@ -1,6 +1,7 @@
 package runnable;
 
 import data.WordLabel;
+import runnable.character.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -71,7 +72,8 @@ public class WordFallManager implements Runnable{
                     // 늑대 상태 변화
                     // wolfController.setMotion("ATTACK");
                     // mushroomController.setMotion("ATTACK");
-                    skeletonController.setMotion("ATTACK01");
+                    // skeletonController.setMotion("ATTACK01");
+                    skeletonController.setMotion("ATTACK02");
 
                     manController.onAttacked();
                     manController.decreaseHP();

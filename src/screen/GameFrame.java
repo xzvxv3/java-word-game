@@ -1,8 +1,6 @@
 package screen;
 
-import screen.menu.StartMenuPanel;
-import screen.play.GamePanel;
-import screen.play.GameSplitPane;
+import screen.menu.GameMenuPanel;
 
 import javax.swing.*;
 
@@ -17,7 +15,7 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Container c = getContentPane();
-        c.add(new StartMenuPanel());
+        c.add(new GameMenuPanel());
         // c.add(new GameSplitPane());
         c.add(new GameToolBar(),BorderLayout.NORTH);
 

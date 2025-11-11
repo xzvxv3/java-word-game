@@ -2,8 +2,8 @@ package screen.play;
 
 import data.WordLabel;
 
-// import runnable.InputTextManager;
 import runnable.*;
+import runnable.character.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -126,7 +126,7 @@ public class GameGroundPanel extends JPanel {
 
     // Man 모션
     private void manMotionStart() {
-        manController = new ManController(this, "SWORD", 30);
+        manController = new ManController(this, "SWORD", 3);
         manControllerThread = new Thread(manController);
         manControllerThread.start();
     }
@@ -167,28 +167,33 @@ public class GameGroundPanel extends JPanel {
         g.drawImage(ground.getImage(), 0, 0, getWidth(), getHeight(), this);
 
 
+
+
+//        ImageIcon wolfImage = wolfController.getCurrentFrame();
+//        if(wolfImage != null) {
+//            g.drawImage(wolfImage.getImage(), 235, 535, 230, 230, this);
+//        }
+
+//        ImageIcon mushroomImage = mushroomController.getCurrentFrame();
+//        if(mushroomImage != null) {
+//            g.drawImage(mushroomImage.getImage(), 180, 430, 300, 400, this);
+//        }
+
+//        ImageIcon scareCrowImage = scareCrowController.getCurrentFrame();
+//        if(scareCrowImage != null) {
+//            g.drawImage(scareCrowImage.getImage(), 240, 600, 170, 100, this);
+//        }
+
+        ImageIcon skeletonImage = skeletonController.getCurrentFrame();
+        if(skeletonImage != null) {
+            g.drawImage(skeletonImage.getImage(), 200, 480, 280, 330, this);
+        }
+
         // 움직이는 모션을 사람에 넣으면 된다.
         ImageIcon manImage;
         manImage = manController.getCurrentFrame();
         if(manImage != null) {
             g.drawImage(manImage.getImage(), 185, 530, 170, 170, this);
         }
-
-//        ImageIcon wolfImage = wolfController.getCurrentFrame();
-//        if(wolfImage != null) {
-//            g.drawImage(wolfImage.getImage(), 230, 515, 250, 250, this);
-//        }
-
-//        ImageIcon mushroomImage = mushroomController.getCurrentFrame();
-//        if(mushroomImage != null) {
-//            g.drawImage(mushroomImage.getImage(), 190, 430, 300, 400, this);
-//        }
-
-        ImageIcon skeletonImage = skeletonController.getCurrentFrame();
-        if(skeletonImage != null) {
-            g.drawImage(skeletonImage.getImage(), 200, 430, 300, 400, this);
-        }
-
-
     }
 }
