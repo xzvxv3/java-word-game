@@ -1,6 +1,7 @@
 package screen.game.left;
 
 import character.CharacterManager;
+import character.MotionType;
 import word.Word;
 import word.WordStore;
 
@@ -46,7 +47,7 @@ public class InputPanel extends JPanel {
                             it.remove();
                             view.remove(word);
                             view.revalidate();
-                            characterManager.getMan().setMotion("SWORD_ATTACK01");
+                            characterManager.getMan().setMotion(MotionType.MAN_SWORD_ATTACK01);
                             characterManager.getEnemy().decreaseHP();
                             characterManager.getEnemy().onAttacked();
                         }

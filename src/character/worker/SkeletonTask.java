@@ -1,5 +1,7 @@
 package character.worker;
 
+import character.MotionType;
+
 import javax.swing.*;
 
 public class SkeletonTask extends BaseCharacter implements Runnable {
@@ -17,23 +19,24 @@ public class SkeletonTask extends BaseCharacter implements Runnable {
 
     @Override
     protected void onMotionEnd() {
-        if(!currentMotion.equals("IDLE")) {
-            motionFrames = motionMap.get("IDLE");
+        if(motionType != MotionType.IDLE) {
+            motionType = MotionType.IDLE;
+            motionFrames = motionMap.get(motionType);
         }
     }
 
     private void initCharacter() {
-        currentMotion = "IDLE";
-        motionFrames = motionMap.get(currentMotion);
+        motionType = MotionType.IDLE;
+        motionFrames = motionMap.get(motionType);
     }
 
     protected void setImageMotions() {
-        motionMap.put("IDLE", setIdleMotion());
-        motionMap.put("DEAD", setDeadMotion());
-        motionMap.put("ATTACK01", setAttackMotion01());
-        motionMap.put("ATTACK02", setAttackMotion02());
-        motionMap.put("DAMAGE", setDamageMotion());
-        motionMap.put("SHIELD", setShieldMotion());
+        motionMap.put(MotionType.IDLE, setIdleMotion());
+        motionMap.put(MotionType.DEAD, setDeadMotion());
+        motionMap.put(MotionType.ENEMY_ATTACK01, setAttackMotion01());
+        motionMap.put(MotionType.ENEMY_ATTACK02, setAttackMotion02());
+        motionMap.put(MotionType.DAMAGE, setDamageMotion());
+        motionMap.put(MotionType.SHIELD, setShieldMotion());
     }
 
     // 해골 모션

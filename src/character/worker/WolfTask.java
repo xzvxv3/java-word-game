@@ -1,5 +1,7 @@
 package character.worker;
 
+import character.MotionType;
+
 import javax.swing.*;
 
 public class WolfTask extends BaseCharacter implements Runnable {
@@ -18,21 +20,22 @@ public class WolfTask extends BaseCharacter implements Runnable {
 
     @Override
     protected void onMotionEnd() {
-        if(!currentMotion.equals("IDLE")) {
-            motionFrames = motionMap.get("IDLE");
+        if(motionType != MotionType.IDLE) {
+            motionType = MotionType.IDLE;
+            motionFrames = motionMap.get(motionType);
         }
     }
 
     private void initCharacter() {
-        currentMotion = "IDLE";
-        motionFrames = motionMap.get(currentMotion);
+        motionType = MotionType.IDLE;
+        motionFrames = motionMap.get(motionType);
     }
 
     protected void setImageMotions() {
-        motionMap.put("IDLE", setIdleMotion());
-        motionMap.put("DEAD", setDeadMotion());
-        motionMap.put("ATTACK", setAttackMotion());
-        motionMap.put("DAMAGE", setDamageMotion());
+        motionMap.put(MotionType.IDLE, setIdleMotion());
+        motionMap.put(MotionType.DEAD, setDeadMotion());
+        motionMap.put(MotionType.ENEMY_ATTACK01, setAttackMotion01());
+        motionMap.put(MotionType.DAMAGE, setDamageMotion());
     }
 
     // 늑대 모션
@@ -50,7 +53,7 @@ public class WolfTask extends BaseCharacter implements Runnable {
         }
         return tmp;
     } // 죽음 모션
-    private ImageIcon[] setAttackMotion() {
+    private ImageIcon[] setAttackMotion01() {
         ImageIcon[] tmp = new ImageIcon[14];
         for(int i=0; i<14; i++) {
             if(i < 9) {

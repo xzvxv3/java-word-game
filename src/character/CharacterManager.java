@@ -10,7 +10,7 @@ public class CharacterManager {
     private WolfTask wolfTask;
     private SkeletonTask skeletonTask;
 
-    private String enemy = null;
+    private EnemyType enemyType;
 
     public CharacterManager(GroundPanel view) {
         manTask = new ManTask(view, "SWORD", 5);
@@ -21,8 +21,8 @@ public class CharacterManager {
     }
 
 
-    public void setEnemy(String enemy) {
-        this.enemy = enemy;
+    public void setEnemy(EnemyType enemyType) {
+        this.enemyType = enemyType;
     }
 
     public Runnable getManTask() {
@@ -30,11 +30,11 @@ public class CharacterManager {
     }
 
     public Runnable getEnemyTask() {
-        switch (enemy) {
-            case "SCARECROW" : return scarecrowTask;
-            case "MUSHROOM" : return mushroomTask;
-            case "WOLF" : return wolfTask;
-            case "SKELETON" : return skeletonTask;
+        switch (enemyType) {
+            case SCARECROW : return scarecrowTask;
+            case MUSHROOM : return mushroomTask;
+            case WOLF : return wolfTask;
+            case SKELETON : return skeletonTask;
         }
         return null;
     }
@@ -43,12 +43,21 @@ public class CharacterManager {
         return manTask;
     }
 
+    public void setEnemyType(EnemyType enemyType) {
+        this.enemyType = enemyType;
+    }
+
+    public EnemyType getEnemyType() {
+        return enemyType;
+    }
+
+    // 수정 필요
     public BaseCharacter getEnemy() {
-        switch (enemy) {
-            case "SCARECROW" : return scarecrowTask;
-            case "MUSHROOM" : return mushroomTask;
-            case "WOLF" : return wolfTask;
-            case "SKELETON" : return skeletonTask;
+        switch (enemyType) {
+            case SCARECROW : return scarecrowTask;
+            case MUSHROOM : return mushroomTask;
+            case WOLF : return wolfTask;
+            case SKELETON : return skeletonTask;
         }
         return null;
     }

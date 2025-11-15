@@ -1,6 +1,7 @@
 package screen.game.left;
 
 import character.CharacterManager;
+import character.EnemyType;
 import word.TextStore;
 import word.WordStore;
 import word.worker.WordFallingTask;
@@ -31,14 +32,17 @@ public class GroundPanel extends JPanel {
     private WordFallingTask wordFallingTask;
     private Thread fallingThread;
 
-    public GroundPanel(WordStore wordStore) {
+    public GroundPanel(EnemyType enemyType, WordStore wordStore) {
         this.setBackground(Color.WHITE);
         this.setLayout(null);
 
-        // 1. wordStore 초기화
+        // 1. 적 타입 초기화
+        characterManager.setEnemyType(enemyType);
+
+        // 2. wordStore 초기화
         this.wordStore = wordStore;
 
-        // 2. wordStore 객체가 할당된 후에 Task 객체들을 생성하고 초기화
+        // 3. wordStore 객체가 할당된 후에 Task 객체들을 생성하고 초기화
         this.wordMakerTask = new WordMakerTask(textStore, wordStore, this);
         this.wordMakerThread = new Thread(wordMakerTask);
 
@@ -54,7 +58,6 @@ public class GroundPanel extends JPanel {
 
     // start() 호출 ->  단어 생성 & 낙하 시작
     public void start() {
-        characterManager.setEnemy("WOLF");
         // Man 스레드
         Thread manThread = new Thread(characterManager.getManTask());
         // Enemy 스레드
@@ -75,7 +78,12 @@ public class GroundPanel extends JPanel {
 
         ImageIcon enemyImage = characterManager.getEnemy().getCurrentFrame();
         if(enemyImage != null) {
-            g.drawImage(enemyImage.getImage(), 235, 460, 230, 230, this);
+            switch (characterManager.getEnemyType()) {
+                case SCARECROW : g.drawImage(enemyImage.getImage(), 240, 510, 180, 120, this); break;
+                case MUSHROOM : g.drawImage(enemyImage.getImage(), 185, 430, 300, 300, this); break;
+                case WOLF : g.drawImage(enemyImage.getImage(), 235, 460, 230, 230, this); break;
+                case SKELETON : g.drawImage(enemyImage.getImage(), 195, 415, 320, 320, this); break;
+            }
         }
 
         ImageIcon manImage = characterManager.getMan().getCurrentFrame();

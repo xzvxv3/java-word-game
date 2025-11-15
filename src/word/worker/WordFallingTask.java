@@ -1,6 +1,8 @@
 package word.worker;
 
 import character.CharacterManager;
+import character.EnemyType;
+import character.MotionType;
 import word.Word;
 import word.WordStore;
 import screen.game.left.GroundPanel;
@@ -55,12 +57,30 @@ public class WordFallingTask implements Runnable {
             while(it.hasNext()) {
                 Word word = it.next(); // 단어 라벨 추출
                 word.fall(); // 단어 라벨 떨어트림
+                view.repaint(); // 화면 울렁거림 방지(?)
 
                 // 단어 라벨 충돌 판정
                 if(word.isAtBottom()) {
-                    characterManager.getEnemy().setMotion("ATTACK");
-                    characterManager.getMan().onAttacked();
-                    characterManager.getMan().decreaseHP();
+
+                    // Mushroom, Wolf 공격
+                    if(characterManager.getEnemyType() == EnemyType.MUSHROOM || characterManager.getEnemyType() == EnemyType.WOLF) {
+                        characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01);
+                    }
+
+                    // Skeleton 공격
+                    if(characterManager.getEnemyType() == EnemyType.SKELETON) {
+                        int r = (int) (Math.random() * 2);
+                        switch (r) {
+                            case 0 : characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01); break;
+                            case 1 : characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK02); break;
+                        }
+                    }
+
+                    if(characterManager.getEnemyType() != EnemyType.SCARECROW) {
+                        characterManager.getMan().decreaseHP();
+                        characterManager.getMan().onAttacked();
+                    }
+
 
                     view.remove(word); // 화면에서 단어 삭제
                     it.remove(); // 단어 완전 제거

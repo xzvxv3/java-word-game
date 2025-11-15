@@ -1,5 +1,7 @@
 package character.worker;
 
+import character.MotionType;
+
 import javax.swing.*;
 
 public class ScarecrowTask extends BaseCharacter implements Runnable{
@@ -18,22 +20,23 @@ public class ScarecrowTask extends BaseCharacter implements Runnable{
     // Idle 모션으로 전환
     @Override
     protected void onMotionEnd() {
-        if(!currentMotion.equals("IDLE")) {
-            motionFrames = motionMap.get("IDLE");
+        if(motionType != MotionType.IDLE) {
+            motionType = MotionType.IDLE;
+            motionFrames = motionMap.get(motionType);
         }
     }
 
     // 캐릭터 모션 초기화
     private void initCharacter() {
-        currentMotion = "IDLE";
-        motionFrames = motionMap.get(currentMotion);
+        motionType = MotionType.IDLE;
+        motionFrames = motionMap.get(motionType);
     }
 
     // 캐릭터 모션 저장
     protected void setImageMotions() {
-        motionMap.put("IDLE", setIdleMotion());
-        motionMap.put("DEAD", setDeadMotion());
-        motionMap.put("DAMAGE", setDamageMotion());
+        motionMap.put(MotionType.IDLE, setIdleMotion());
+        motionMap.put(MotionType.DEAD, setDeadMotion());
+        motionMap.put(MotionType.DAMAGE, setDamageMotion());
     }
 
     // 허수아비 모션

@@ -1,12 +1,15 @@
 package character.worker;
 
+
+import character.MotionType;
+
 import javax.swing.*;
 import java.util.HashMap;
 
 public abstract class BaseCharacter {
     protected JPanel panel; // 부모 패널
-    protected String currentMotion; // 현재 모션
-    protected HashMap<String, ImageIcon[]> motionMap = new HashMap<>(); // 모션을 담고있는 해시맵
+    protected MotionType motionType; // 현재 모션
+    protected HashMap<MotionType, ImageIcon[]> motionMap = new HashMap<>(); // 모션을 담고있는 해시맵
     protected ImageIcon[] motionFrames; // 현재 모션 프레임
     protected int idx = 0; // 모션 프레임 전환용
 
@@ -47,10 +50,10 @@ public abstract class BaseCharacter {
     }
 
     // 모션 설정
-    public void setMotion(String currentMotion) {
+    public void setMotion(MotionType motionType) {
         idx = 0; // 모션 프레임 첫장면 idx
-        this.currentMotion = currentMotion; // 현재 모션
-        motionFrames = motionMap.get(currentMotion); // 모션 프레임 변환
+        this.motionType = motionType; // 현재 모션
+        motionFrames = motionMap.get(motionType); // 모션 프레임 변환
     }
 
     // 모션 프레임 반환
@@ -77,7 +80,7 @@ public abstract class BaseCharacter {
         nowTime = System.currentTimeMillis(); // 현재 시간
 
         if (nowTime - attackTime >= DAMAGE_DELAY) { // 데미지 딜레이 유도
-            setMotion("DAMAGE");
+            setMotion(MotionType.DAMAGE);
             attacked = false;
         }
     }
@@ -85,7 +88,7 @@ public abstract class BaseCharacter {
     protected void handleDeadReaction() {
         if(hp <= 0 && !isDead) { // 피가 0 이하이면서 죽지 않은 상태라면
             try { Thread.sleep(DEAD_DEALY); } catch (InterruptedException e) { return; } // 자연스러운 모션 유도
-            setMotion("DEAD"); // 죽음 모션 설정
+            setMotion(MotionType.DEAD); // 죽음 모션 설정
             isDead = true; // 죽음으로 설정
         }
     }

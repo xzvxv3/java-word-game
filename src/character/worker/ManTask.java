@@ -1,5 +1,7 @@
 package character.worker;
 
+import character.MotionType;
+
 import javax.swing.*;
 
 public class ManTask extends BaseCharacter implements Runnable {
@@ -21,24 +23,24 @@ public class ManTask extends BaseCharacter implements Runnable {
     @Override
     protected void onMotionEnd() {
         // 기본 모드의 IDLE 전환
-        if(weapon.equals("EMPTY") && !currentMotion.equals("IDLE")) {
-            motionFrames = motionMap.get("IDLE");
+        if(weapon.equals("EMPTY") && motionType != MotionType.IDLE) {
+            motionFrames = motionMap.get(MotionType.IDLE);
         }
         // 검 모드의 IDLE 전환
-        else if(weapon.equals("SWORD") && !currentMotion.equals("SWORD_IDLE")) {
-            motionFrames = motionMap.get("SWORD_IDLE");
+        else if(weapon.equals("SWORD") && motionType != MotionType.MAN_SWORD_IDLE) {
+            motionFrames = motionMap.get(MotionType.MAN_SWORD_IDLE);
         }
     }
 
     private void initCharacter() {
         switch (weapon) {
             case "EMPTY" : // 기본 모드
-                currentMotion = "IDLE";
-                motionFrames = motionMap.get("IDLE");
+                motionType = MotionType.IDLE;
+                motionFrames = motionMap.get(MotionType.IDLE);
                 break;
             case "SWORD" : // 검 모드
-                currentMotion = "SWORD_IDLE";
-                motionFrames = motionMap.get("SWORD_IDLE");
+                motionType = MotionType.MAN_SWORD_IDLE;
+                motionFrames = motionMap.get(MotionType.MAN_SWORD_IDLE);
                 break;
         }
     }
@@ -48,22 +50,22 @@ public class ManTask extends BaseCharacter implements Runnable {
 
     private void setImageMotions() {
         // 기본 모션
-        motionMap.put("IDLE", setIdleMotion());
-        motionMap.put("ATTACK01", setKickMotion01());
-        motionMap.put("ATTACK02", setKickMotion02());
-        motionMap.put("ATTACK03", setKickMotion03());
-        motionMap.put("ATTACK04", setPunchMotion01());
+        motionMap.put(MotionType.IDLE, setIdleMotion());
+        motionMap.put(MotionType.MAN_ATTACK01, setKickMotion01());
+        motionMap.put(MotionType.MAN_ATTACK02, setKickMotion02());
+        motionMap.put(MotionType.MAN_ATTACK03, setKickMotion03());
+        motionMap.put(MotionType.MAN_ATTACK04, setPunchMotion01());
 
         // 검 모션
-        motionMap.put("SWORD_IDLE", setSwordIdleMotion());
-        motionMap.put("SWORD_ATTACK01", setSwordAttackMotion01());
-        motionMap.put("SWORD_ATTACK02", setSwordAttackMotion02());
-        motionMap.put("SWORD_ATTACK03", setSwordAttackMotion03());
-        motionMap.put("SWORD_ATTACK04", setSwordAttackMotion04());
+        motionMap.put(MotionType.MAN_SWORD_IDLE, setSwordIdleMotion());
+        motionMap.put(MotionType.MAN_SWORD_ATTACK01, setSwordAttackMotion01());
+        motionMap.put(MotionType.MAN_SWORD_ATTACK02, setSwordAttackMotion02());
+        motionMap.put(MotionType.MAN_SWORD_ATTACK03, setSwordAttackMotion03());
+        motionMap.put(MotionType.MAN_SWORD_ATTACK04, setSwordAttackMotion04());
 
         // 공통 모션
-        motionMap.put("DEAD", setDeadMotion());
-        motionMap.put("DAMAGE", setDamageMotion());
+        motionMap.put(MotionType.DEAD, setDeadMotion());
+        motionMap.put(MotionType.DAMAGE, setDamageMotion());
     }
 
     // 공통 모션
