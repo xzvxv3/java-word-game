@@ -13,7 +13,11 @@ import java.awt.*;
 // 게임 실행 화면
 public class GroundPanel extends JPanel {
 
-    private ImageIcon background1 = new ImageIcon("resources/background/stage3.png");
+    private ImageIcon stageImage01 = new ImageIcon("resources/background/stage1.png");
+    private ImageIcon stageImage02 = new ImageIcon("resources/background/stage2.png");
+    private ImageIcon stageImage03 = new ImageIcon("resources/background/stage3.png");
+    private ImageIcon stageImage04 = new ImageIcon("resources/background/stage4.png");
+    ImageIcon stageImage = null;
 
     // 캐릭터 관리 클래스
     public CharacterManager characterManager = new CharacterManager(this);
@@ -63,6 +67,13 @@ public class GroundPanel extends JPanel {
         // Enemy 스레드
         Thread enemyThread = new Thread(characterManager.getEnemyTask());
 
+        switch (characterManager.getEnemyType()) {
+            case SCARECROW : stageImage = stageImage01; break;
+            case MUSHROOM : stageImage = stageImage02; break;
+            case WOLF : stageImage = stageImage03; break;
+            case SKELETON :  stageImage = stageImage04; break;
+        }
+
         wordMakerThread.start();
         fallingThread.start();
         manThread.start();
@@ -73,8 +84,7 @@ public class GroundPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // 배경화면
-        g.drawImage(background1.getImage(), 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(stageImage.getImage(), 0, 0, getWidth(), getHeight(), this);
 
         ImageIcon enemyImage = characterManager.getEnemy().getCurrentFrame();
         if(enemyImage != null) {

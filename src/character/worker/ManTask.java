@@ -24,11 +24,13 @@ public class ManTask extends BaseCharacter implements Runnable {
     protected void onMotionEnd() {
         // 기본 모드의 IDLE 전환
         if(weapon.equals("EMPTY") && motionType != MotionType.IDLE) {
-            motionFrames = motionMap.get(MotionType.IDLE);
+            motionType = MotionType.IDLE;
+            motionFrames = motionMap.get(motionType);
         }
         // 검 모드의 IDLE 전환
         else if(weapon.equals("SWORD") && motionType != MotionType.MAN_SWORD_IDLE) {
-            motionFrames = motionMap.get(MotionType.MAN_SWORD_IDLE);
+            motionType = MotionType.MAN_SWORD_IDLE;
+            motionFrames = motionMap.get(motionType);
         }
     }
 

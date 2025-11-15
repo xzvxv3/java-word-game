@@ -19,11 +19,19 @@ public class SelectModePanel extends JPanel {
     private JFrame frame;
 
     ImageIcon[] iconsImage = {
-            new ImageIcon("resources/background/icon/ScarecrowIcon.png"),
-            new ImageIcon("resources/background/icon/MushroomIcon.png"),
-            new ImageIcon("resources/background/icon/WolfIcon.png"),
-            new ImageIcon("resources/background/icon/SkeletonIcon.png"),
+            new ImageIcon("resources/icon/ScarecrowIcon.png"),
+            new ImageIcon("resources/icon/MushroomIcon.png"),
+            new ImageIcon("resources/icon/WolfIcon.png"),
+            new ImageIcon("resources/icon/SkeletonIcon.png"),
     };
+
+    ImageIcon[] iconsImageRollover = {
+            new ImageIcon("resources/icon/ScarecrowIconRollover.png"),
+            new ImageIcon("resources/icon/MushroomIconRollover.png"),
+            new ImageIcon("resources/icon/WolfIconRollover.png"),
+            new ImageIcon("resources/icon/SkeletonIconRollover.png")
+    };
+
 
     public SelectModePanel(JFrame frame) {
         this.frame = frame;
@@ -35,16 +43,8 @@ public class SelectModePanel extends JPanel {
 
     private void setBtnsLayout() {
         for (int i = 0; i < iconsImage.length; i++) {
-            Image img = iconsImage[i].getImage();
-
-            JButton btn = new JButton(names[i]) {
-                @Override
-                protected void paintComponent(Graphics g) {
-                    super.paintComponent(g);
-                    // 이미지 크기 비율 맞게 버튼 크기에 맞춰 그림
-                    g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-                }
-            };
+            JButton btn = new JButton(iconsImage[i]);
+            btn.setRolloverIcon(iconsImageRollover[i]);
 
             btn.setSize(150, 150);
             btn.setLocation(50 + 210 * i, 200 );
@@ -55,6 +55,7 @@ public class SelectModePanel extends JPanel {
     }
 
     private void setBtnsInit() {
+
         // Scarecrow 모드
         btns[0].addActionListener(new ActionListener() {
             @Override

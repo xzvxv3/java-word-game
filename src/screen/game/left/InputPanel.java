@@ -51,6 +51,8 @@ public class InputPanel extends JPanel {
                             characterManager.getEnemy().decreaseHP();
                             characterManager.getEnemy().onAttacked();
                         }
+
+                        break;
                     }
                 }
             }
