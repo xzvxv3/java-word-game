@@ -1,4 +1,4 @@
-package runnable;
+package character;
 
 import javax.swing.*;
 
@@ -22,7 +22,6 @@ public class StartMenuRunMotion implements Runnable{
     }
 
     public StartMenuRunMotion(JPanel panel) {
-        this.panel = panel;
         setRunImages();
     }
 

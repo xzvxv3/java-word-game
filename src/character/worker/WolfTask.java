@@ -1,10 +1,10 @@
-package runnable.character;
+package character.worker;
 
 import javax.swing.*;
 
-public class WolfController extends BaseCharacter implements Runnable {
+public class WolfTask extends BaseCharacter implements Runnable {
 
-    public WolfController(JPanel panel, int hp) {
+    public WolfTask(JPanel panel, int hp) {
         super(panel,  hp, 350, 600, 140, 70);
         setImageMotions(); // 캐릭터의 모션들 초기화
         initCharacter(); // 시작 시, 캐릭터의 모션 설정 (기본 IDLE)

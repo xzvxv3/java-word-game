@@ -1,12 +1,9 @@
 package screen.menu;
 
-import runnable.StartMenuRunMotion;
-import screen.play.GameSplitPane;
+import character.StartMenuRunMotion;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GameMenuPanel extends JPanel {
     JButton startbtn = new JButton("Game Start");
@@ -43,40 +40,40 @@ public class GameMenuPanel extends JPanel {
         }
 
         // 게임시작 버튼 클릭 시 작동
-        startbtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // 현재 패널이 올라가 있는 JFrame 찾기
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(GameMenuPanel.this);
-                // 기존 컴포넌트 제거
-                frame.getContentPane().removeAll();
-                // 새 화면 추가
-                frame.getContentPane().add(new GameSplitPane(), BorderLayout.CENTER);
-                // 변경 사항 반영
-                frame.getContentPane().revalidate();
-                frame.getContentPane().repaint();
-
-                runThread.interrupt();
-            }
-        });
+//        startbtn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                // 현재 패널이 올라가 있는 JFrame 찾기
+//                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(GameMenuPanel.this);
+//                // 기존 컴포넌트 제거
+//                frame.getContentPane().removeAll();
+//                // 새 화면 추가
+//                frame.getContentPane().add(new GameSplitPane(), BorderLayout.CENTER);
+//                // 변경 사항 반영
+//                frame.getContentPane().revalidate();
+//                frame.getContentPane().repaint();
+//
+//                runThread.interrupt();
+//            }
+//        });
 
         // 1. scores 버튼 클릭시 작동
-        showRankingbtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // 현재 패널이 올라가 있는 JFrame 찾기
-                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(GameMenuPanel.this);
-                // 기존 컴포넌트 제거
-                frame.getContentPane().removeAll();
-                // 새 화면 추가
-                frame.getContentPane().add(new StartMenuPanel(), BorderLayout.CENTER);
-                // 변경 사항 반영
-                frame.getContentPane().revalidate();
-                frame.getContentPane().repaint();
-
-                runThread.interrupt();
-            }
-        });
+//        showRankingbtn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                // 현재 패널이 올라가 있는 JFrame 찾기
+//                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(GameMenuPanel.this);
+//                // 기존 컴포넌트 제거
+//                frame.getContentPane().removeAll();
+//                // 새 화면 추가
+//                frame.getContentPane().add(new StartMenuPanel(), BorderLayout.CENTER);
+//                // 변경 사항 반영
+//                frame.getContentPane().revalidate();
+//                frame.getContentPane().repaint();
+//
+//                runThread.interrupt();
+//            }
+//        });
 
         // 2. Word Settings 버튼 클릭시 작동
 

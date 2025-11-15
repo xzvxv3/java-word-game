@@ -1,12 +1,12 @@
-package runnable.character;
+package character.worker;
 
 import javax.swing.*;
 
-public class ManController extends BaseCharacter implements Runnable {
+public class ManTask extends BaseCharacter implements Runnable {
     private String weapon; // 캐릭터의 무기
 
 
-    public ManController(JPanel panel, String weapon, int hp) {
+    public ManTask(JPanel panel, String weapon, int hp) {
         super(panel, hp, 450, 800, 200, 100); // 부모 패널, 캐릭터 체력, 데미지 딜레이, 죽음 딜레이
         this.weapon = weapon; // 캐릭터 무기
         setImageMotions(); // 캐릭터의 모션들 초기화

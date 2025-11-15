@@ -1,4 +1,4 @@
-package runnable.character;
+package character.worker;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -32,6 +32,11 @@ public abstract class BaseCharacter {
         attackTime = System.currentTimeMillis();
     }
 
+    // 체력 깎일시, 데미지 모션, 죽음 모션 리팩토링 할것
+    public void decreaseHP() {
+        hp--;
+    }
+
     public BaseCharacter(JPanel panel, int hp, int damageDelay, int deadDelay, int motionEndDealy, int frameDelay) {
         this.panel = panel;
         this.hp = hp;
@@ -54,10 +59,6 @@ public abstract class BaseCharacter {
         return motionFrames[idx]; // 모션 프레임 반환
     }
 
-    // 체력 깎일시, 데미지 모션, 죽음 모션 리팩토링 할것
-    public void decreaseHP() {
-        hp--;
-    }
 
     protected boolean characterLifeCycle() {
         // 공격 당했을경우

@@ -1,9 +1,9 @@
-package runnable.character;
+package character.worker;
 
 import javax.swing.*;
 
-public class MushroomController extends BaseCharacter implements Runnable {
-    public MushroomController(JPanel panel, int hp) {
+public class MushroomTask extends BaseCharacter implements Runnable {
+    public MushroomTask(JPanel panel, int hp) {
         super(panel,  hp, 250, 400, 140, 100);
         setImageMotions(); // 캐릭터의 모션들 초기화
         initCharacter(); // 시작 시, 캐릭터의 모션 설정 (기본 IDLE)
