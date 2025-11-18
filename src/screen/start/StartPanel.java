@@ -9,10 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StartPanel extends JPanel {
-    JButton startbtn = new JButton("Game Start");
-    JButton showRankingbtn = new JButton("Scores");
-    JButton setWordbtn = new JButton("Word Settings");
-    JButton[] btns = {startbtn, showRankingbtn, setWordbtn};
+    JButton startbtn = new JButton(new ImageIcon("resources/background/icon/SelectModeImage.png"));
+    JButton scoresbtn = new JButton(new ImageIcon("resources/background/icon/ScoresIcon.png"));
+    JButton settingsbtn = new JButton(new ImageIcon("resources/background/icon/SettingsIcon.png"));
+    JButton[] btns = {startbtn, scoresbtn, settingsbtn};
 
     private JFrame frame;
 
@@ -42,10 +42,22 @@ public class StartPanel extends JPanel {
     // 버튼 설정
     private void setBtns() {
         for(int i=0; i < btns.length; i++) {
-            btns[i].setSize(330, 50);
-            btns[i].setLocation(300, 350 + 70 * i);
+            btns[i].setSize(320, 60);
+
+            btns[i].setContentAreaFilled(false); // 버튼 기본 배경 제거
+            btns[i].setBorderPainted(false); // 테두리 제거
+            btns[i].setFocusPainted(false); // 포커스 테두리 제거
+            btns[i].setOpaque(false); // 불투명 속성 제거
+
+            btns[i].setLocation(300, 350 + 100 * i);
             add(btns[i]);
         }
+
+        btns[0].setRolloverIcon(new ImageIcon("resources/background/icon/SelectModeRolloverImage.png"));
+
+        btns[1].setRolloverIcon(new ImageIcon("resources/background/icon/ScoresIconRollover.png"));
+
+        btns[2].setRolloverIcon(new ImageIcon("resources/background/icon/SettingsIconRollover.png"));
 
         // 게임시작 버튼 클릭 시 작동
         startbtn.addActionListener(new ActionListener() {
@@ -61,13 +73,13 @@ public class StartPanel extends JPanel {
         });
 
         // 1. scores 버튼 클릭시 작동
-        showRankingbtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-
-            }
-        });
+//        showRankingbtn.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//
+//
+//            }
+//        });
 
         // 2. Word Settings 버튼 클릭시 작동
     }

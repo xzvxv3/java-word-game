@@ -39,7 +39,7 @@ public class WordFallingTask implements Runnable {
         while(running) {
             fallWords();
             try {
-                Thread.sleep(50);
+                Thread.sleep(150);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -68,7 +68,7 @@ public class WordFallingTask implements Runnable {
                     }
 
                     // Skeleton 공격
-                    if(characterManager.getEnemyType() == EnemyType.SKELETON) {
+                    if(characterManager.getEnemyType() == EnemyType.REAPER) {
                         int r = (int) (Math.random() * 2);
                         switch (r) {
                             case 0 : characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01); break;

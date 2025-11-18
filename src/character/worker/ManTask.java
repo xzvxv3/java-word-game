@@ -1,14 +1,14 @@
 package character.worker;
 
 import character.MotionType;
+import character.WeaponType;
 
 import javax.swing.*;
 
 public class ManTask extends BaseCharacter implements Runnable {
-    private String weapon; // 캐릭터의 무기
+    private WeaponType weapon; // 캐릭터의 무기
 
-
-    public ManTask(JPanel panel, String weapon, int hp) {
+    public ManTask(JPanel panel, WeaponType weapon, int hp) {
         super(panel, hp, 450, 800, 200, 100); // 부모 패널, 캐릭터 체력, 데미지 딜레이, 죽음 딜레이
         this.weapon = weapon; // 캐릭터 무기
         setImageMotions(); // 캐릭터의 모션들 초기화
@@ -23,12 +23,12 @@ public class ManTask extends BaseCharacter implements Runnable {
     @Override
     protected void onMotionEnd() {
         // 기본 모드의 IDLE 전환
-        if(weapon.equals("EMPTY") && motionType != MotionType.IDLE) {
+        if(weapon.equals(WeaponType.EMPTY) && motionType != MotionType.IDLE) {
             motionType = MotionType.IDLE;
             motionFrames = motionMap.get(motionType);
         }
         // 검 모드의 IDLE 전환
-        else if(weapon.equals("SWORD") && motionType != MotionType.MAN_SWORD_IDLE) {
+        else if(weapon.equals(WeaponType.SWORD) && motionType != MotionType.MAN_SWORD_IDLE) {
             motionType = MotionType.MAN_SWORD_IDLE;
             motionFrames = motionMap.get(motionType);
         }
@@ -36,11 +36,11 @@ public class ManTask extends BaseCharacter implements Runnable {
 
     private void initCharacter() {
         switch (weapon) {
-            case "EMPTY" : // 기본 모드
+            case EMPTY : // 기본 모드
                 motionType = MotionType.IDLE;
                 motionFrames = motionMap.get(MotionType.IDLE);
                 break;
-            case "SWORD" : // 검 모드
+            case SWORD : // 검 모드
                 motionType = MotionType.MAN_SWORD_IDLE;
                 motionFrames = motionMap.get(MotionType.MAN_SWORD_IDLE);
                 break;
@@ -48,7 +48,7 @@ public class ManTask extends BaseCharacter implements Runnable {
     }
 
     // 현재 무기 상태 반환
-    public String getCurrentWeapon() {return weapon;}
+    public WeaponType getCurrentWeapon() {return weapon;}
 
     private void setImageMotions() {
         // 기본 모션

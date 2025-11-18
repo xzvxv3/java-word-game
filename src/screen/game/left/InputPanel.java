@@ -2,6 +2,7 @@ package screen.game.left;
 
 import character.CharacterManager;
 import character.MotionType;
+import character.WeaponType;
 import word.Word;
 import word.WordStore;
 
@@ -47,11 +48,30 @@ public class InputPanel extends JPanel {
                             it.remove();
                             view.remove(word);
                             view.revalidate();
-                            characterManager.getMan().setMotion(MotionType.MAN_SWORD_ATTACK01);
+
+                            int r = (int) (Math.random() * 4);
+
+                            if(characterManager.getManWeapon() == WeaponType.EMPTY) {
+                                switch (r) {
+                                    case 0 : characterManager.getMan().setMotion(MotionType.MAN_ATTACK01); break;
+                                    case 1 : characterManager.getMan().setMotion(MotionType.MAN_ATTACK02); break;
+                                    case 2 : characterManager.getMan().setMotion(MotionType.MAN_ATTACK03); break;
+                                    case 3 : characterManager.getMan().setMotion(MotionType.MAN_ATTACK04); break;
+                                }
+                            }
+
+                            else if(characterManager.getManWeapon() == WeaponType.SWORD) {
+                                switch (r) {
+                                    case 0 : characterManager.getMan().setMotion(MotionType.MAN_SWORD_ATTACK01); break;
+                                    case 1 : characterManager.getMan().setMotion(MotionType.MAN_SWORD_ATTACK02); break;
+                                    case 2 : characterManager.getMan().setMotion(MotionType.MAN_SWORD_ATTACK03); break;
+                                    case 3 : characterManager.getMan().setMotion(MotionType.MAN_SWORD_ATTACK04); break;
+                                }
+                            }
+
                             characterManager.getEnemy().decreaseHP();
                             characterManager.getEnemy().onAttacked();
                         }
-
                         break;
                     }
                 }

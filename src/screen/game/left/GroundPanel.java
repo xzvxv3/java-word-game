@@ -71,7 +71,7 @@ public class GroundPanel extends JPanel {
             case SCARECROW : stageImage = stageImage01; break;
             case MUSHROOM : stageImage = stageImage02; break;
             case WOLF : stageImage = stageImage03; break;
-            case SKELETON :  stageImage = stageImage04; break;
+            case REAPER :  stageImage = stageImage04; break;
         }
 
         wordMakerThread.start();
@@ -89,10 +89,10 @@ public class GroundPanel extends JPanel {
         ImageIcon enemyImage = characterManager.getEnemy().getCurrentFrame();
         if(enemyImage != null) {
             switch (characterManager.getEnemyType()) {
-                case SCARECROW : g.drawImage(enemyImage.getImage(), 240, 510, 180, 120, this); break;
-                case MUSHROOM : g.drawImage(enemyImage.getImage(), 185, 430, 300, 300, this); break;
+                case SCARECROW : g.drawImage(enemyImage.getImage(), 215, 510, 220, 120, this); break;
+                case MUSHROOM : g.drawImage(enemyImage.getImage(), 158, 375, 350, 380, this); break;
                 case WOLF : g.drawImage(enemyImage.getImage(), 235, 460, 230, 230, this); break;
-                case SKELETON : g.drawImage(enemyImage.getImage(), 195, 415, 320, 320, this); break;
+                case REAPER : g.drawImage(enemyImage.getImage(), 160, 430, 230, 200, this); break;
             }
         }
 

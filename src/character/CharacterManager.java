@@ -8,16 +8,16 @@ public class CharacterManager {
     private ScarecrowTask scarecrowTask;
     private MushroomTask mushroomTask;
     private WolfTask wolfTask;
-    private SkeletonTask skeletonTask;
+    private ReaperTask reaperTask;
 
     private EnemyType enemyType;
 
     public CharacterManager(GroundPanel view) {
-        manTask = new ManTask(view, "SWORD", 5);
+        manTask = new ManTask(view, WeaponType.EMPTY, 5);
         scarecrowTask = new ScarecrowTask(view , 10);
-        mushroomTask = new MushroomTask(view, 30);
+        mushroomTask = new MushroomTask(view, 5);
         wolfTask = new WolfTask(view, 3);
-        skeletonTask = new SkeletonTask(view, 70);
+        reaperTask = new ReaperTask(view, 5);
     }
 
 
@@ -34,7 +34,7 @@ public class CharacterManager {
             case SCARECROW : return scarecrowTask;
             case MUSHROOM : return mushroomTask;
             case WOLF : return wolfTask;
-            case SKELETON : return skeletonTask;
+            case REAPER : return reaperTask;
         }
         return null;
     }
@@ -51,13 +51,17 @@ public class CharacterManager {
         return enemyType;
     }
 
+    public WeaponType getManWeapon() {
+        return manTask.getCurrentWeapon();
+    }
+
     // 수정 필요
     public BaseCharacter getEnemy() {
         switch (enemyType) {
             case SCARECROW : return scarecrowTask;
             case MUSHROOM : return mushroomTask;
             case WOLF : return wolfTask;
-            case SKELETON : return skeletonTask;
+            case REAPER : return reaperTask;
         }
         return null;
     }

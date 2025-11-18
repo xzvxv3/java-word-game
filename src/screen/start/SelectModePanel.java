@@ -2,6 +2,7 @@ package screen.start;
 
 import character.EnemyType;
 import screen.game.GamePanel;
+import screen.toolbar.GameToolBar;
 import screen.toolbar.StartToolBar;
 
 import javax.swing.*;
@@ -11,10 +12,11 @@ import java.awt.event.ActionListener;
 
 public class SelectModePanel extends JPanel {
     private ImageIcon backgroundImage = new ImageIcon("resources/background/StartMenuImage.png");
-    private ImageIcon gameTitleImage = new ImageIcon("resources/background/icon/GameModeTitle.png");
+    private ImageIcon gameTitleImage = new ImageIcon("resources/background/icon/SelectModeImage2.png");
 
-    private String[] names = {"Scarecrow", "Mushroom", "Wolf", "Skeleton"};
-    private JButton[] btns = new JButton[names.length];
+
+    private String[] modeNames = {"Scarecrow", "Mushroom", "Wolf", "Skeleton"};
+    private JButton[] btns = new JButton[modeNames.length];
 
     private JFrame frame;
 
@@ -22,26 +24,53 @@ public class SelectModePanel extends JPanel {
             new ImageIcon("resources/icon/ScarecrowIcon.png"),
             new ImageIcon("resources/icon/MushroomIcon.png"),
             new ImageIcon("resources/icon/WolfIcon.png"),
-            new ImageIcon("resources/icon/SkeletonIcon.png"),
+            new ImageIcon("resources/icon/ReaperIcon.png"),
     };
 
     ImageIcon[] iconsImageRollover = {
             new ImageIcon("resources/icon/ScarecrowIconRollover.png"),
             new ImageIcon("resources/icon/MushroomIconRollover.png"),
             new ImageIcon("resources/icon/WolfIconRollover.png"),
-            new ImageIcon("resources/icon/SkeletonIconRollover.png")
+            new ImageIcon("resources/icon/ReaperIconRollover.png")
     };
 
+    JButton backBtn = new JButton(new ImageIcon("resources/icon/backbtn/BackBtn.png"));
 
     public SelectModePanel(JFrame frame) {
         this.frame = frame;
         setLayout(null);
-        setBtnsLayout();
-        setBtnsInit();
+        setModeBtns();
+        setBackBtn();
+    }
+
+    private void setBackBtn() {
+        backBtn.setLocation(50, 630);
+        backBtn.setSize(140, 55);
+        backBtn.setContentAreaFilled(false); // 버튼 기본 배경 제거
+        backBtn.setBorderPainted(false); // 테두리 제거
+        backBtn.setFocusPainted(false); // 포커스 테두리 제거
+        backBtn.setOpaque(false); // 불투명 속성 제거
+
+        backBtn.setRolloverIcon(new ImageIcon("resources/icon/backbtn/BackBtnRollover.png"));
+
+        backBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.getContentPane().removeAll();
+                // frame.getContentPane().setLayout(new BorderLayout());
+                frame.getContentPane().add(new StartPanel(frame), BorderLayout.CENTER);
+                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+
+        add(backBtn);
     }
 
 
-    private void setBtnsLayout() {
+    private void setModeBtns() {
+        // 모드 선택 버튼 레이아웃 배치
         for (int i = 0; i < iconsImage.length; i++) {
             JButton btn = new JButton(iconsImage[i]);
             btn.setRolloverIcon(iconsImageRollover[i]);
@@ -52,10 +81,8 @@ public class SelectModePanel extends JPanel {
             add(btn);
             btns[i] = btn;
         }
-    }
 
-    private void setBtnsInit() {
-
+        // 이벤트 리스너 추가
         // Scarecrow 모드
         btns[0].addActionListener(new ActionListener() {
             @Override
@@ -63,7 +90,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.SCARECROW), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
@@ -76,7 +103,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.MUSHROOM), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
@@ -89,20 +116,20 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.WOLF), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
         });
 
-        // Skeleton 모드
+        // Reaper 모드
         btns[3].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new GamePanel(EnemyType.SKELETON), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                frame.getContentPane().add(new GamePanel(EnemyType.REAPER), BorderLayout.CENTER);
+                frame.getContentPane().add(new GameToolBar(frame), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }

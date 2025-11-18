@@ -1,5 +1,5 @@
 package character;
 
 public enum EnemyType {
-    SCARECROW, MUSHROOM, WOLF, SKELETON
+    SCARECROW, MUSHROOM, WOLF, REAPER
 }
