@@ -2,6 +2,7 @@ package screen.game.left;
 
 import character.CharacterManager;
 import character.EnemyType;
+import screen.game.right.ScorePanel;
 import word.TextStore;
 import word.WordStore;
 import word.worker.WordFallingTask;
@@ -36,12 +37,17 @@ public class GroundPanel extends JPanel {
     private WordFallingTask wordFallingTask;
     private Thread fallingThread;
 
-    public GroundPanel(EnemyType enemyType, WordStore wordStore) {
+    private ScorePanel scorePanel;
+
+    public GroundPanel(ScorePanel scorePanel, EnemyType enemyType, WordStore wordStore) {
+        this.scorePanel = scorePanel;
+
         this.setBackground(Color.WHITE);
         this.setLayout(null);
 
         // 1. 적 타입 초기화
         characterManager.setEnemyType(enemyType);
+        scorePanel.setHpBar(characterManager); // 캐릭터들의 체력바 설정
 
         // 2. wordStore 초기화
         this.wordStore = wordStore;
@@ -50,7 +56,7 @@ public class GroundPanel extends JPanel {
         this.wordMakerTask = new WordMakerTask(textStore, wordStore, this);
         this.wordMakerThread = new Thread(wordMakerTask);
 
-        this.wordFallingTask = new WordFallingTask(wordStore, characterManager, this);
+        this.wordFallingTask = new WordFallingTask(scorePanel, wordStore, characterManager, this);
         this.fallingThread = new Thread(wordFallingTask);
 
         start();
@@ -92,7 +98,7 @@ public class GroundPanel extends JPanel {
                 case SCARECROW : g.drawImage(enemyImage.getImage(), 215, 510, 220, 120, this); break;
                 case MUSHROOM : g.drawImage(enemyImage.getImage(), 158, 375, 350, 380, this); break;
                 case WOLF : g.drawImage(enemyImage.getImage(), 235, 460, 230, 230, this); break;
-                case REAPER : g.drawImage(enemyImage.getImage(), 160, 430, 230, 200, this); break;
+                case REAPER : g.drawImage(enemyImage.getImage(), 140, 430, 260, 200, this); break;
             }
         }
 

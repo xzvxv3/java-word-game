@@ -13,11 +13,11 @@ public class CharacterManager {
     private EnemyType enemyType;
 
     public CharacterManager(GroundPanel view) {
-        manTask = new ManTask(view, WeaponType.EMPTY, 5);
-        scarecrowTask = new ScarecrowTask(view , 10);
+        manTask = new ManTask(view, WeaponType.EMPTY, 100);
+        scarecrowTask = new ScarecrowTask(view , 10); // 기본 10
         mushroomTask = new MushroomTask(view, 5);
-        wolfTask = new WolfTask(view, 3);
-        reaperTask = new ReaperTask(view, 5);
+        wolfTask = new WolfTask(view, 50);
+        reaperTask = new ReaperTask(view, 100);
     }
 
 
@@ -64,5 +64,40 @@ public class CharacterManager {
             case REAPER : return reaperTask;
         }
         return null;
+    }
+
+    public int getEnemyHP() {
+        switch (enemyType) {
+            case MUSHROOM : return mushroomTask.getCurrentHp();
+            case WOLF : return wolfTask.getCurrentHp();
+            case REAPER : return reaperTask.getCurrentHp();
+        }
+        return 0;
+    }
+
+    public int getManHP() {
+        return manTask.getCurrentHp();
+    }
+
+    public void decreaseManHP(int amount) {
+        manTask.decreaseHP(amount);
+    }
+
+    public void decreaseEnemyHP(int amount) {
+        switch (enemyType) {
+            case MUSHROOM:
+                mushroomTask.decreaseHP(amount);
+                break;
+            case WOLF:
+                wolfTask.decreaseHP(amount);
+                break;
+            case REAPER:
+                reaperTask.decreaseHP(amount);
+                break;
+        }
+    }
+
+    public void setScarecrowHP(int hp) {
+        scarecrowTask.setHP(hp);
     }
 }

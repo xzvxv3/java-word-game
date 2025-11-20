@@ -3,6 +3,7 @@ package word.worker;
 import character.CharacterManager;
 import character.EnemyType;
 import character.MotionType;
+import screen.game.right.ScorePanel;
 import word.Word;
 import word.WordStore;
 import screen.game.left.GroundPanel;
@@ -27,7 +28,10 @@ public class WordFallingTask implements Runnable {
     // 스레드 작동 여부
     private boolean running = true;
 
-    public WordFallingTask(WordStore wordStore, CharacterManager characterManager, GroundPanel view) {
+    private ScorePanel scorePanel;
+
+    public WordFallingTask(ScorePanel scorePanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view) {
+        this.scorePanel = scorePanel;
         this.wordStore = wordStore;
         this.view = view;
         this.characterManager = characterManager;
@@ -65,19 +69,32 @@ public class WordFallingTask implements Runnable {
                     // Mushroom, Wolf 공격
                     if(characterManager.getEnemyType() == EnemyType.MUSHROOM || characterManager.getEnemyType() == EnemyType.WOLF) {
                         characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01);
+
+                        if(characterManager.getEnemyType() == EnemyType.MUSHROOM) {
+                            scorePanel.decreaseManHP(5);
+                            characterManager.decreaseManHP(5);
+                        }
+
+                        else if(characterManager.getEnemyType() == EnemyType.WOLF) {
+                            scorePanel.decreaseManHP(10);
+                            characterManager.decreaseManHP(10);
+                        }
                     }
 
-                    // Skeleton 공격
+                    // Reaper 공격
                     if(characterManager.getEnemyType() == EnemyType.REAPER) {
                         int r = (int) (Math.random() * 2);
                         switch (r) {
                             case 0 : characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01); break;
                             case 1 : characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK02); break;
                         }
+
+                        scorePanel.decreaseManHP(20);
+                        characterManager.decreaseManHP(20);
                     }
 
                     if(characterManager.getEnemyType() != EnemyType.SCARECROW) {
-                        characterManager.getMan().decreaseHP();
+                        characterManager.getMan().decreaseHP(1);
                         characterManager.getMan().onAttacked();
                     }
 

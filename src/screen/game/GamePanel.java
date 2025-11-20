@@ -12,12 +12,13 @@ public class GamePanel extends JSplitPane {
 
 
     private PlayPanel playPanel;
-    private ScorePanel scorePanel = new ScorePanel(); // 점수 판넬
+    private ScorePanel scorePanel; // 점수 판넬
     private EditPanel editPanel = new EditPanel(); // 편집 판넬
 
     // 게임 전체 화면
     public GamePanel(EnemyType enemyType) {
-        playPanel = new PlayPanel(enemyType);
+        scorePanel = new ScorePanel(enemyType);
+        playPanel = new PlayPanel(scorePanel, enemyType);
 
         setOrientation(JSplitPane.HORIZONTAL_SPLIT); // 수직 구분선
         setDividerLocation(600); // 수직 구분선 위치

@@ -26,6 +26,11 @@ public class ScarecrowTask extends BaseCharacter implements Runnable{
         }
     }
 
+    // HP 설정
+    public void setHP(int hp) {
+        this.hp = hp;
+    }
+
     // 캐릭터 모션 초기화
     private void initCharacter() {
         motionType = MotionType.IDLE;

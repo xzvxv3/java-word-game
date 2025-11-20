@@ -14,7 +14,6 @@ public class SelectModePanel extends JPanel {
     private ImageIcon backgroundImage = new ImageIcon("resources/background/StartMenuImage.png");
     private ImageIcon gameTitleImage = new ImageIcon("resources/background/icon/SelectModeImage2.png");
 
-
     private String[] modeNames = {"Scarecrow", "Mushroom", "Wolf", "Skeleton"};
     private JButton[] btns = new JButton[modeNames.length];
 

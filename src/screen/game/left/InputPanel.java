@@ -3,6 +3,7 @@ package screen.game.left;
 import character.CharacterManager;
 import character.MotionType;
 import character.WeaponType;
+import screen.game.right.ScorePanel;
 import word.Word;
 import word.WordStore;
 
@@ -22,7 +23,10 @@ public class InputPanel extends JPanel {
     // 단어 저장소
     private Vector<Word> words;
 
-    public InputPanel(WordStore wordStore, CharacterManager characterManager, GroundPanel view) {
+    private ScorePanel scorePanel;
+
+    public InputPanel(ScorePanel scorePanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view) {
+        this.scorePanel = scorePanel;
         this.setBackground(Color.GRAY);
         this.wordStore = wordStore;
         this.characterManager = characterManager;
@@ -45,6 +49,7 @@ public class InputPanel extends JPanel {
 
                         // 단어를 맞췄을 경우
                         if(word.getText().equals(userText)) {
+                            scorePanel.increaseScore(1);
                             it.remove();
                             view.remove(word);
                             view.revalidate();
@@ -69,7 +74,7 @@ public class InputPanel extends JPanel {
                                 }
                             }
 
-                            characterManager.getEnemy().decreaseHP();
+                            characterManager.getEnemy().decreaseHP(1);
                             characterManager.getEnemy().onAttacked();
                         }
                         break;

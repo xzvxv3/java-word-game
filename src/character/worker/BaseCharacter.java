@@ -28,7 +28,6 @@ public abstract class BaseCharacter {
     // 캐릭터 죽음 체크
     protected boolean isDead = false;
 
-
     // 공격 받았는지 체크
     public void onAttacked() {
         attacked = true;
@@ -36,8 +35,12 @@ public abstract class BaseCharacter {
     }
 
     // 체력 깎일시, 데미지 모션, 죽음 모션 리팩토링 할것
-    public void decreaseHP() {
-        hp--;
+    public void decreaseHP(int amount) {
+        hp -= amount;
+    }
+
+    public int getCurrentHp() {
+        return hp;
     }
 
     public BaseCharacter(JPanel panel, int hp, int damageDelay, int deadDelay, int motionEndDealy, int frameDelay) {
