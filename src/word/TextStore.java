@@ -10,12 +10,12 @@ public class TextStore {
 
     private Scanner sc;
     private StringTokenizer st;
-    private Vector<String> textVector = new Vector<>(1000); // 영어 단어만
+    private Vector<String> textVector = new Vector<>(); // 영어 단어만
 
     // 초기 설정
     public TextStore() {
         try {
-            sc = new Scanner(new FileReader("resources/words/words_eng_1000.txt"));
+            sc = new Scanner(new FileReader("resources/words/words.txt"));
             while(sc.hasNext()) {
                 textVector.add(sc.nextLine());
             }

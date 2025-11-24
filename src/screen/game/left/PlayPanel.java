@@ -2,6 +2,7 @@ package screen.game.left;
 
 import character.CharacterManager;
 import character.EnemyType;
+import screen.game.right.EditPanel;
 import screen.game.right.ScorePanel;
 import word.WordStore;
 
@@ -14,8 +15,10 @@ public class PlayPanel extends JPanel {
     private InputPanel inputPanel;
 
     private ScorePanel scorePanel;
+    private EditPanel editPanel;
 
-    public PlayPanel(ScorePanel scorePanel, EnemyType enemyType) {
+    public PlayPanel(ScorePanel scorePanel, EditPanel editPanel, EnemyType enemyType) {
+        this.editPanel = editPanel;
         this.scorePanel = scorePanel;
         setLayout(new BorderLayout());
 
@@ -24,7 +27,9 @@ public class PlayPanel extends JPanel {
 
         // 단어 입력 칸 생성
         CharacterManager characterManager = groundPanel.getCharacterManager(); // GroundPanel의 정보를 받은 CharacterManager 반환
-        inputPanel = new InputPanel(scorePanel, wordStore, characterManager, groundPanel); // InputPanel에 CharacterManager 주입
+        inputPanel = new InputPanel(scorePanel, editPanel, wordStore, characterManager, groundPanel); // InputPanel에 CharacterManager 주입
+
+        editPanel.setCharacterManager(characterManager);
 
         add(inputPanel, BorderLayout.SOUTH);
         add(groundPanel, BorderLayout.CENTER);

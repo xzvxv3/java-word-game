@@ -16,10 +16,13 @@ public class CharacterManager {
         manTask = new ManTask(view, WeaponType.EMPTY, 100);
         scarecrowTask = new ScarecrowTask(view , 10); // 기본 10
         mushroomTask = new MushroomTask(view, 5);
-        wolfTask = new WolfTask(view, 50);
-        reaperTask = new ReaperTask(view, 100);
+        wolfTask = new WolfTask(view, 30);
+        reaperTask = new ReaperTask(view, 60);
     }
 
+    public void changeManWeapon() {
+        manTask.changeToSword();
+    }
 
     public void setEnemy(EnemyType enemyType) {
         this.enemyType = enemyType;

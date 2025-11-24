@@ -10,8 +10,9 @@ import java.awt.*;
 
 // 점수 판넬
 public class ScorePanel extends JPanel {
-    //private ImageIcon backgroundImage = new ImageIcon("resources/icon/hp/ManHpIcon.png");
     private int score = 0; // 초기 점수
+    private final int WEAPON_UNLOCK_SCORE = 15;
+
     private ScoreTextLabel scoreTextLabel = new ScoreTextLabel();
     private ScoreLabel scoreLabel = new ScoreLabel();
 
@@ -33,14 +34,9 @@ public class ScorePanel extends JPanel {
 
         add(scoreTextLabel);
         add(scoreLabel);
-
-
     }
 
     public void setHpBar(CharacterManager characterManager) {
-//        enemyHpBar.setHP(characterManager.getEnemyHP());
-//        manHpBar.setHP(characterManager.getManHP());
-
         manHpBar = new ManHpBar(characterManager.getManHP());
         enemyHpBar = new EnemyHpBar(characterManager.getEnemyHP());
 
@@ -85,6 +81,11 @@ public class ScorePanel extends JPanel {
             int newHp = Math.max(0, getValue() - amount);
             setValue(newHp);
             repaint();   // 화면 갱신
+        }
+
+        public void heal() {
+            setValue(getValue() + 20);
+            repaint();
         }
 
         public void setHP(int hp) {
@@ -157,6 +158,10 @@ public class ScorePanel extends JPanel {
         }
     }
 
+    // Man 체력 증가
+    public void healManHP() {
+        manHpBar.heal();
+    }
 
     // Man 체력 감소 (단어 바닥에 낙하시)
     public void decreaseManHP(int amount) {
@@ -173,6 +178,10 @@ public class ScorePanel extends JPanel {
         score += amount;
         scoreLabel.setText(Integer.toString(score));
         decreaseEnemyHp(amount);
+    }
+
+    public boolean isPossibleChangeWeapon() {
+        return score >= WEAPON_UNLOCK_SCORE;
     }
 
     @Override

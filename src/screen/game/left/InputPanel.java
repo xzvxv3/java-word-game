@@ -3,6 +3,7 @@ package screen.game.left;
 import character.CharacterManager;
 import character.MotionType;
 import character.WeaponType;
+import screen.game.right.EditPanel;
 import screen.game.right.ScorePanel;
 import word.Word;
 import word.WordStore;
@@ -24,8 +25,10 @@ public class InputPanel extends JPanel {
     private Vector<Word> words;
 
     private ScorePanel scorePanel;
+    private EditPanel editPanel;
 
-    public InputPanel(ScorePanel scorePanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view) {
+    public InputPanel(ScorePanel scorePanel, EditPanel editPanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view) {
+        this.editPanel = editPanel;
         this.scorePanel = scorePanel;
         this.setBackground(Color.GRAY);
         this.wordStore = wordStore;
@@ -76,9 +79,15 @@ public class InputPanel extends JPanel {
 
                             characterManager.getEnemy().decreaseHP(1);
                             characterManager.getEnemy().onAttacked();
+
+                            break;
                         }
-                        break;
                     }
+                }
+
+                // 점수가 15점 이상이면 무기 버튼 활성화
+                if(scorePanel.isPossibleChangeWeapon()) {
+                    editPanel.setSwordON();
                 }
             }
         });

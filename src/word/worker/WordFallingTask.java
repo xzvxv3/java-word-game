@@ -98,7 +98,6 @@ public class WordFallingTask implements Runnable {
                         characterManager.getMan().onAttacked();
                     }
 
-
                     view.remove(word); // 화면에서 단어 삭제
                     it.remove(); // 단어 완전 제거
                 }

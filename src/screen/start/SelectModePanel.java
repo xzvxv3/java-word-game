@@ -56,14 +56,12 @@ public class SelectModePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
-                // frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new StartPanel(frame), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
         });
-
         add(backBtn);
     }
 

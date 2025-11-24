@@ -34,6 +34,10 @@ public class ManTask extends BaseCharacter implements Runnable {
         }
     }
 
+    public void changeToSword() {
+        this.weapon = WeaponType.SWORD;
+    }
+
     private void initCharacter() {
         switch (weapon) {
             case EMPTY : // 기본 모드
