@@ -1,5 +1,6 @@
 package character;
 
+import character.imageloader.*;
 import character.worker.*;
 import screen.game.left.GroundPanel;
 
@@ -10,14 +11,22 @@ public class CharacterManager {
     private WolfTask wolfTask;
     private ReaperTask reaperTask;
 
+    private ManImageLoader manImageLoader = new ManImageLoader();
+    private ScarecrowImageLoader scarecrowImageLoader = new ScarecrowImageLoader();
+    private MushroomImageLoader mushroomImageLoader = new MushroomImageLoader();
+    private WolfImageLoader wolfImageLoader = new WolfImageLoader();
+    private ReaperImageLoader reaperImageLoader = new ReaperImageLoader();
+
+    // 이미지 로더 클래스
+
     private EnemyType enemyType;
 
     public CharacterManager(GroundPanel view) {
-        manTask = new ManTask(view, WeaponType.EMPTY, 100);
-        scarecrowTask = new ScarecrowTask(view , 10); // 기본 10
-        mushroomTask = new MushroomTask(view, 5);
-        wolfTask = new WolfTask(view, 30);
-        reaperTask = new ReaperTask(view, 60);
+        manTask = new ManTask(view, manImageLoader, WeaponType.EMPTY, 100);
+        scarecrowTask = new ScarecrowTask(view, scarecrowImageLoader, 10); // 기본 10
+        mushroomTask = new MushroomTask(view, mushroomImageLoader, 5);
+        wolfTask = new WolfTask(view, wolfImageLoader, 30);
+        reaperTask = new ReaperTask(view, reaperImageLoader, 60);
     }
 
     public void changeManWeapon() {

@@ -62,7 +62,6 @@ public class GameFrame extends JFrame {
         });
     }
 
-
     // 툴바 생성
     private void makeToolBar() {
         getContentPane().add(new StartToolBar(), BorderLayout.NORTH);

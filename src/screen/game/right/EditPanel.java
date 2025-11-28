@@ -43,8 +43,11 @@ public class EditPanel extends JPanel {
 
     // 무기 활성화
     public void setSwordON() {
+        if(swordLabel.isAlreadyUsedSword()) return;
+
         swordLabel.setAvailableSword(); // "사용 불가능" -> "사용 가능"
         swordBtn.setSwordON(); // 캐릭터 무기 바꿈
+        swordLabel.checkSword(); // 라벨에 무기로 바꿨다고 알림
     }
 
     // "사용 가능" -> "사용 중"
@@ -64,7 +67,6 @@ public class EditPanel extends JPanel {
             setBorderPainted(false);
             setContentAreaFilled(false);
             setFocusPainted(false);
-
             setIcon(new ImageIcon("resources/icon/itembtn/SwordOFF.png"));
 
             // 버튼 한번 클릭하면 다시 못바꾸게?
@@ -86,6 +88,8 @@ public class EditPanel extends JPanel {
     }
 
     class SwordLabel extends JLabel {
+        private boolean sword = false;
+
         public SwordLabel() {
             setText("사용 불가");
             setSize(200, 50);
@@ -99,6 +103,14 @@ public class EditPanel extends JPanel {
 
         public void setAlreadyUsedSword() {
             setText("사용 중");
+        }
+
+        public void checkSword() {
+            sword = true;
+        }
+
+        public boolean isAlreadyUsedSword() {
+            return sword;
         }
     }
 
@@ -119,9 +131,7 @@ public class EditPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
 
-                    if(healCount >= 3) {
-                        return;
-                    }
+                    if(healCount >= 3) return;
 
                     scorePanel.healManHP();
                     usePotion();

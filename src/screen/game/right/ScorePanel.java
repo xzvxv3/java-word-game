@@ -11,7 +11,7 @@ import java.awt.*;
 // 점수 판넬
 public class ScorePanel extends JPanel {
     private int score = 0; // 초기 점수
-    private final int WEAPON_UNLOCK_SCORE = 15;
+    private final int WEAPON_UNLOCK_SCORE = 2;
 
     private ScoreTextLabel scoreTextLabel = new ScoreTextLabel();
     private ScoreLabel scoreLabel = new ScoreLabel();

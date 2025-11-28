@@ -37,7 +37,9 @@ public class InputPanel extends JPanel {
         words = wordStore.getWordVector();
 
         add(inputField);
+
         inputField.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 JTextField tf = (JTextField) (e.getSource());

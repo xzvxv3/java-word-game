@@ -86,7 +86,7 @@ public class WordFallingTask implements Runnable {
                         int r = (int) (Math.random() * 2);
                         switch (r) {
                             case 0 : characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01); break;
-                            case 1 : characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK02); break;
+                            case 1 : characterManager.getEnemy().setMotion(MotionType.ENEMY_SKILL01); break;
                         }
 
                         scorePanel.decreaseManHP(20);

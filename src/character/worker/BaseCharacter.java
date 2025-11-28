@@ -2,6 +2,7 @@ package character.worker;
 
 
 import character.MotionType;
+import character.imageloader.ImageLoader;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -9,9 +10,10 @@ import java.util.HashMap;
 public abstract class BaseCharacter {
     protected JPanel panel; // 부모 패널
     protected MotionType motionType; // 현재 모션
-    protected HashMap<MotionType, ImageIcon[]> motionMap = new HashMap<>(); // 모션을 담고있는 해시맵
+    protected ImageLoader imageLoader;
     protected ImageIcon[] motionFrames; // 현재 모션 프레임
     protected int idx = 0; // 모션 프레임 전환용
+
 
     protected final int DAMAGE_DELAY; // 데미지 딜레이
     protected final int DEAD_DEALY; // 죽음 딜레이
@@ -28,6 +30,9 @@ public abstract class BaseCharacter {
     // 캐릭터 죽음 체크
     protected boolean isDead = false;
 
+    // LifeCycle 체크
+    protected boolean flag = false;
+
     // 공격 받았는지 체크
     public void onAttacked() {
         attacked = true;
@@ -43,9 +48,11 @@ public abstract class BaseCharacter {
         return hp;
     }
 
-    public BaseCharacter(JPanel panel, int hp, int damageDelay, int deadDelay, int motionEndDealy, int frameDelay) {
+    public BaseCharacter(JPanel panel, ImageLoader imageLoader, int hp, int damageDelay, int deadDelay, int motionEndDealy, int frameDelay) {
         this.panel = panel;
+        this.imageLoader = imageLoader;
         this.hp = hp;
+
         this.DAMAGE_DELAY = damageDelay;
         this.DEAD_DEALY = deadDelay;
         this.MOTION_END_DELAY = motionEndDealy;
@@ -56,7 +63,7 @@ public abstract class BaseCharacter {
     public void setMotion(MotionType motionType) {
         idx = 0; // 모션 프레임 첫장면 idx
         this.motionType = motionType; // 현재 모션
-        motionFrames = motionMap.get(motionType); // 모션 프레임 변환
+        motionFrames = imageLoader.getMotionMap().get(motionType); // 모션 프레임 변환
     }
 
     // 모션 프레임 반환
@@ -67,15 +74,16 @@ public abstract class BaseCharacter {
 
 
     protected boolean characterLifeCycle() {
-        // 공격 당했을경우
-        handleAttackReaction();
+            // 공격 당했을경우
+            handleAttackReaction();
 
-        // 죽었을 경우
-        handleDeadReaction();
+            // 죽었을 경우
+            handleDeadReaction();
 
-        // 모션 프레임 실행중
-        return handleFrameUpdate();
+            // 모션 프레임 실행중
+            return handleFrameUpdate();
     }
+
 
     protected void handleAttackReaction() {
         if(!attacked || isDead) return; // 공격 받은 상태(X) or 이미 죽은 상태(O) -> 실행 안 함

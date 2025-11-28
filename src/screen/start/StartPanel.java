@@ -71,33 +71,12 @@ public class StartPanel extends JPanel {
                 frame.repaint();
             }
         });
-
-        // 1. scores 버튼 클릭시 작동
-//        showRankingbtn.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//
-//
-//            }
-//        });
-
-        // 2. Word Settings 버튼 클릭시 작동
     }
-    // 달리는 모션 실행
-//    private void runMotion() {
-//        startMenuRunMotion = new StartMenuRunMotion(this);
-//        runThread = new Thread(startMenuRunMotion);
-//        runThread.start();
-//    }
 
     @Override
     protected void paintComponent(Graphics g) { // 배경 요소
         super.paintComponent(g);
         // 전체 배경 화면
         g.drawImage(sky.getImage(), 0, 0, getWidth(), getHeight(), this);
-
-        // 달리는 모션
-//        ImageIcon frame = startMenuRunMotion.getCurrentFrame();
-//        g.drawImage(frame.getImage(), 400, 550, 150, 150, this);
     }
 }
