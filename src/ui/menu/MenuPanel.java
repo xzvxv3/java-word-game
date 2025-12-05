@@ -13,23 +13,23 @@ public class MenuPanel extends JPanel {
     private ImageIcon backgroundImage = new ImageIcon("resources/images/background/menu/menu_background_image.png");
 
     JButton selectModeButton = new GameImageButton(
-            "resources/background/icon/SelectModeImage.png",
-            "resources/background/icon/SelectModeRolloverImage.png"
+            "resources/images/button/menu/selectmode_btn.png",
+            "resources/images/button/menu/selectmode_btn_rollover.png"
     );
 
     JButton scoresButton = new GameImageButton(
-            "resources/background/icon/ScoresIcon.png",
-            "resources/background/icon/ScoresIconRollover.png"
+            "resources/images/button/menu/scores_btn.png",
+            "resources/images/button/menu/scores_btn_rollover.png"
     );
 
     JButton settingsButton = new GameImageButton(
-            "resources/background/icon/SettingsIcon.png",
-            "resources/background/icon/SettingsIconRollover.png"
+            "resources/images/button/menu/settings_btn.png",
+            "resources/images/button/menu/settings_btn_rollover.png"
     );
 
     JButton logoutButton = new GameImageButton(
-            "resources/images/button/menu/logout_image.png",
-            "resources/images/button/menu/logout_rollover_image.png"
+            "resources/images/button/menu/logout_btn.png",
+            "resources/images/button/menu/logout_btn_rollover.png"
     );
 
     JButton[] btns = {selectModeButton, scoresButton, settingsButton, logoutButton};

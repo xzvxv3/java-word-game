@@ -16,11 +16,11 @@ public class SignUpPanel extends JPanel {
     // 배경화면 이미지
     private ImageIcon backgroundImage = new ImageIcon("resources/images/background/intro/signup.png");
     // 회원 가입 글자 이미지
-    private ImageIcon signUpTitleImage = new ImageIcon("resources/signup/signup_title_lbl.png");
+    private ImageIcon signUpTitleImage = new ImageIcon("resources/images/element/intro/signup_title_lbl.png");
     // ID 글자 이미지
-    private ImageIcon idLabel = new ImageIcon("resources/signup/id_lbl.png");
+    private ImageIcon idLabel = new ImageIcon("resources/images/element/intro/id_lbl.png");
     // PASSWORD 글자 이미지
-    private ImageIcon passwordLabel = new ImageIcon("resources/signup/password_lbl.png");
+    private ImageIcon passwordLabel = new ImageIcon("resources/images/element/intro/password_lbl.png");
 
     // 아이디, 비밀번호 입력 칸
     private JTextField idTextField = new JTextField(); // ID 입력칸
@@ -40,8 +40,8 @@ public class SignUpPanel extends JPanel {
     );
     // 뒤로가기 버튼
     JButton backButton = new GameImageButton(
-            "resources/icon/backbtn/BackBtn.png",
-            "resources/icon/backbtn/BackBtnRollover.png"
+            "resources/images/button/common/back_btn.png",
+            "resources/images/button/common/back_btn_rollover.png"
     );
 
     // 캐릭터 뛰는 모션

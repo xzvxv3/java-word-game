@@ -30,13 +30,13 @@ public class LoginPanel extends JPanel {
 
     // 로그인 버튼
     private JButton loginButton = new GameImageButton(
-            "resources/login/button/login_btn.png",
-            "resources/login/button/LoginButtonRolloverImage.png"
+            "resources/images/button/intro/login_btn.png",
+            "resources/images/button/intro/login_btn_rollover.png"
     );
     // 회원 가입 버튼
     private JButton signupButton = new GameImageButton(
-            "resources/login/button/SignupButtonImage.png",
-            "resources/login/button/SignupButtonRolloverImage.png"
+            "resources/images/button/intro/signup_btn.png",
+            "resources/images/button/intro/signup_btn_rollover.png"
     );
 
     // 캐릭터 뛰는 모션

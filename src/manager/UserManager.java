@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
-
+// 한글패치 안 됨
 public class UserManager {
     private HashMap<String, String> userMap = new HashMap<>();
     private final String DATA_PATH = "data/users.txt";

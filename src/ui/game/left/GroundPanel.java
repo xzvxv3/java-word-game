@@ -14,10 +14,10 @@ import java.awt.*;
 // 게임 실행 화면
 public class GroundPanel extends JPanel {
 
-    private ImageIcon stageImage01 = new ImageIcon("resources/images/background/stage/morning.png");
-    private ImageIcon stageImage02 = new ImageIcon("resources/images/background/stage/normalday.png");
-    private ImageIcon stageImage03 = new ImageIcon("resources/images/background/stage/night.png");
-    private ImageIcon stageImage04 = new ImageIcon("resources/images/background/stage/winter.png");
+    private ImageIcon stageImage01 = new ImageIcon("resources/images/background/ingame/morning.png");
+    private ImageIcon stageImage02 = new ImageIcon("resources/images/background/ingame/normalday.png");
+    private ImageIcon stageImage03 = new ImageIcon("resources/images/background/ingame/night.png");
+    private ImageIcon stageImage04 = new ImageIcon("resources/images/background/ingame/winter.png");
     ImageIcon stageImage = null;
 
     // 캐릭터 관리 클래스
@@ -96,7 +96,7 @@ public class GroundPanel extends JPanel {
         enemyImage = characterManager.getEnemy().getCurrentFrame();
         if(enemyImage != null) {
             switch (characterManager.getEnemyType()) {
-                case SCARECROW : g.drawImage(enemyImage.getImage(), 215, 470, 230, 140, this); break;
+                case SCARECROW : g.drawImage(enemyImage.getImage(), 215, 490, 230, 120, this); break;
                 case MUSHROOM : g.drawImage(enemyImage.getImage(), 158, 340, 350, 400, this); break;
                 case WOLF : g.drawImage(enemyImage.getImage(), 230, 415, 250, 270, this); break;
                 case REAPER : g.drawImage(enemyImage.getImage(), 110, 365, 310, 250, this); break;

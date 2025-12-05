@@ -1,6 +1,7 @@
 package ui.menu;
 
 import character.type.EnemyType;
+import ui.common.GameImageButton;
 import ui.game.GamePanel;
 import ui.toolbar.GameToolBar;
 import ui.toolbar.StartToolBar;
@@ -13,76 +14,70 @@ import java.awt.event.ActionListener;
 public class SelectModePanel extends JPanel {
     private ImageIcon backgroundImage = new ImageIcon("resources/images/background/menu/select_mode_background_image.png");
 
-    private ImageIcon gameTitleImage = new ImageIcon("resources/background/icon/SelectModeImage2.png");
+    private ImageIcon gameTitleImage = new ImageIcon("resources/images/element/menu/selectmode_lbl.png");
 
-    private String[] modeNames = {"Scarecrow", "Mushroom", "Wolf", "Skeleton"};
-    private JButton[] btns = new JButton[modeNames.length];
+    private JButton scarecrowBtn = new GameImageButton(
+            "resources/images/button/menu/scarecrow_btn.png",
+            "resources/images/button/menu/scarecrow_btn_rollover.png"
+    );
+
+    private JButton mushroomBtn = new GameImageButton(
+        "resources/images/button/menu/mushroom_btn.png",
+            "resources/images/button/menu/mushroom_btn_rollover.png"
+    );
+
+    private JButton wolfBtn = new GameImageButton(
+    "resources/images/button/menu/wolf_btn.png",
+            "resources/images/button/menu/wolf_btn_rollover.png"
+    );
+
+    private JButton reaperBtn = new GameImageButton(
+"resources/images/button/menu/reaper_btn.png",
+            "resources/images/button/menu/reaper_btn_rollover.png"
+    );
+
+    private JButton[] modeBtns = {scarecrowBtn, mushroomBtn, wolfBtn, reaperBtn};
+
+    // 뒤로가기 버튼
+    private JButton backBtn = new GameImageButton(
+            "resources/images/button/common/back_btn.png",
+            "resources/images/button/common/back_btn_rollover.png"
+    );
 
     private JFrame frame;
-
-    ImageIcon[] iconsImage = {
-            new ImageIcon("resources/icon/ScarecrowIcon.png"),
-            new ImageIcon("resources/icon/MushroomIcon.png"),
-            new ImageIcon("resources/icon/WolfIcon.png"),
-            new ImageIcon("resources/icon/ReaperIcon.png"),
-    };
-
-    ImageIcon[] iconsImageRollover = {
-            new ImageIcon("resources/icon/ScarecrowIconRollover.png"),
-            new ImageIcon("resources/icon/MushroomIconRollover.png"),
-            new ImageIcon("resources/icon/WolfIconRollover.png"),
-            new ImageIcon("resources/icon/ReaperIconRollover.png")
-    };
-
-    JButton backBtn = new JButton(new ImageIcon("resources/icon/backbtn/BackBtn.png"));
 
     public SelectModePanel(JFrame frame) {
         this.frame = frame;
         setLayout(null);
-        setModeBtns();
-        setBackBtn();
+        initComponent();
+        addActionListeners();
+        addComponents();
     }
 
-    private void setBackBtn() {
-        backBtn.setLocation(50, 630);
-        backBtn.setSize(140, 55);
-        backBtn.setContentAreaFilled(false); // 버튼 기본 배경 제거
-        backBtn.setBorderPainted(false); // 테두리 제거
-        backBtn.setFocusPainted(false); // 포커스 테두리 제거
-        backBtn.setOpaque(false); // 불투명 속성 제거
+    // 컴포넌트 요소 초기화
+    private void initComponent() {
+        // mode 버튼
+        for (int i = 0; i < modeBtns.length; i++) {
+            modeBtns[i].setBounds(50 + 210 * i, 200, 150, 150);
+        }
+        // back 버튼
+        backBtn.setBounds(50, 630, 140, 55);
+    }
 
-        backBtn.setRolloverIcon(new ImageIcon("resources/icon/backbtn/BackBtnRollover.png"));
-
-        backBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.getContentPane().removeAll();
-                frame.getContentPane().add(new MenuPanel(frame), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
-                frame.revalidate();
-                frame.repaint();
-            }
-        });
+    // 컴포넌트 패널에 추가
+    private void addComponents() {
+        add(scarecrowBtn);
+        add(mushroomBtn);
+        add(wolfBtn);
+        add(reaperBtn);
         add(backBtn);
     }
 
+    // 컴포넌트 이벤트 추가
+    private void addActionListeners() {
 
-    private void setModeBtns() {
-        // 모드 선택 버튼 레이아웃 배치
-        for (int i = 0; i < iconsImage.length; i++) {
-            JButton btn = new JButton(iconsImage[i]);
-            btn.setRolloverIcon(iconsImageRollover[i]);
-
-            btn.setSize(150, 150);
-            btn.setLocation(50 + 210 * i, 200 );
-
-            add(btn);
-            btns[i] = btn;
-        }
-
-        // 이벤트 리스너 추가
         // Scarecrow 모드
-        btns[0].addActionListener(new ActionListener() {
+        scarecrowBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
@@ -95,7 +90,7 @@ public class SelectModePanel extends JPanel {
         });
 
         // Mushroom 모드
-        btns[1].addActionListener(new ActionListener() {
+        mushroomBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
@@ -108,7 +103,7 @@ public class SelectModePanel extends JPanel {
         });
 
         // Wolf 모드
-        btns[2].addActionListener(new ActionListener() {
+        wolfBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
@@ -121,7 +116,7 @@ public class SelectModePanel extends JPanel {
         });
 
         // Reaper 모드
-        btns[3].addActionListener(new ActionListener() {
+        reaperBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
@@ -132,7 +127,20 @@ public class SelectModePanel extends JPanel {
                 frame.repaint();
             }
         });
+
+        // Back 버튼
+        backBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(new MenuPanel(frame), BorderLayout.CENTER);
+                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
