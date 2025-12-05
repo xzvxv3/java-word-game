@@ -1,6 +1,6 @@
 package character.imageloader;
 
-import character.MotionType;
+import character.type.MotionType;
 
 import javax.swing.*;
 
@@ -8,6 +8,8 @@ public class ManImageLoader extends ImageLoader{
     private ImageIcon[] idleMotion = new ImageIcon[7];
     private ImageIcon[] damageMotion = new ImageIcon[4];
     private ImageIcon[] deadMotion = new ImageIcon[9];
+    private ImageIcon[] runMotion = new ImageIcon[8];
+    private ImageIcon[] swordRunMotion = new ImageIcon[8];
 
     private ImageIcon[] attackMotion01 = new ImageIcon[9];
     private ImageIcon[] attackMotion02 = new ImageIcon[9];
@@ -30,6 +32,7 @@ public class ManImageLoader extends ImageLoader{
         motionMap.put(MotionType.IDLE, idleMotion);
         motionMap.put(MotionType.DEAD, deadMotion);
         motionMap.put(MotionType.DAMAGE, damageMotion);
+        motionMap.put(MotionType.RUN, runMotion);
 
         motionMap.put(MotionType.MAN_ATTACK01, attackMotion01);
         motionMap.put(MotionType.MAN_ATTACK02, attackMotion02);
@@ -37,6 +40,7 @@ public class ManImageLoader extends ImageLoader{
         motionMap.put(MotionType.MAN_ATTACK04, attackMotion04);
 
         motionMap.put(MotionType.MAN_SWORD_IDLE, swordIdleMotion);
+        motionMap.put(MotionType.MAN_SWORD_RUN, swordRunMotion);
         motionMap.put(MotionType.MAN_SWORD_ATTACK01, swordAttackMotion01);
         motionMap.put(MotionType.MAN_SWORD_ATTACK02, swordAttackMotion02);
         motionMap.put(MotionType.MAN_SWORD_ATTACK03, swordAttackMotion03);
@@ -56,6 +60,10 @@ public class ManImageLoader extends ImageLoader{
         // Damage Motion
         for(int i=0; i < 4; i++)
             damageMotion[i] = new ImageIcon(BASE_PATH + "original/damage/ShockHeavy0" + (i + 1) + ".png");
+
+        // Run Motion
+        for (int i = 0; i < 8; i++)
+            runMotion[i] = new ImageIcon(BASE_PATH + "original/run/Run0" + (i + 1) + ".png");
 
         // AttackMotion01
         for (int i = 0; i < 9; i++)
@@ -77,6 +85,10 @@ public class ManImageLoader extends ImageLoader{
         for (int i = 0; i < 7; i++)
             swordIdleMotion[i] = new ImageIcon(BASE_PATH + "sword/idle/SwordIdle0" + (i + 1) + ".png");
 
+        // SwordRunMotion
+        for (int i = 0; i < 8; i++)
+            swordRunMotion[i] = new ImageIcon(BASE_PATH + "sword/run/SwordRun0" + (i + 1) +".png");
+
         // SwordAttackMotion04
         for (int i = 0; i < 8; i++)
             swordAttackMotion01[i] = new ImageIcon(BASE_PATH + "sword/attack1/SwordCombo040" + (i + 1) + ".png");
@@ -92,5 +104,6 @@ public class ManImageLoader extends ImageLoader{
         // SwordAttackMotion04
         for (int i = 0; i < 5; i++)
             swordAttackMotion04[i] = new ImageIcon(BASE_PATH + "sword/attack4/StandingSlash0" + (i + 1) + ".png");
+
     }
 }

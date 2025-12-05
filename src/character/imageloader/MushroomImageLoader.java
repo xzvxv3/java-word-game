@@ -1,6 +1,6 @@
 package character.imageloader;
 
-import character.MotionType;
+import character.type.MotionType;
 
 import javax.swing.*;
 

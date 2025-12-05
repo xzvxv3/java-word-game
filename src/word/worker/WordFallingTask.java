@@ -1,12 +1,12 @@
 package word.worker;
 
-import character.CharacterManager;
-import character.EnemyType;
-import character.MotionType;
-import screen.game.right.ScorePanel;
+import manager.CharacterManager;
+import character.type.EnemyType;
+import character.type.MotionType;
+import ui.game.right.ScorePanel;
 import word.Word;
 import word.WordStore;
-import screen.game.left.GroundPanel;
+import ui.game.left.GroundPanel;
 
 import java.util.Iterator;
 import java.util.Vector;
@@ -88,7 +88,6 @@ public class WordFallingTask implements Runnable {
                             case 0 : characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01); break;
                             case 1 : characterManager.getEnemy().setMotion(MotionType.ENEMY_SKILL01); break;
                         }
-
                         scorePanel.decreaseManHP(20);
                         characterManager.decreaseManHP(20);
                     }
@@ -100,6 +99,8 @@ public class WordFallingTask implements Runnable {
 
                     view.remove(word); // 화면에서 단어 삭제
                     it.remove(); // 단어 완전 제거
+
+                    System.out.println(characterManager.getEnemyType() + " 공격");
                 }
             }
         }

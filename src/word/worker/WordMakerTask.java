@@ -3,7 +3,7 @@ package word.worker;
 import word.TextStore;
 import word.Word;
 import word.WordStore;
-import screen.game.left.GroundPanel;
+import ui.game.left.GroundPanel;
 
 // 단어 생성 Runnable
 public class WordMakerTask implements Runnable{

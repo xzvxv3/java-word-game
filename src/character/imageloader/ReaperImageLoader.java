@@ -1,6 +1,6 @@
 package character.imageloader;
 
-import character.MotionType;
+import character.type.MotionType;
 import javax.swing.ImageIcon;
 public class ReaperImageLoader extends ImageLoader {
     private ImageIcon[] idleMotion = new ImageIcon[8];
