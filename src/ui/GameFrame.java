@@ -20,7 +20,7 @@ public class GameFrame extends JFrame {
     public GameFrame() {
         super("게임");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 800);
+        setSize(1100, 800);
         setLocation(350, 100);
 
         makeMenu(); // 메뉴
@@ -33,7 +33,7 @@ public class GameFrame extends JFrame {
 
     // 게임 초기 화면
     private void start() {
-        getContentPane().add(loginPanel, BorderLayout.CENTER);
+        getContentPane().add(menuPanel, BorderLayout.CENTER);
     }
 
     // 메뉴바 생성

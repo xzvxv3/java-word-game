@@ -42,6 +42,13 @@ public class InputPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                // 게임 종료시, 더이상의 입력 불가.
+                if (characterManager.getMan().getCurrentHp() <= 0) {
+                    inputField.setText(""); // 텍스트만 비우고
+                    return; // 즉시 종료 (공격 로직 실행 X)
+                }
+
                 JTextField tf = (JTextField) (e.getSource());
                 String userText = tf.getText();
                 tf.setText("");
@@ -79,9 +86,12 @@ public class InputPanel extends JPanel {
                                 }
                             }
 
-                            characterManager.getEnemy().decreaseHP(1);
+                            characterManager.decreaseEnemyHP(1);
                             characterManager.getEnemy().onAttacked();
                             System.out.println("Man 공격");
+
+                            // 게임 종료 되는지
+                            characterManager.isGameOver();
 
                             break;
                         }

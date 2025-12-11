@@ -17,7 +17,10 @@ public class Man extends BaseGameCharacter implements Runnable {
 
     @Override
     public void run() {
-        while (characterLifeCycle()) {} // 캐릭터 모션 실행
+        while (characterLifeCycle()) {
+
+        } // 캐릭터 모션 실행
+        System.out.println("Man 스레드 종료");
     }
 
     @Override

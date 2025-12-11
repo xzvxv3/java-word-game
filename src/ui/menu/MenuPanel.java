@@ -50,7 +50,7 @@ public class MenuPanel extends JPanel {
     private void initComponent() {
         for(int i=0; i < btns.length; i++) {
             btns[i].setSize(320, 60);
-            btns[i].setLocation(300, 200 + 100 * i);
+            btns[i].setLocation(400, 200 + 100 * i);
             add(btns[i]);
         }
     }

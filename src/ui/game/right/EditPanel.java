@@ -64,7 +64,7 @@ public class EditPanel extends JPanel {
             setBorderPainted(false);
             setContentAreaFilled(false);
             setFocusPainted(false);
-            setIcon(new ImageIcon("resources/icon/itembtn/SwordOFF.png"));
+            setIcon(new ImageIcon("resources/images/button/ingame/SwordOFF.png"));
 
             // 버튼 한번 클릭하면 다시 못바꾸게?
             addActionListener(new ActionListener() {
@@ -79,7 +79,7 @@ public class EditPanel extends JPanel {
         }
 
         public void setSwordON() {
-            ImageIcon swordONIcon = new ImageIcon("resources/icon/itembtn/SwordON.png");
+            ImageIcon swordONIcon = new ImageIcon("resources/images/button/ingame/SwordON.png");
             setIcon(swordONIcon);
         }
     }
@@ -121,7 +121,7 @@ public class EditPanel extends JPanel {
             setContentAreaFilled(false);
             setFocusPainted(false);
 
-            ImageIcon potionIcon = new ImageIcon("resources/icon/itembtn/Potion.png");
+            ImageIcon potionIcon = new ImageIcon("resources/images/button/ingame/Potion.png");
             setIcon(potionIcon);
             // 클릭시 Man의 HP 20 증가
             addActionListener(new ActionListener() {
@@ -135,7 +135,7 @@ public class EditPanel extends JPanel {
                     healCount++;
 
                     if(healCount == 3) {
-                        setIcon(new ImageIcon("resources/icon/itembtn/PotionEmpty.png"));
+                        setIcon(new ImageIcon("resources/images/button/ingame/PotionEmpty.png"));
                     }
                 }
             });
@@ -172,7 +172,7 @@ public class EditPanel extends JPanel {
             // (선택 사항) 버튼을 눌렀을 때 나타나는 포커스 테두리도 제거
             setFocusPainted(false);
 
-            ImageIcon timeIcon = new ImageIcon("resources/icon/itembtn/TimeOFF.png");
+            ImageIcon timeIcon = new ImageIcon("resources/images/button/ingame/TimeOFF.png");
             setIcon(timeIcon);
         }
     }

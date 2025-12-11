@@ -26,6 +26,10 @@ public class CharacterManager {
     private WolfImageLoader wolfImageLoader = new WolfImageLoader();
     private ReaperImageLoader reaperImageLoader = new ReaperImageLoader();
 
+    private Thread manThread, enemyThread, gameStopThread;
+
+    private boolean isGameRunning = true;
+
     // 현재 Enemy
     private EnemyType enemyType;
 
@@ -33,7 +37,7 @@ public class CharacterManager {
         man = new Man(view, manImageLoader, WeaponType.EMPTY, 100);
         scarecrow = new Scarecrow(view, scarecrowImageLoader, 10); // 기본 10
         mushroom = new Mushroom(view, mushroomImageLoader, 2);
-        wolf = new Wolf(view, wolfImageLoader, 30);
+        wolf = new Wolf(view, wolfImageLoader, 5);
         reaper = new Reaper(view, reaperImageLoader, 60);
     }
 
@@ -59,9 +63,7 @@ public class CharacterManager {
         return null;
     }
 
-    public BaseGameCharacter getMan() {
-        return man;
-    }
+    public BaseGameCharacter getMan() { return man; }
 
     public void setEnemyType(EnemyType enemyType) {
         this.enemyType = enemyType;
@@ -86,6 +88,21 @@ public class CharacterManager {
         return null;
     }
 
+    public boolean isGameOver() {
+        if(getEnemyHP() <= 0 || getManHP() <= 0) return true;
+        return false;
+    }
+
+    public boolean isGameRunning() {
+        return isGameRunning;
+    }
+
+    // Man 체력 반환
+    public int getManHP() {
+        return man.getCurrentHp();
+    }
+
+    // Enemy 체력 반환
     public int getEnemyHP() {
         switch (enemyType) {
             case MUSHROOM : return mushroom.getCurrentHp();
@@ -95,14 +112,12 @@ public class CharacterManager {
         return 0;
     }
 
-    public int getManHP() {
-        return man.getCurrentHp();
-    }
-
+    // Man 데미지 입음
     public void decreaseManHP(int amount) {
         man.decreaseHP(amount);
     }
 
+    // Monster 데미지 입음
     public void decreaseEnemyHP(int amount) {
         switch (enemyType) {
             case MUSHROOM:
@@ -117,7 +132,15 @@ public class CharacterManager {
         }
     }
 
-    public void setScarecrowHP(int hp) {
-        scarecrow.setHP(hp);
+    public void gameStart() {
+        // Man 스레드
+        manThread = new Thread(getManTask());
+        // Enemy 스레드
+        enemyThread = new Thread(getEnemyTask());
+
+        manThread.start();
+        enemyThread.start();
+
+        System.out.println();
     }
 }

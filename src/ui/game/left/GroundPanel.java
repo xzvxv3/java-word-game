@@ -70,10 +70,7 @@ public class GroundPanel extends JPanel {
 
     // start() 호출 ->  단어 생성 & 낙하 시작
     public void start() {
-        // Man 스레드
-        Thread manThread = new Thread(characterManager.getManTask());
-        // Enemy 스레드
-        Thread enemyThread = new Thread(characterManager.getEnemyTask());
+        characterManager.gameStart();
 
         switch (characterManager.getEnemyType()) {
             case SCARECROW : stageImage = stageImage01; break;
@@ -84,8 +81,7 @@ public class GroundPanel extends JPanel {
 
         wordMakerThread.start();
         fallingThread.start();
-        manThread.start();
-        enemyThread.start();
+
     }
 
     @Override
@@ -96,16 +92,16 @@ public class GroundPanel extends JPanel {
         enemyImage = characterManager.getEnemy().getCurrentFrame();
         if(enemyImage != null) {
             switch (characterManager.getEnemyType()) {
-                case SCARECROW : g.drawImage(enemyImage.getImage(), 215, 490, 230, 120, this); break;
-                case MUSHROOM : g.drawImage(enemyImage.getImage(), 158, 340, 350, 400, this); break;
-                case WOLF : g.drawImage(enemyImage.getImage(), 230, 415, 250, 270, this); break;
-                case REAPER : g.drawImage(enemyImage.getImage(), 110, 365, 310, 250, this); break;
+                case SCARECROW : g.drawImage(enemyImage.getImage(), 315, 490, 230, 120, this); break;
+                case MUSHROOM : g.drawImage(enemyImage.getImage(), 260, 340, 350, 400, this); break;
+                case WOLF : g.drawImage(enemyImage.getImage(), 330, 415, 250, 270, this); break;
+                case REAPER : g.drawImage(enemyImage.getImage(), 200, 365, 340, 250, this); break;
             }
         }
 
         manImage = characterManager.getMan().getCurrentFrame();
         if(manImage != null) {
-            g.drawImage(manImage.getImage(), 165, 410, 200, 200, this);
+            g.drawImage(manImage.getImage(), 270, 410, 200, 200, this);
         }
     }
 }

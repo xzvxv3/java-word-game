@@ -18,5 +18,6 @@ public class Reaper extends BaseGameCharacter implements Runnable {
     @Override
     public void run() {
         while (characterLifeCycle()) {} // 캐릭터 모션 실행
+        System.out.println("Repear 스레드 종료");
     }
 }

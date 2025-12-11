@@ -16,11 +16,12 @@ public class ScorePanel extends JPanel {
     private ScoreTextLabel scoreTextLabel = new ScoreTextLabel();
     private ScoreLabel scoreLabel = new ScoreLabel();
 
-    private ImageIcon manHpIconImage = new ImageIcon("resources/icon/hp/ManHpIconImage.png");
-    private ImageIcon mushroomHpIconImage = new ImageIcon("resources/icon/hp/MushroomHpIconImage.png");
-    private ImageIcon reaperHpIconImage = new ImageIcon("resources/icon/hp/ReaperHpIconImage.png");
-    private ImageIcon wolfHpIconImage = new ImageIcon("resources/icon/hp/WolfHpIconImage.png");
-    private ImageIcon scarecrowIconImage = new ImageIcon("resources/icon/hp/ScarecrowHpIconImage.png");
+    private ImageIcon manHpIconImage = new ImageIcon("resources/images/element/ingame/ManHpIconImage.png");
+    private ImageIcon scarecrowIconImage = new ImageIcon("resources/images/element/ingame/ScarecrowHpIconImage.png");
+    private ImageIcon mushroomHpIconImage = new ImageIcon("resources/images/element/ingame/MushroomHpIconImage.png");
+    private ImageIcon wolfHpIconImage = new ImageIcon("resources/images/element/ingame/WolfHpIconImage.png");
+    private ImageIcon reaperHpIconImage = new ImageIcon("resources/images/element/ingame/ReaperHpIconImage.png");
+
 
     private EnemyType enemyType;
 

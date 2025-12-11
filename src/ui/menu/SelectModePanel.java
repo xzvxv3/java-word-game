@@ -58,7 +58,7 @@ public class SelectModePanel extends JPanel {
     private void initComponent() {
         // mode 버튼
         for (int i = 0; i < modeBtns.length; i++) {
-            modeBtns[i].setBounds(50 + 210 * i, 200, 150, 150);
+            modeBtns[i].setBounds(150 + 210 * i, 200, 150, 150);
         }
         // back 버튼
         backBtn.setBounds(50, 630, 140, 55);
@@ -147,6 +147,6 @@ public class SelectModePanel extends JPanel {
         super.paintComponent(g);
         // 이미지 크기 비율 맞게 버튼 크기에 맞춰 그림
         g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-        g.drawImage(gameTitleImage.getImage(), 140, -250, 600, 700, this);
+        g.drawImage(gameTitleImage.getImage(), 250, -250, 600, 700, this);
     }
 }

@@ -22,7 +22,7 @@ public class GamePanel extends JSplitPane {
         playPanel = new PlayPanel(scorePanel, editPanel, enemyType);
 
         setOrientation(JSplitPane.HORIZONTAL_SPLIT); // 수직 구분선
-        setDividerLocation(600); // 수직 구분선 위치
+        setDividerLocation(800); // 수직 구분선 위치
         setEnabled(false); // 구분선 고정
 
         JSplitPane vPane = new JSplitPane(); // 화면 분할 판넬2

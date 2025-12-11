@@ -61,7 +61,7 @@ public class WordFallingTask implements Runnable {
             while(it.hasNext()) {
                 Word word = it.next(); // 단어 라벨 추출
                 word.fall(); // 단어 라벨 떨어트림
-                view.repaint(); // 화면 울렁거림 방지(?)
+                view.repaint(); // 화면 울렁거림 방지
 
                 // 단어 라벨 충돌 판정
                 if(word.isAtBottom()) {
@@ -101,6 +101,13 @@ public class WordFallingTask implements Runnable {
                     it.remove(); // 단어 완전 제거
 
                     System.out.println(characterManager.getEnemyType() + " 공격");
+
+                    // 게임 종료 되는지
+                    if(characterManager.isGameOver()) {
+                        running = false;
+                        if(characterManager.getEnemyHP() <= 0) characterManager.getMan().stop();
+                        else if(characterManager.getManHP() <= 0) characterManager.getEnemy().stop();
+                    }
                 }
             }
         }

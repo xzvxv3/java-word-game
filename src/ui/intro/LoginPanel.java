@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 
 public class LoginPanel extends JPanel {
     // 배경화면 이미지
-    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/intro/login.png");
+    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/ingame/normalday.png");
     // 게임 제목 이미지
     private ImageIcon gameTitleImage = new ImageIcon("resources/images/element/intro/game_title_lbl.png");
     // id, password 이미지
@@ -62,10 +62,10 @@ public class LoginPanel extends JPanel {
 
     // 컴포넌트 요소 초기화
     private void initComponent() {
-        loginButton.setBounds(545, 345, 80, 40);
-        signupButton.setBounds(440, 345, 100, 40);
-        idTextField.setBounds(350, 225, 270, 40);
-        passwordTextField.setBounds(350, 300, 270, 40);
+        loginButton.setBounds(645, 345, 80, 40);
+        signupButton.setBounds(540, 345, 100, 40);
+        idTextField.setBounds(450, 225, 270, 40);
+        passwordTextField.setBounds(450, 300, 270, 40);
         passwordTextField.setEchoChar('●');
     }
 
@@ -121,15 +121,15 @@ public class LoginPanel extends JPanel {
         // 전체 배경 화면
         g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
         // 로그인 글자
-        g.drawImage(gameTitleImage.getImage(), 200, -130, 500, 500, this);
+        g.drawImage(gameTitleImage.getImage(), 300, -130, 500, 500, this);
         // ID 글자
-        g.drawImage(idImage.getImage(), 170, 110, 280, 280, this);
+        g.drawImage(idImage.getImage(), 250, 110, 280, 280, this);
         // Password 글자
-        g.drawImage(passwordImage.getImage(), 75, 200, 280, 260, this);
+        g.drawImage(passwordImage.getImage(), 160, 200, 280, 260, this);
         // Run 모션 이미지
         ImageIcon currentFrame = runAnimation.getCurrentFrame();
         if (currentFrame != null) {
-            g.drawImage(currentFrame.getImage(), 370, 450, 200, 200, this);
+            g.drawImage(currentFrame.getImage(), 170, 450, 200, 200, this);
         }
     }
 }

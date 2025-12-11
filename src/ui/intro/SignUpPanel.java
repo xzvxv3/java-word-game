@@ -44,9 +44,6 @@ public class SignUpPanel extends JPanel {
             "resources/images/button/common/back_btn_rollover.png"
     );
 
-    // 캐릭터 뛰는 모션
-    private RunAnimation runAnimation = new RunAnimation(this, new ManImageLoader());
-
     // 유저 관리 클래스
     private UserManager userManager;
     // 부모 프레임
@@ -61,19 +58,16 @@ public class SignUpPanel extends JPanel {
 
         addActionListeners();
 
-        // 리팩토링 필요. 로그인 화면 -> 회원가입 화면으로 넘어갈때 모션 부드럽게
-        // runMotionStart();
-
         addComponents();
     }
 
     // 컴포넌트 요소 초기화
     private void initComponent() {
-        idTextField.setBounds(350, 225, 270, 40);
-        passwordTextField.setBounds(350, 300, 270, 40);
+        idTextField.setBounds(450, 225, 270, 40);
+        passwordTextField.setBounds(450, 300, 270, 40);
 
-        checkIdButton.setBounds(620, 228, 50, 33);
-        createAccountButton.setBounds(620, 660, 250, 50);
+        checkIdButton.setBounds(720, 228, 50, 33);
+        createAccountButton.setBounds(800, 660, 250, 50);
 
         backButton.setBounds(50, 660, 140, 55);
     }
@@ -148,12 +142,6 @@ public class SignUpPanel extends JPanel {
         add(backButton); // 뒤로가기 버튼
     }
 
-    // 뛰는 모션 시작
-    private void runMotionStart() {
-        Thread runMotionThread = new Thread(runAnimation);
-        runMotionThread.start();
-    }
-
     @Override
     protected void paintComponent(Graphics g) { // 배경 요소
         super.paintComponent(g);
@@ -161,16 +149,10 @@ public class SignUpPanel extends JPanel {
         // 전체 배경 화면
         g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
 
-        g.drawImage(signUpTitleImage.getImage(), 200, -130, 500, 500, this);
+        g.drawImage(signUpTitleImage.getImage(), 300, -130, 500, 500, this);
 
-        g.drawImage(idLabel.getImage(), 170, 110, 280, 280, this);
+        g.drawImage(idLabel.getImage(), 250, 110, 280, 280, this);
 
-        g.drawImage(passwordLabel.getImage(), 75, 200, 280, 260, this);
-
-        // Run 모션 이미지
-        ImageIcon currentFrame = runAnimation.getCurrentFrame();
-        if (currentFrame != null) {
-            g.drawImage(currentFrame.getImage(), 370, 450, 200, 200, this);
-        }
+        g.drawImage(passwordLabel.getImage(), 160, 200, 280, 260, this);
     }
 }
