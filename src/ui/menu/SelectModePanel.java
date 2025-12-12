@@ -1,6 +1,8 @@
 package ui.menu;
 
 import character.type.EnemyType;
+import dto.User;
+import manager.RankingManager;
 import ui.common.GameImageButton;
 import ui.game.GamePanel;
 import ui.toolbar.GameToolBar;
@@ -55,11 +57,14 @@ public class SelectModePanel extends JPanel {
     private JFrame frame;
 
     // 사용자 아이디
-    private String id = null;
+    private User user = null;
 
-    public SelectModePanel(JFrame frame, String id) {
+    private RankingManager rankingManager = null;
+
+    public SelectModePanel(JFrame frame, RankingManager rankingManager, User user) {
         this.frame = frame;
-        this.id = id;
+        this.rankingManager = rankingManager;
+        this.user = user;
         setLayout(null);
         initComponent();
         addActionListeners();
@@ -94,8 +99,8 @@ public class SelectModePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new GamePanel(EnemyType.SCARECROW), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, id), BorderLayout.NORTH);
+                frame.getContentPane().add(new GamePanel(EnemyType.SCARECROW, rankingManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new GameToolBar(frame, rankingManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
@@ -107,8 +112,8 @@ public class SelectModePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new GamePanel(EnemyType.MUSHROOM), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, id), BorderLayout.NORTH);
+                frame.getContentPane().add(new GamePanel(EnemyType.MUSHROOM, rankingManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new GameToolBar(frame, rankingManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
@@ -120,8 +125,8 @@ public class SelectModePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new GamePanel(EnemyType.WOLF), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, id), BorderLayout.NORTH);
+                frame.getContentPane().add(new GamePanel(EnemyType.WOLF, rankingManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new GameToolBar(frame, rankingManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
@@ -133,8 +138,8 @@ public class SelectModePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new GamePanel(EnemyType.REAPER), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, id), BorderLayout.NORTH);
+                frame.getContentPane().add(new GamePanel(EnemyType.REAPER, rankingManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new GameToolBar(frame, rankingManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
@@ -145,7 +150,7 @@ public class SelectModePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
-                frame.getContentPane().add(new MenuPanel(frame, id), BorderLayout.CENTER);
+                frame.getContentPane().add(new MenuPanel(frame, rankingManager, user), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();

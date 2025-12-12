@@ -1,8 +1,10 @@
 package ui.game.left;
 
+import dto.User;
 import manager.CharacterManager;
 import character.type.MotionType;
 import character.type.WeaponType;
+import manager.RankingManager;
 import manager.WordManager;
 import ui.game.right.ItemPanel;
 import ui.game.right.ScorePanel;
@@ -19,27 +21,33 @@ public class InputPanel extends JPanel {
     private JTextField inputField = new JTextField(10);
 
     // 캐릭터 관리 클래스
-    private CharacterManager characterManager;
+    private CharacterManager characterManager = null;
     // 단어 관리 클래스
-    private WordManager wordManager;
+    private WordManager wordManager = null;
+    // 랭킹 관리 클래스
+    private RankingManager rankingManager = null;
 
     // 단어 저장소
-    private Vector<Word> words;
+    private Vector<Word> words = null;
 
-    private ScorePanel scorePanel;
-    private ItemPanel itemPanel;
+    private ScorePanel scorePanel = null;
+    private ItemPanel itemPanel = null;
 
-    // WordManager을 여기에다가 주입시킬것.
-    public InputPanel(ScorePanel scorePanel, ItemPanel itemPanel, WordManager wordManager, CharacterManager characterManager) {
+    private User user = null;
+
+    public InputPanel(ScorePanel scorePanel, ItemPanel itemPanel, WordManager wordManager, CharacterManager characterManager, RankingManager rankingManager, User user) {
+        this.setBackground(Color.GRAY);
+
         this.scorePanel = scorePanel;
         this.itemPanel = itemPanel;
         this.wordManager = wordManager;
-        this.characterManager = characterManager;
-
-        this.setBackground(Color.GRAY);
-
-        this.characterManager = characterManager;
         words = wordManager.getWordVector();
+        this.characterManager = characterManager;
+        this.rankingManager = rankingManager;
+        this.user = user;
+
+        // 유저의 현재 점수 초기화 -> 0
+        user.resetCurrentScore();
 
         add(inputField);
 
@@ -66,6 +74,18 @@ public class InputPanel extends JPanel {
                         // 단어를 맞췄을 경우
                         if(word.getText().equals(userText)) {
                             scorePanel.increaseScore(1);
+
+                            switch (characterManager.getManWeapon()) {
+                                case WeaponType.EMPTY :
+                                    user.incrementCurrentScore(1);
+                                    System.out.println("[점수 획득 + 1]");
+                                    break;
+                                case WeaponType.SWORD :
+                                    user.incrementCurrentScore(3);
+                                    System.out.println("[점수 획득 + 3]");
+                                    break;
+                            }
+
                             it.remove();
                             wordManager.removeWord(word);
 
@@ -97,9 +117,15 @@ public class InputPanel extends JPanel {
                             if(characterManager.isGameOver()) {
                                 if(characterManager.getCurrentEnemyHP() <= 0) characterManager.getMan().stop();
                                 else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
+
+                                // 모드에 따른 현재 유저의 점수 갱신
+                                user.updateCurrentScore(characterManager.getEnemyType());
+
+                                // 랭킹에 업데이트
+                                rankingManager.updateScore(user);
                             }
 
-                            break;
+                            break; // 단어를 맞췄으면, 더이상의 탐색은 하지 않는다.
                         }
                     }
                 }

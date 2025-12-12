@@ -31,6 +31,9 @@ public class CharacterManager {
     // 현재 Enemy
     private EnemyType enemyType;
 
+    // 현재 Man 무기 상태
+    private WeaponType weaponType;
+
     private GroundPanel view;
 
     // Man 체력
@@ -39,6 +42,8 @@ public class CharacterManager {
     private int scarecrowHP = 10, mushroomHP = 2, wolfHP = 5, reaperHP = 60;
 
     public CharacterManager() {
+        // 시작은 무기 보유X
+        weaponType = WeaponType.EMPTY;
     }
 
     public void setView(GroundPanel view) {
@@ -57,6 +62,8 @@ public class CharacterManager {
     public void changeManWeapon() {
         man.changeToSword();
     }
+
+    public WeaponType getCurrentWeapon() { return man.getCurrentWeapon(); }
 
     public Runnable getManTask() {
         return man;

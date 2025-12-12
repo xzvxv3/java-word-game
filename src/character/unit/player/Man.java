@@ -44,5 +44,5 @@ public class Man extends BaseGameCharacter implements Runnable {
     }
 
     // 현재 무기 상태 반환
-    public WeaponType getCurrentWeapon() {return weapon;}
+    public WeaponType getCurrentWeapon() { return weapon; }
 }

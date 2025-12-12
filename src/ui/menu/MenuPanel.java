@@ -1,5 +1,6 @@
 package ui.menu;
 
+import dto.User;
 import manager.RankingManager;
 import ui.common.GameImageButton;
 import ui.toolbar.StartToolBar;
@@ -13,35 +14,41 @@ public class MenuPanel extends JPanel {
 
     private ImageIcon backgroundImage = new ImageIcon("resources/images/background/common/default.png");
 
+    private final String BTN_PATH = "resources/images/button/menu/";
+
     JButton selectModeBtn = new GameImageButton(
-            "resources/images/button/menu/selectmode_btn.png",
-            "resources/images/button/menu/selectmode_btn_rollover.png"
+             BTN_PATH + "selectmode_btn.png",
+            BTN_PATH + "selectmode_btn_rollover.png"
     );
 
     JButton rankingBtn = new GameImageButton(
-            "resources/images/button/menu/ranking_btn.png",
-            "resources/images/button/menu/ranking_btn_rollover.png"
+            BTN_PATH + "ranking_btn.png",
+            BTN_PATH + "ranking_btn_rollover.png"
     );
 
     JButton settingBtn = new GameImageButton(
-            "resources/images/button/menu/settings_btn.png",
-            "resources/images/button/menu/settings_btn_rollover.png"
+            BTN_PATH + "settings_btn.png",
+            BTN_PATH + "settings_btn_rollover.png"
     );
 
     JButton logoutBtn = new GameImageButton(
-            "resources/images/button/menu/logout_btn.png",
-            "resources/images/button/menu/logout_btn_rollover.png"
+            BTN_PATH + "logout_btn.png",
+            BTN_PATH + "logout_btn_rollover.png"
     );
 
     JButton[] btns = {selectModeBtn, rankingBtn, settingBtn, logoutBtn};
 
     private JFrame frame;
-    // 사용자 아이디
-    private String id = null;
 
-    public MenuPanel(JFrame frame, String id) {
+    // 사용자
+    private User user = null;
+
+    private RankingManager rankingManager = null;
+
+    public MenuPanel(JFrame frame, RankingManager rankingManager, User user) {
         this.frame = frame;
-        this.id = id;
+        this.rankingManager = rankingManager;
+        this.user = user;
         setLayout(null);
 
         initComponent();
@@ -65,7 +72,7 @@ public class MenuPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new SelectModePanel(frame, id), BorderLayout.CENTER);
+                frame.getContentPane().add(new SelectModePanel(frame, rankingManager, user), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
@@ -78,7 +85,7 @@ public class MenuPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new RankingPanel(frame, id), BorderLayout.CENTER);
+                frame.getContentPane().add(new RankingPanel(frame, rankingManager, user), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();

@@ -3,6 +3,7 @@ package ui.intro;
 import character.imageloader.ManImageLoader;
 import character.ui.RunAnimation;
 
+import dto.User;
 import manager.LoginManager;
 import manager.RankingManager;
 import ui.menu.MenuPanel;
@@ -85,8 +86,11 @@ public class LoginPanel extends JPanel {
                 id = idTextField.getText(); // id
                 password = String.valueOf(passwordTextField.getPassword()); // password
                 if(loginManager.findUser(id, password)) {
+                    // 랭킹에 기록된 유저면 데이터를 그대로 가져오고, 아니면 새로 생성해서 가져온다.
+                    User user = rankingManager.getUser(id);
+
                     frame.getContentPane().removeAll();
-                    frame.getContentPane().add(new MenuPanel(frame, id), BorderLayout.CENTER);
+                    frame.getContentPane().add(new MenuPanel(frame, rankingManager, user), BorderLayout.CENTER);
                     frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                     frame.revalidate();
                     frame.repaint();
