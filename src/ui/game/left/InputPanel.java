@@ -3,10 +3,10 @@ package ui.game.left;
 import manager.CharacterManager;
 import character.type.MotionType;
 import character.type.WeaponType;
-import ui.game.right.EditPanel;
+import manager.WordManager;
+import ui.game.right.ItemPanel;
 import ui.game.right.ScorePanel;
 import word.Word;
-import word.WordStore;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,30 +17,34 @@ import java.util.Vector;
 
 public class InputPanel extends JPanel {
     private JTextField inputField = new JTextField(10);
-    private WordStore wordStore;
+
+
+    // 캐릭터 관리 클래스
     private CharacterManager characterManager;
-    private GroundPanel view;
+    // 단어 관리 클래스
+    private WordManager wordManager;
 
     // 단어 저장소
     private Vector<Word> words;
 
     private ScorePanel scorePanel;
-    private EditPanel editPanel;
+    private ItemPanel itemPanel;
 
     // WordManager을 여기에다가 주입시킬것.
-    public InputPanel(ScorePanel scorePanel, EditPanel editPanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view) {
-        this.editPanel = editPanel;
+    public InputPanel(ScorePanel scorePanel, ItemPanel itemPanel, WordManager wordManager, CharacterManager characterManager) {
         this.scorePanel = scorePanel;
-        this.setBackground(Color.GRAY);
-        this.wordStore = wordStore;
+        this.itemPanel = itemPanel;
+        this.wordManager = wordManager;
         this.characterManager = characterManager;
-        this.view = view;
-        words = wordStore.getWordVector();
+
+        this.setBackground(Color.GRAY);
+
+        this.characterManager = characterManager;
+        words = wordManager.getWordVector();
 
         add(inputField);
 
         inputField.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -64,8 +68,7 @@ public class InputPanel extends JPanel {
                         if(word.getText().equals(userText)) {
                             scorePanel.increaseScore(1);
                             it.remove();
-                            view.remove(word);
-                            view.revalidate();
+                            wordManager.removeWord(word);
 
                             int r = (int) (Math.random() * 4);
 
@@ -104,7 +107,7 @@ public class InputPanel extends JPanel {
 
                 // 점수가 15점 이상이면 무기 버튼 활성화
                 if(scorePanel.isPossibleChangeWeapon()) {
-                    editPanel.setSwordON();
+                    itemPanel.setSwordON();
                 }
             }
         });

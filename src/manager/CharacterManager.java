@@ -31,20 +31,31 @@ public class CharacterManager {
     // 현재 Enemy
     private EnemyType enemyType;
 
-    public CharacterManager(GroundPanel view) {
-        man = new Man(view, manImageLoader, WeaponType.EMPTY, 100);
-        scarecrow = new Scarecrow(view, scarecrowImageLoader, 10); // 기본 10
-        mushroom = new Mushroom(view, mushroomImageLoader, 2);
-        wolf = new Wolf(view, wolfImageLoader, 5);
-        reaper = new Reaper(view, reaperImageLoader, 60);
+    private GroundPanel view;
+
+    // Man 체력
+    private int manHP = 100;
+    // Monster 체력
+    private int scarecrowHP = 10, mushroomHP = 2, wolfHP = 5, reaperHP = 60;
+
+    public CharacterManager() {
+    }
+
+    public void setView(GroundPanel view) {
+        this.view = view;
+        setCharacters(view);
+    }
+
+    private void setCharacters(GroundPanel view) {
+        man = new Man(view, manImageLoader, WeaponType.EMPTY, manHP);
+        scarecrow = new Scarecrow(view, scarecrowImageLoader, scarecrowHP);
+        mushroom = new Mushroom(view, mushroomImageLoader, mushroomHP);
+        wolf = new Wolf(view, wolfImageLoader, wolfHP);
+        reaper = new Reaper(view, reaperImageLoader, reaperHP);
     }
 
     public void changeManWeapon() {
         man.changeToSword();
-    }
-
-    public void setEnemy(EnemyType enemyType) {
-        this.enemyType = enemyType;
     }
 
     public Runnable getManTask() {
@@ -63,13 +74,15 @@ public class CharacterManager {
 
     public BaseGameCharacter getMan() { return man; }
 
+    // Enemy 타입 설정
     public void setEnemyType(EnemyType enemyType) {
         this.enemyType = enemyType;
     }
-
+    // Enemy 타입 반환
     public EnemyType getEnemyType() {
         return enemyType;
     }
+
 
     public WeaponType getManWeapon() {
         return man.getCurrentWeapon();
@@ -94,15 +107,15 @@ public class CharacterManager {
 
     // Man 체력 반환
     public int getManHP() {
-        return man.getCurrentHp();
+        return manHP;
     }
 
     // Enemy 체력 반환
     public int getEnemyHP() {
         switch (enemyType) {
-            case MUSHROOM : return mushroom.getCurrentHp();
-            case WOLF : return wolf.getCurrentHp();
-            case REAPER : return reaper.getCurrentHp();
+            case MUSHROOM : return mushroomHP;
+            case WOLF : return wolfHP;
+            case REAPER : return reaperHP;
         }
         return 0;
     }

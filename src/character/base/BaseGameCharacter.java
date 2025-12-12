@@ -75,7 +75,7 @@ public abstract class BaseGameCharacter extends BaseAnimation {
     }
 
     public void stop() {
-        // 멈추고 있는중이라면 무시 -> nowTime이 재갱신 되는것을 막기 위하
+        // 멈추고 있는중이라면 무시 -> nowTime이 재갱신 되는것을 막기 위함
         if(!isrunning) return;
 
         isrunning = false;

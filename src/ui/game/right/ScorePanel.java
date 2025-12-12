@@ -37,10 +37,9 @@ public class ScorePanel extends JPanel {
         add(scoreLabel);
     }
 
-    public void setHpBar(CharacterManager characterManager) {
-        manHpBar = new ManHpBar(characterManager.getManHP());
-        enemyHpBar = new EnemyHpBar(characterManager.getEnemyHP());
-
+    public void setHpBar(int manHP, int monsterHP) {
+        manHpBar = new ManHpBar(manHP);
+        enemyHpBar = new EnemyHpBar(monsterHP);
         add(manHpBar);
         add(enemyHpBar);
     }

@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class EditPanel extends JPanel {
+public class ItemPanel extends JPanel {
 
     private SwordBtn swordBtn = new SwordBtn();
     private PotionBtn potionBtn = new PotionBtn();
@@ -21,7 +21,7 @@ public class EditPanel extends JPanel {
 
     private CharacterManager characterManager;
 
-    public EditPanel(ScorePanel scorePanel) {
+    public ItemPanel(ScorePanel scorePanel) {
         this.scorePanel = scorePanel;
         this.setBackground(Color.GRAY);
         this.setLayout(null);
