@@ -1,8 +1,10 @@
 package word.worker;
 
+import dto.User;
 import manager.CharacterManager;
 import character.type.EnemyType;
 import character.type.MotionType;
+import manager.RankingManager;
 import ui.game.right.ScorePanel;
 import word.Word;
 import word.WordStore;
@@ -20,7 +22,10 @@ public class WordFallingTask implements Runnable {
     private WordStore wordStore;
 
     // 캐릭터 관리 클래스
-    private CharacterManager characterManager;
+    private CharacterManager characterManager = null;
+
+    private RankingManager rankingManager = null;
+    private User user = null;
 
     // 단어 저장소
     private Vector<Word> words;
@@ -30,11 +35,14 @@ public class WordFallingTask implements Runnable {
 
     private ScorePanel scorePanel;
 
-    public WordFallingTask(ScorePanel scorePanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view) {
+    public WordFallingTask(ScorePanel scorePanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view, RankingManager rankingManager, User user) {
         this.scorePanel = scorePanel;
         this.wordStore = wordStore;
         this.view = view;
         this.characterManager = characterManager;
+        this.user = user;
+        this.rankingManager = rankingManager;
+
         words = wordStore.getWordVector();
     }
 
@@ -107,6 +115,12 @@ public class WordFallingTask implements Runnable {
                         running = false;
                         if(characterManager.getCurrentEnemyHP() <= 0) characterManager.getMan().stop();
                         else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
+
+                        // 모드에 따른 현재 유저의 점수 갱신
+                        user.updateCurrentScore(characterManager.getEnemyType());
+
+                        // 랭킹에 업데이트
+                        rankingManager.updateScore(user);
                     }
                 }
             }

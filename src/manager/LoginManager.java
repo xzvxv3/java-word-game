@@ -50,7 +50,7 @@ public class LoginManager {
 
             // 해당 ID의 Password와 사용자가 입력한 Password가 일치하는지 확인
             if(userPassword.equals(password)) {
-                System.out.println("[로그인 성공]");
+                System.out.println("[로그인] " + id);
                 return true;
             }
         }

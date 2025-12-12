@@ -2,6 +2,7 @@ package ui.menu;
 
 import character.type.EnemyType;
 import dto.User;
+import manager.LoginManager;
 import manager.RankingManager;
 import ui.common.GameImageButton;
 import ui.game.GamePanel;
@@ -29,10 +30,12 @@ public class RankingPanel extends JPanel {
             BTN_PATH + "common/back_btn_rollover.png"
     );
 
+    // 로그인 관리자
+    private LoginManager loginManager = null;
     // 랭킹 관리자
     private RankingManager rankingManager = null;
 
-    public RankingPanel(JFrame frame, RankingManager rankingManager, User user) {
+    public RankingPanel(JFrame frame, RankingManager rankingManager, LoginManager loginManager, User user) {
         this.frame = frame;
         this.rankingManager = rankingManager;
         this.user = user;
@@ -47,10 +50,11 @@ public class RankingPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
-                frame.getContentPane().add(new MenuPanel(frame, rankingManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new MenuPanel(frame, rankingManager, loginManager, user), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                System.out.println("[메뉴 화면]");
             }
         });
         add(backBtn);

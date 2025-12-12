@@ -78,11 +78,11 @@ public class InputPanel extends JPanel {
                             switch (characterManager.getManWeapon()) {
                                 case WeaponType.EMPTY :
                                     user.incrementCurrentScore(1);
-                                    System.out.println("[점수 획득 + 1]");
+                                    System.out.println("[공격] → 점수 +1");
                                     break;
                                 case WeaponType.SWORD :
                                     user.incrementCurrentScore(3);
-                                    System.out.println("[점수 획득 + 3]");
+                                    System.out.println("[공격] → 점수 +3");
                                     break;
                             }
 
@@ -111,7 +111,6 @@ public class InputPanel extends JPanel {
 
                             characterManager.decreaseEnemyHP(1);
                             characterManager.getEnemy().onAttacked();
-                            System.out.println("Man 공격");
 
                             // 게임 종료 되는지
                             if(characterManager.isGameOver()) {

@@ -2,6 +2,7 @@ package ui.menu;
 
 import character.type.EnemyType;
 import dto.User;
+import manager.LoginManager;
 import manager.RankingManager;
 import ui.common.GameImageButton;
 import ui.game.GamePanel;
@@ -59,11 +60,15 @@ public class SelectModePanel extends JPanel {
     // 사용자 아이디
     private User user = null;
 
+    // 로그인 관리자
+    private LoginManager loginManager = null;
+    // 랭킹 관리자
     private RankingManager rankingManager = null;
 
-    public SelectModePanel(JFrame frame, RankingManager rankingManager, User user) {
+    public SelectModePanel(JFrame frame, RankingManager rankingManager, LoginManager loginManager, User user) {
         this.frame = frame;
         this.rankingManager = rankingManager;
+        this.loginManager = loginManager;
         this.user = user;
         setLayout(null);
         initComponent();
@@ -100,9 +105,10 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.SCARECROW, rankingManager, user), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, rankingManager, user), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame, rankingManager, loginManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                System.out.println("[게임 시작] Pratice Mode");
             }
         });
 
@@ -113,9 +119,10 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.MUSHROOM, rankingManager, user), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, rankingManager, user), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame, rankingManager, loginManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                System.out.println("[게임 시작] Easy Mode");
             }
         });
 
@@ -126,9 +133,10 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.WOLF, rankingManager, user), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, rankingManager, user), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame, rankingManager, loginManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                System.out.println("[게임 시작] Medium Mode");
             }
         });
 
@@ -139,9 +147,10 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.REAPER, rankingManager, user), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, rankingManager, user), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame, rankingManager, loginManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                System.out.println("[게임 시작] Hard Mode");
             }
         });
 
@@ -150,10 +159,11 @@ public class SelectModePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
-                frame.getContentPane().add(new MenuPanel(frame, rankingManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new MenuPanel(frame, rankingManager, loginManager, user), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                System.out.println("[메뉴 화면]");
             }
         });
     }

@@ -18,7 +18,7 @@ public class GamePanel extends JSplitPane {
     private ItemPanel itemPanel; // 편집 판넬
 
     private CharacterManager characterManager = new CharacterManager();
-    private WordManager wordManager = new WordManager(characterManager);
+    private WordManager wordManager = null;
     private RankingManager rankingManager = null;
     private User user = null;
 
@@ -29,6 +29,8 @@ public class GamePanel extends JSplitPane {
 
         this.rankingManager = rankingManager;
         this.user = user;
+
+        wordManager = new WordManager(characterManager, rankingManager, user);
 
         // ====================== 오른쪽 화면(점수 + 체력바, 아이템 선택 화면) ======================
         scorePanel = new ScorePanel(characterManager); // 점수 Panel 생성

@@ -1,5 +1,6 @@
 package manager;
 
+import dto.User;
 import ui.game.left.GroundPanel;
 import ui.game.right.ScorePanel;
 import word.TextStore;
@@ -32,9 +33,13 @@ public class WordManager {
 
     // 캐릭터 관리자
     private CharacterManager characterManager;
+    private RankingManager rankingManager;
+    private User user;
 
-    public WordManager(CharacterManager characterManager) {
+    public WordManager(CharacterManager characterManager, RankingManager rankingManager, User user) {
         this.characterManager = characterManager;
+        this.rankingManager = rankingManager;
+        this.user = user;
     }
 
     // 낙하 단어장 반환
@@ -65,7 +70,7 @@ public class WordManager {
             System.exit(0);
         }
         // 단어 낙하 Runnable 생성
-        wordFallingTask = new WordFallingTask(scorePanel, wordStore, characterManager, view);
+        wordFallingTask = new WordFallingTask(scorePanel, wordStore, characterManager, view, rankingManager, user);
     }
 
     // 단어 생성 Runnable 생성

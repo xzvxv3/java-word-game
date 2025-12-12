@@ -1,8 +1,10 @@
 package ui.menu;
 
 import dto.User;
+import manager.LoginManager;
 import manager.RankingManager;
 import ui.common.GameImageButton;
+import ui.intro.LoginPanel;
 import ui.toolbar.StartToolBar;
 
 import javax.swing.*;
@@ -43,11 +45,16 @@ public class MenuPanel extends JPanel {
     // 사용자
     private User user = null;
 
+
+    // 로그인 관리자 (로그아웃 용도)
+    private LoginManager loginManager = null;
+    // 랭킹 관리자
     private RankingManager rankingManager = null;
 
-    public MenuPanel(JFrame frame, RankingManager rankingManager, User user) {
+    public MenuPanel(JFrame frame, RankingManager rankingManager, LoginManager loginManager, User user) {
         this.frame = frame;
         this.rankingManager = rankingManager;
+        this.loginManager = loginManager;
         this.user = user;
         setLayout(null);
 
@@ -72,10 +79,11 @@ public class MenuPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new SelectModePanel(frame, rankingManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new SelectModePanel(frame, rankingManager, loginManager, user), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                System.out.println("[모드 선택]");
             }
         });
 
@@ -85,10 +93,25 @@ public class MenuPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new RankingPanel(frame, rankingManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new RankingPanel(frame, rankingManager, loginManager, user), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                System.out.println("[랭킹 화면]");
+            }
+        });
+
+        // 로그아웃 버튼
+        logoutBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.getContentPane().removeAll();
+                frame.getContentPane().setLayout(new BorderLayout());
+                frame.getContentPane().add(new LoginPanel(frame, new LoginManager(), rankingManager), BorderLayout.CENTER);
+                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                frame.revalidate();
+                frame.repaint();
+                System.out.println("[로그아웃] " + user.getId());
             }
         });
 

@@ -90,7 +90,7 @@ public class LoginPanel extends JPanel {
                     User user = rankingManager.getUser(id);
 
                     frame.getContentPane().removeAll();
-                    frame.getContentPane().add(new MenuPanel(frame, rankingManager, user), BorderLayout.CENTER);
+                    frame.getContentPane().add(new MenuPanel(frame, rankingManager, loginManager, user), BorderLayout.CENTER);
                     frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                     frame.revalidate();
                     frame.repaint();

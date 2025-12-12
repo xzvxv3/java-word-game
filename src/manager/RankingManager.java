@@ -24,6 +24,7 @@ public class RankingManager {
         System.out.println("[랭킹 불러오기 성공]");
     }
 
+    // 랭킹에 저장된 유저면 그대로 반환, 아니면 새로 만들어서 반환
     public User getUser(String id) {
         if (userMap.containsKey(id)) {
             return userMap.get(id); // 이미 있는 유저 반환 (점수 유지)
