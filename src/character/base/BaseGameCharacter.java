@@ -94,6 +94,4 @@ public abstract class BaseGameCharacter extends BaseAnimation {
     }
 
     public int getCurrentHp() { return hp; }
-
-
 }

@@ -27,6 +27,7 @@ public class InputPanel extends JPanel {
     private ScorePanel scorePanel;
     private EditPanel editPanel;
 
+    // WordManager을 여기에다가 주입시킬것.
     public InputPanel(ScorePanel scorePanel, EditPanel editPanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view) {
         this.editPanel = editPanel;
         this.scorePanel = scorePanel;
@@ -91,7 +92,10 @@ public class InputPanel extends JPanel {
                             System.out.println("Man 공격");
 
                             // 게임 종료 되는지
-                            characterManager.isGameOver();
+                            if(characterManager.isGameOver()) {
+                                if(characterManager.getEnemyHP() <= 0) characterManager.getMan().stop();
+                                else if(characterManager.getManHP() <= 0) characterManager.getEnemy().stop();
+                            }
 
                             break;
                         }

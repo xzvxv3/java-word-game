@@ -13,8 +13,7 @@ public class Wolf extends BaseGameCharacter implements Runnable {
 
     @Override
     public void run() {
-        while (characterLifeCycle()) {
-            System.out.println("Wolf 스레드 종료");
-        } // 캐릭터 모션 실행
+        while (characterLifeCycle()) {} // 캐릭터 모션 실행
+        System.out.println("Wolf 스레드 종료");
     }
 }

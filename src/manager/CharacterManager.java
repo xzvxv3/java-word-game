@@ -28,8 +28,6 @@ public class CharacterManager {
 
     private Thread manThread, enemyThread, gameStopThread;
 
-    private boolean isGameRunning = true;
-
     // 현재 Enemy
     private EnemyType enemyType;
 
@@ -93,9 +91,6 @@ public class CharacterManager {
         return false;
     }
 
-    public boolean isGameRunning() {
-        return isGameRunning;
-    }
 
     // Man 체력 반환
     public int getManHP() {

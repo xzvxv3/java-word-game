@@ -12,9 +12,8 @@ public class Scarecrow extends BaseGameCharacter implements Runnable{
     }
     @Override
     public void run() {
-        while (characterLifeCycle()) {
-
-        } // 캐릭터 모션 실행
+        while (characterLifeCycle()) {}
+        System.out.println("Scarecrow 스레드 종료");// 캐릭터 모션 실행
     }
     // HP 설정
     public void setHP(int hp) {

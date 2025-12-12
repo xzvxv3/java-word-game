@@ -1,7 +1,6 @@
 package character.unit.monster;
 
 import character.base.BaseGameCharacter;
-import character.type.MotionType;
 import character.imageloader.ImageLoader;
 import character.imageloader.ReaperImageLoader;
 
