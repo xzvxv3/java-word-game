@@ -44,9 +44,8 @@ public class MenuPanel extends JPanel {
 
     // 사용자
     private User user = null;
-
-
-    // 로그인 관리자 (로그아웃 용도)
+    
+    // 로그인 관리자 (로그아웃시 필요)
     private LoginManager loginManager = null;
     // 랭킹 관리자
     private RankingManager rankingManager = null;

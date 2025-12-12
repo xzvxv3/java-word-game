@@ -136,4 +136,8 @@ public class InputPanel extends JPanel {
             }
         });
     }
+
+    public void requestFocusOnTextField() {
+        inputField.requestFocusInWindow();
+    }
 }

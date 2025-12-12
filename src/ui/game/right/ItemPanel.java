@@ -1,6 +1,7 @@
 package ui.game.right;
 
 import manager.CharacterManager;
+import ui.game.left.InputPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,9 +18,10 @@ public class ItemPanel extends JPanel {
     private PotionLabel potionLabel = new PotionLabel();
     private TimeLabel timeLabel = new TimeLabel();
 
-    private ScorePanel scorePanel;
+    private ScorePanel scorePanel = null;
 
-    private CharacterManager characterManager;
+    private CharacterManager characterManager = null;
+    private InputPanel inputPanel = null;
 
     public ItemPanel(ScorePanel scorePanel) {
         this.scorePanel = scorePanel;
@@ -38,6 +40,7 @@ public class ItemPanel extends JPanel {
         this.characterManager = characterManager;
     }
 
+    public void setInputPanel(InputPanel inputPanel) {this.inputPanel = inputPanel; }
     // 무기 활성화
     public void setSwordON() {
         if(swordLabel.isAlreadyUsedSword()) return;
@@ -74,6 +77,7 @@ public class ItemPanel extends JPanel {
                         characterManager.changeManWeapon();
                         setAlreadyUsedSword();
                     }
+                    inputPanel.requestFocusOnTextField();
                 }
             });
         }
@@ -137,6 +141,7 @@ public class ItemPanel extends JPanel {
                     if(healCount == 3) {
                         setIcon(new ImageIcon("resources/images/button/ingame/PotionEmpty.png"));
                     }
+                    inputPanel.requestFocusOnTextField();
                 }
             });
         }

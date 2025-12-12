@@ -35,10 +35,12 @@ public class PlayPanel extends JPanel {
         setLayout(new BorderLayout());
         // 게임 실행 화면 생성
         groundPanel = new GroundPanel(characterManager, wordManager); // wordStore 주입
-        // 단어 입력 칸 생성
-        inputPanel = new InputPanel(scorePanel, itemPanel, wordManager, characterManager, rankingManager, user); // InputPanel에 CharacterManager 주입
+
+        // 입력칸
+        inputPanel = new InputPanel(scorePanel, itemPanel, wordManager, characterManager, rankingManager, user);
 
         itemPanel.setCharacterManager(characterManager);
+        itemPanel.setInputPanel(inputPanel);
 
         add(inputPanel, BorderLayout.SOUTH);
         add(groundPanel, BorderLayout.CENTER);

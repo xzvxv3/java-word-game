@@ -5,6 +5,7 @@ import dto.User;
 import manager.CharacterManager;
 import manager.RankingManager;
 import manager.WordManager;
+import ui.game.left.InputPanel;
 import ui.game.left.PlayPanel;
 import ui.game.right.ItemPanel;
 import ui.game.right.ScorePanel;
@@ -16,6 +17,7 @@ public class GamePanel extends JSplitPane {
     private PlayPanel playPanel;
     private ScorePanel scorePanel; // 점수 판넬
     private ItemPanel itemPanel; // 편집 판넬
+    private InputPanel inputPanel;
 
     private CharacterManager characterManager = new CharacterManager();
     private WordManager wordManager = null;
@@ -32,11 +34,14 @@ public class GamePanel extends JSplitPane {
 
         wordManager = new WordManager(characterManager, rankingManager, user);
 
+
+
         // ====================== 오른쪽 화면(점수 + 체력바, 아이템 선택 화면) ======================
         scorePanel = new ScorePanel(characterManager); // 점수 Panel 생성
         scorePanel.setHpBar(characterManager.getManHP(), characterManager.getEnemyHP()); // 체력바 생성
 
         wordManager.setScorePanel(scorePanel); // WordManager에게 Score Panel 주입 (점수 판정용)
+
         itemPanel = new ItemPanel(scorePanel); // 아이템 선택 Panel
 
         // ====================== 왼쪽 화면(게임 화면) ======================
