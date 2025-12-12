@@ -24,7 +24,7 @@ public class GamePanel extends JSplitPane {
         characterManager.setEnemyType(enemyType);
 
         // ====================== 오른쪽 화면(점수 + 체력바, 아이템 선택 화면) ======================
-        scorePanel = new ScorePanel(characterManager.getEnemyType()); // 점수 Panel 생성
+        scorePanel = new ScorePanel(characterManager); // 점수 Panel 생성
         scorePanel.setHpBar(characterManager.getManHP(), characterManager.getEnemyHP()); // 체력바 생성
 
         wordManager.setScorePanel(scorePanel); // WordManager에게 Score Panel 주입 (점수 판정용)

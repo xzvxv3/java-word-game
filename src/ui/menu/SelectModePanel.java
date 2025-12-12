@@ -12,42 +12,54 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SelectModePanel extends JPanel {
-    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/menu/select_mode_background_image.png");
+
+    private final String BTN_PATH = "resources/images/button/";
+
+    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/common/default.png");
 
     private ImageIcon gameTitleImage = new ImageIcon("resources/images/element/menu/selectmode_lbl.png");
 
+    // Scarecrow 모드 버튼
     private JButton scarecrowBtn = new GameImageButton(
-            "resources/images/button/menu/scarecrow_btn.png",
-            "resources/images/button/menu/scarecrow_btn_rollover.png"
+            BTN_PATH + "menu/scarecrow_btn.png",
+            BTN_PATH + "menu/scarecrow_btn_rollover.png"
     );
 
+    // Mushroom 모드 버튼
     private JButton mushroomBtn = new GameImageButton(
-        "resources/images/button/menu/mushroom_btn.png",
-            "resources/images/button/menu/mushroom_btn_rollover.png"
+            BTN_PATH + "menu/mushroom_btn.png",
+            BTN_PATH + "menu/mushroom_btn_rollover.png"
     );
 
+    // Wolf 모드 버튼
     private JButton wolfBtn = new GameImageButton(
-    "resources/images/button/menu/wolf_btn.png",
-            "resources/images/button/menu/wolf_btn_rollover.png"
+            BTN_PATH + "menu/wolf_btn.png",
+            BTN_PATH + "menu/wolf_btn_rollover.png"
     );
 
+    // Repear 모드 버튼
     private JButton reaperBtn = new GameImageButton(
-"resources/images/button/menu/reaper_btn.png",
-            "resources/images/button/menu/reaper_btn_rollover.png"
+            BTN_PATH + "menu/reaper_btn.png",
+            BTN_PATH + "menu/reaper_btn_rollover.png"
     );
-
-    private JButton[] modeBtns = {scarecrowBtn, mushroomBtn, wolfBtn, reaperBtn};
 
     // 뒤로가기 버튼
     private JButton backBtn = new GameImageButton(
-            "resources/images/button/common/back_btn.png",
-            "resources/images/button/common/back_btn_rollover.png"
+            BTN_PATH + "common/back_btn.png",
+            BTN_PATH + "common/back_btn_rollover.png"
     );
+
+    // 게임 모드 버튼 배열
+    private JButton[] modeBtns = {scarecrowBtn, mushroomBtn, wolfBtn, reaperBtn};
 
     private JFrame frame;
 
-    public SelectModePanel(JFrame frame) {
+    // 사용자 아이디
+    private String id = null;
+
+    public SelectModePanel(JFrame frame, String id) {
         this.frame = frame;
+        this.id = id;
         setLayout(null);
         initComponent();
         addActionListeners();
@@ -83,7 +95,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.SCARECROW), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame, id), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
@@ -96,7 +108,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.MUSHROOM), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame, id), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
@@ -109,7 +121,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.WOLF), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame, id), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
@@ -122,7 +134,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(EnemyType.REAPER), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame), BorderLayout.NORTH);
+                frame.getContentPane().add(new GameToolBar(frame, id), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }
@@ -133,7 +145,7 @@ public class SelectModePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
-                frame.getContentPane().add(new MenuPanel(frame), BorderLayout.CENTER);
+                frame.getContentPane().add(new MenuPanel(frame, id), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();

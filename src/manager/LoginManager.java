@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 // 한글패치 안 됨
-public class UserManager {
+public class LoginManager {
     private HashMap<String, String> userMap = new HashMap<>();
     private final String DATA_PATH = "data/users.txt";
 
-    public UserManager() {
+    public LoginManager() {
         try {
             Scanner sc = new Scanner(new FileReader(DATA_PATH));
 
@@ -21,8 +21,7 @@ public class UserManager {
                 String password = sc.next();
                 userMap.put(id, password);
             }
-            sc.close();
-
+            // sc.close();
         } catch (FileNotFoundException e) {
             System.out.println("Cannot found user database.");
             System.exit(0);

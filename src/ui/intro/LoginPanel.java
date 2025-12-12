@@ -3,7 +3,8 @@ package ui.intro;
 import character.imageloader.ManImageLoader;
 import character.ui.RunAnimation;
 
-import manager.UserManager;
+import manager.LoginManager;
+import manager.RankingManager;
 import ui.menu.MenuPanel;
 import ui.common.GameImageButton;
 import ui.common.GameTextField;
@@ -41,14 +42,20 @@ public class LoginPanel extends JPanel {
 
     // 캐릭터 뛰는 모션
     private RunAnimation runAnimation = new RunAnimation(this, new ManImageLoader());
+
     // 유저 관리 클래스
-    private UserManager userManager = new UserManager();
+    private LoginManager loginManager;
+    // 랭킹 관리 클래스
+    private RankingManager rankingManager;
+
     // 부모 프레임
     private JFrame frame;
 
-    public LoginPanel(JFrame frame) {
+    public LoginPanel(JFrame frame, LoginManager loginManager, RankingManager rankingManager) {
         setLayout(null);
         this.frame = frame;
+        this.loginManager = loginManager;
+        this.rankingManager = rankingManager;
 
         // 컴포넌트 요소 초기화
         initComponent();
@@ -77,9 +84,9 @@ public class LoginPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 id = idTextField.getText(); // id
                 password = String.valueOf(passwordTextField.getPassword()); // password
-                if(userManager.findUser(id, password)) {
+                if(loginManager.findUser(id, password)) {
                     frame.getContentPane().removeAll();
-                    frame.getContentPane().add(new MenuPanel(frame), BorderLayout.CENTER);
+                    frame.getContentPane().add(new MenuPanel(frame, id), BorderLayout.CENTER);
                     frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                     frame.revalidate();
                     frame.repaint();
@@ -92,7 +99,7 @@ public class LoginPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
-                frame.getContentPane().add(new SignUpPanel(frame, userManager), BorderLayout.CENTER);
+                frame.getContentPane().add(new SignUpPanel(frame, loginManager, rankingManager), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();

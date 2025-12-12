@@ -1,7 +1,10 @@
 package ui;
 
+import manager.LoginManager;
+import manager.RankingManager;
 import ui.intro.LoginPanel;
 import ui.menu.MenuPanel;
+import ui.menu.RankingPanel;
 import ui.toolbar.StartToolBar;
 
 import javax.swing.*;
@@ -12,10 +15,18 @@ import java.awt.event.ActionListener;
 public class GameFrame extends JFrame {
     private JMenuItem startItem = new JMenuItem("Start");
 
-    private MenuPanel menuPanel = new MenuPanel(this);
+    // private MenuPanel menuPanel = new MenuPanel(this);
 
-    private LoginPanel loginPanel = new LoginPanel(this);
+    // private RankingPanel rankingPanel = new RankingPanel(this);
 
+
+    // 랭킹 관리자
+    private RankingManager rankingManager = new RankingManager();
+    // 유저 관리 클래스
+    private LoginManager loginManager = new LoginManager();
+
+    // 로그인 화면
+    private LoginPanel loginPanel = new LoginPanel(this, loginManager, rankingManager);
 
     public GameFrame() {
         super("게임");
@@ -26,14 +37,14 @@ public class GameFrame extends JFrame {
         makeMenu(); // 메뉴
         makeToolBar(); // 툴바
 
-        start(); // 게임 초기 화면
+        showLogin(); // 로그인 화면으로 이동
 
         setVisible(true);
     }
 
     // 게임 초기 화면
-    private void start() {
-        getContentPane().add(menuPanel, BorderLayout.CENTER);
+    private void showLogin() {
+        getContentPane().add(loginPanel, BorderLayout.CENTER);
     }
 
     // 메뉴바 생성

@@ -18,7 +18,6 @@ import java.util.Vector;
 public class InputPanel extends JPanel {
     private JTextField inputField = new JTextField(10);
 
-
     // 캐릭터 관리 클래스
     private CharacterManager characterManager;
     // 단어 관리 클래스
@@ -96,8 +95,8 @@ public class InputPanel extends JPanel {
 
                             // 게임 종료 되는지
                             if(characterManager.isGameOver()) {
-                                if(characterManager.getEnemyHP() <= 0) characterManager.getMan().stop();
-                                else if(characterManager.getManHP() <= 0) characterManager.getEnemy().stop();
+                                if(characterManager.getCurrentEnemyHP() <= 0) characterManager.getMan().stop();
+                                else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
                             }
 
                             break;

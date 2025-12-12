@@ -105,8 +105,8 @@ public class WordFallingTask implements Runnable {
                     // 게임 종료 되는지
                     if(characterManager.isGameOver()) {
                         running = false;
-                        if(characterManager.getEnemyHP() <= 0) characterManager.getMan().stop();
-                        else if(characterManager.getManHP() <= 0) characterManager.getEnemy().stop();
+                        if(characterManager.getCurrentEnemyHP() <= 0) characterManager.getMan().stop();
+                        else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
                     }
                 }
             }

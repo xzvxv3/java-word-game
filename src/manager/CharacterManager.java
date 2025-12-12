@@ -100,22 +100,35 @@ public class CharacterManager {
     }
 
     public boolean isGameOver() {
-        if(getEnemyHP() <= 0 || getManHP() <= 0) return true;
+        if(getCurrentEnemyHP() <= 0 || getCurrentManHP() <= 0) return true;
         return false;
     }
-
 
     // Man 체력 반환
     public int getManHP() {
         return manHP;
     }
 
+    // 버그 발생 !!
     // Enemy 체력 반환
     public int getEnemyHP() {
         switch (enemyType) {
             case MUSHROOM : return mushroomHP;
             case WOLF : return wolfHP;
             case REAPER : return reaperHP;
+        }
+        return 0;
+    }
+
+    public int getCurrentManHP() {
+        return man.getCurrentHp();
+    }
+
+    public int getCurrentEnemyHP() {
+        switch (enemyType) {
+            case MUSHROOM : return mushroom.getCurrentHp();
+            case WOLF : return wolf.getCurrentHp();
+            case REAPER : return reaper.getCurrentHp();
         }
         return 0;
     }
@@ -148,7 +161,5 @@ public class CharacterManager {
 
         manThread.start();
         enemyThread.start();
-
-        System.out.println();
     }
 }

@@ -1,8 +1,7 @@
 package ui.intro;
 
-import character.imageloader.ManImageLoader;
-import character.ui.RunAnimation;
-import manager.UserManager;
+import manager.LoginManager;
+import manager.RankingManager;
 import ui.common.GameImageButton;
 import ui.toolbar.StartToolBar;
 
@@ -14,7 +13,7 @@ import java.awt.event.ActionListener;
 public class SignUpPanel extends JPanel {
 
     // 배경화면 이미지
-    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/intro/signup.png");
+    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/ingame/normalday.png");
     // 회원 가입 글자 이미지
     private ImageIcon signUpTitleImage = new ImageIcon("resources/images/element/intro/signup_title_lbl.png");
     // ID 글자 이미지
@@ -45,14 +44,18 @@ public class SignUpPanel extends JPanel {
     );
 
     // 유저 관리 클래스
-    private UserManager userManager;
+    private LoginManager loginManager;
+    // 랭킹 관리 클래스
+    private RankingManager rankingManager;
+
     // 부모 프레임
     private JFrame frame;
 
-    public SignUpPanel(JFrame frame, UserManager userManager) {
+    public SignUpPanel(JFrame frame, LoginManager loginManager, RankingManager rankingManager) {
         setLayout(null);
         this.frame = frame;
-        this.userManager = userManager;
+        this.loginManager = loginManager;
+        this.rankingManager = rankingManager;
 
         initComponent();
 
@@ -80,7 +83,7 @@ public class SignUpPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 id = idTextField.getText(); // id
 
-                String msg = userManager.checkIdValidity(id); // 해당 id에 관한 메시지
+                String msg = loginManager.checkIdValidity(id); // 해당 id에 관한 메시지
 
                 if(msg.equals("아이디 사용 가능")) {
                     JOptionPane.showMessageDialog(frame, "사용 가능한 아이디입니다!");
@@ -112,7 +115,7 @@ public class SignUpPanel extends JPanel {
 
                 // 가입 성공
                 JOptionPane.showMessageDialog(frame, "회원가입이 완료되었습니다!");
-                userManager.addUser(id, password);
+                loginManager.addUser(id, password);
 
                 idTextField.setText("");
                 passwordTextField.setText("");
@@ -124,7 +127,7 @@ public class SignUpPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
-                frame.getContentPane().add(new LoginPanel(frame), BorderLayout.CENTER);
+                frame.getContentPane().add(new LoginPanel(frame, loginManager, rankingManager), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();

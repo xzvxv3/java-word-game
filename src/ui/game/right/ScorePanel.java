@@ -16,22 +16,23 @@ public class ScorePanel extends JPanel {
     private ScoreTextLabel scoreTextLabel = new ScoreTextLabel();
     private ScoreLabel scoreLabel = new ScoreLabel();
 
-    private ImageIcon manHpIconImage = new ImageIcon("resources/images/element/ingame/ManHpIconImage.png");
-    private ImageIcon scarecrowIconImage = new ImageIcon("resources/images/element/ingame/ScarecrowHpIconImage.png");
-    private ImageIcon mushroomHpIconImage = new ImageIcon("resources/images/element/ingame/MushroomHpIconImage.png");
-    private ImageIcon wolfHpIconImage = new ImageIcon("resources/images/element/ingame/WolfHpIconImage.png");
-    private ImageIcon reaperHpIconImage = new ImageIcon("resources/images/element/ingame/ReaperHpIconImage.png");
+    private static final String BG_PATH = "resources/images/element/ingame/";
 
-
-    private EnemyType enemyType;
+    private ImageIcon manHpIconImage = new ImageIcon(BG_PATH + "ManHpIconImage.png");
+    private ImageIcon scarecrowIconImage = new ImageIcon(BG_PATH + "ScarecrowHpIconImage.png");
+    private ImageIcon mushroomHpIconImage = new ImageIcon(BG_PATH + "MushroomHpIconImage.png");
+    private ImageIcon wolfHpIconImage = new ImageIcon(BG_PATH + "WolfHpIconImage.png");
+    private ImageIcon reaperHpIconImage = new ImageIcon(BG_PATH + "ReaperHpIconImage.png");
 
     private ManHpBar manHpBar;
     private EnemyHpBar enemyHpBar;
 
-    public ScorePanel(EnemyType enemyType) {
-        this.enemyType = enemyType;
+    private CharacterManager characterManager;
+
+    public ScorePanel(CharacterManager characterManager) {
         this.setBackground(Color.GRAY);
         setLayout(null);
+        this.characterManager = characterManager;
 
         add(scoreTextLabel);
         add(scoreLabel);
@@ -104,14 +105,10 @@ public class ScorePanel extends JPanel {
 
             // 위치 + 크기 필수
             setBounds(87, 190, 180, 20);  // (x, y, w, h)
-
             setOpaque(false);
             setBorderPainted(false);
         }
 
-        public void setHP(int hp) {
-            setValue(hp);
-        }
 
         @Override
         protected void paintComponent(Graphics g) {
@@ -190,7 +187,7 @@ public class ScorePanel extends JPanel {
         // 전체 배경 화면
         g.drawImage(manHpIconImage.getImage(), -70, -10, 250, 250, this);
 
-        switch (enemyType) {
+        switch (characterManager.getEnemyType()) {
             case SCARECROW : g.drawImage(scarecrowIconImage.getImage(), -70, 80, 250, 250, this); break;
             case MUSHROOM : g.drawImage(mushroomHpIconImage.getImage(), -70, 80, 250, 250, this); break;
             case WOLF : g.drawImage(wolfHpIconImage.getImage(), -70, 80, 250, 250, this); break;

@@ -12,8 +12,12 @@ public class GameToolBar extends JToolBar {
     private JButton startBtn = new JButton("Start");
     private JFrame frame;
 
-    public GameToolBar(JFrame frame) {
+    // 사용자 아이디
+    private String id = null;
+
+    public GameToolBar(JFrame frame, String id) {
         this.frame = frame;
+        this.id = id;
         add(backBtn);
         add(startBtn);
 
@@ -23,7 +27,7 @@ public class GameToolBar extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new SelectModePanel(frame), BorderLayout.CENTER);
+                frame.getContentPane().add(new SelectModePanel(frame, id), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
