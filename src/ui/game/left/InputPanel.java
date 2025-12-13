@@ -38,7 +38,7 @@ public class InputPanel extends JPanel {
     private User user = null;
 
     public InputPanel(ScorePanel scorePanel, ItemPanel itemPanel, WordManager wordManager, CharacterManager characterManager, LoginManager loginManager, UserManager userManager) {
-        this.setBackground(Color.GRAY);
+        setBackground(Color.GRAY);
 
         this.scorePanel = scorePanel;
         this.itemPanel = itemPanel;
@@ -48,7 +48,8 @@ public class InputPanel extends JPanel {
         this.userManager = userManager;
         this.loginManager = loginManager;
 
-        this.user = loginManager.getCurrentUser();
+        // this.user = loginManager.getCurrentUser();
+        this.user = new User("A", "1234", 0, 0, 0);
 
         // 유저의 현재 점수 초기화 -> 0
         user.resetCurrentScore();
@@ -143,4 +144,5 @@ public class InputPanel extends JPanel {
     public void requestFocusOnTextField() {
         inputField.requestFocusInWindow();
     }
+
 }

@@ -41,6 +41,13 @@ public class CharacterManager {
     // Monster 체력
     private int scarecrowHP = 10, mushroomHP = 2, wolfHP = 5, reaperHP = 60;
 
+    // 게임 강제 종료 (뒤로가기 버튼시 활성)
+    public void shutDown() {
+        getMan().shutDown();
+        getEnemy().shutDown();
+        System.out.println("[게임 나가기]");
+    }
+
     public CharacterManager() {
         // 시작은 무기 보유X
         weaponType = WeaponType.EMPTY;
@@ -62,8 +69,6 @@ public class CharacterManager {
     public void changeManWeapon() {
         man.changeToSword();
     }
-
-    public WeaponType getCurrentWeapon() { return man.getCurrentWeapon(); }
 
     public Runnable getManTask() {
         return man;
@@ -120,6 +125,7 @@ public class CharacterManager {
     // Enemy 체력 반환
     public int getEnemyHP() {
         switch (enemyType) {
+            case SCARECROW : return scarecrowHP; // 여기 추가!
             case MUSHROOM : return mushroomHP;
             case WOLF : return wolfHP;
             case REAPER : return reaperHP;
@@ -133,6 +139,7 @@ public class CharacterManager {
 
     public int getCurrentEnemyHP() {
         switch (enemyType) {
+            case SCARECROW : return scarecrow.getCurrentHp();
             case MUSHROOM : return mushroom.getCurrentHp();
             case WOLF : return wolf.getCurrentHp();
             case REAPER : return reaper.getCurrentHp();
@@ -148,6 +155,9 @@ public class CharacterManager {
     // Monster 데미지 입음
     public void decreaseEnemyHP(int amount) {
         switch (enemyType) {
+            case SCARECROW: // 여기 추가!
+                scarecrow.decreaseHP(amount);
+                break;
             case MUSHROOM:
                 mushroom.decreaseHP(amount);
                 break;

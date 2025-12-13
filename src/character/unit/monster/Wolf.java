@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Wolf extends BaseGameCharacter implements Runnable {
     public Wolf(JPanel panel, ImageLoader imageLoader, int hp) {
-        super(panel, imageLoader,  hp, 700, 415, 350, 600, 140, 70);
+        super(panel, imageLoader,  hp, 700, 435, 350, 600, 140, 70);
     }
 
     @Override

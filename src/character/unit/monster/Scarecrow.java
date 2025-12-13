@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Scarecrow extends BaseGameCharacter implements Runnable{
     public Scarecrow(JPanel panel, ImageLoader imageLoader, int hp) {
-        super(panel,  imageLoader, hp, 315, 490, 350, 400, 140, 50);
+        super(panel,  imageLoader, hp, 315, 515, 350, 400, 140, 50);
     }
     @Override
     public void run() {

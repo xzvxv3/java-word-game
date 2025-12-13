@@ -9,7 +9,6 @@ import manager.UserManager;
 import ui.menu.MenuPanel;
 import ui.common.GameImageButton;
 import ui.common.GameTextField;
-import ui.toolbar.StartToolBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -88,7 +87,7 @@ public class LoginPanel extends JPanel {
                 if(loginManager.login(id, password)) {
                     frame.getContentPane().removeAll();
                     frame.getContentPane().add(new MenuPanel(frame, loginManager, userManager), BorderLayout.CENTER);
-                    frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                    //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                     frame.revalidate();
                     frame.repaint();
                 }
@@ -101,7 +100,7 @@ public class LoginPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new SignUpPanel(frame, loginManager, userManager), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }

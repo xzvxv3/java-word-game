@@ -11,13 +11,14 @@ public class Man extends BaseGameCharacter implements Runnable {
     private WeaponType weapon; // 캐릭터의 무기
 
     public Man(JPanel panel, ImageLoader imageLoader, WeaponType weapon, int hp) {
-        super(panel, imageLoader, hp, -150, 410, 450, 800, 200, 100); // 부모 패널, 캐릭터 체력, 데미지 딜레이, 죽음 딜레이
+        super(panel, imageLoader, hp, -150, 435, 450, 800, 200, 100); // 부모 패널, 캐릭터 체력, 데미지 딜레이, 죽음 딜레이
         this.weapon = weapon; // 캐릭터 무기
     }
 
     @Override
     public void run() {
         while (characterLifeCycle()) {
+            //checkPaused();
         } // 캐릭터 모션 실행
         System.out.println("Man 스레드 종료");
     }

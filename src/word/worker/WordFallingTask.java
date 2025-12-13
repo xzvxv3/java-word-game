@@ -51,21 +51,48 @@ public class WordFallingTask implements Runnable {
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(startDelay);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
+        // startDelay초 후, 단어가 생성되기 시작
+        try { Thread.sleep(startDelay); } catch (InterruptedException e) { throw new RuntimeException(e); }
 
         while(running) {
+            checkTimeStop();
+
             fallWords();
+
+            // 단어 낙하 속도
+            try { Thread.sleep(150); } catch (InterruptedException e) { throw new RuntimeException(e); }
+        }
+
+        System.out.println("[단어 낙하 스레드 종료]");
+    }
+
+    // 강제 종료 (뒤로가기 버튼시 활성화)
+    public void shutDown() {
+        running = false;
+    }
+
+    private boolean isTimeStop = false;
+
+    private synchronized void checkTimeStop() {
+        if (isTimeStop) {
             try {
-                Thread.sleep(150);
+                System.out.println("⏳ 3초간 멈춤...");
+                wait(3000); // 3초 대기 (Lock 반납하고 잠듦)
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
+            // 3초 지나면 자동으로 코드가 여기로 내려옴
+            isTimeStop = false; // 플래그 끄기 (다시 움직임)
+            System.out.println("⏰ 3초 끝! 다시 시작");
         }
     }
+
+    // [추가] 외부(Manager)에서 호출하는 버튼
+    public synchronized void timeStop() {
+        isTimeStop = true;
+    }
+
 
     // 단어 낙하 시작
     private void fallWords() {

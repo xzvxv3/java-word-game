@@ -1,7 +1,13 @@
 package ui.game.right;
 
 import manager.CharacterManager;
+import manager.LoginManager;
+import manager.UserManager;
+import manager.WordManager;
+import ui.common.GameImageButton;
 import ui.game.left.InputPanel;
+import ui.menu.MenuPanel;
+import ui.menu.SelectModePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +20,14 @@ public class ItemPanel extends JPanel {
     private PotionBtn potionBtn = new PotionBtn();
     private TimeBtn timeBtn = new TimeBtn();
 
+    private final String BTN_PATH = "resources/images/button/";
+
+    // 뒤로가기 버튼
+    private JButton backBtn = new GameImageButton(
+            BTN_PATH + "common/back_btn.png",
+            BTN_PATH + "common/back_btn_rollover.png"
+    );
+
     private SwordLabel swordLabel = new SwordLabel();
     private PotionLabel potionLabel = new PotionLabel();
     private TimeLabel timeLabel = new TimeLabel();
@@ -21,10 +35,20 @@ public class ItemPanel extends JPanel {
     private ScorePanel scorePanel = null;
 
     private CharacterManager characterManager = null;
+    private WordManager wordManager = null;
+    private UserManager userManager = null;
+    private LoginManager loginManager = null;
     private InputPanel inputPanel = null;
 
-    public ItemPanel(ScorePanel scorePanel) {
+    private JFrame frame;
+
+    public ItemPanel(JFrame frame, ScorePanel scorePanel, WordManager wordManager, UserManager userManager, LoginManager loginManager) {
+        this.frame = frame;
         this.scorePanel = scorePanel;
+        this.wordManager = wordManager;
+        this.userManager = userManager;
+        this.loginManager = loginManager;
+
         this.setBackground(Color.GRAY);
         this.setLayout(null);
         add(swordBtn);
@@ -34,6 +58,8 @@ public class ItemPanel extends JPanel {
         add(swordLabel);
         add(potionLabel);
         add(timeLabel);
+
+        initBackBtn();
     }
 
     public void setCharacterManager(CharacterManager characterManager) {
@@ -60,10 +86,30 @@ public class ItemPanel extends JPanel {
     }
 
 
+    private void initBackBtn() {
+        backBtn.setBounds(70, 420, 140, 55);
+
+        backBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(new SelectModePanel(frame, userManager, loginManager), BorderLayout.CENTER);
+                frame.revalidate();
+                frame.repaint();
+                characterManager.shutDown();
+                wordManager.shutDown();
+                System.out.println("[모드 선택]");
+            }
+        });
+
+        add(backBtn);
+    }
+
+
     class SwordBtn extends JButton {
         public SwordBtn() {
             setSize(100, 100);
-            setLocation(30, 40);
+            setLocation(30, 30);
             setBorderPainted(false);
             setContentAreaFilled(false);
             setFocusPainted(false);
@@ -94,7 +140,7 @@ public class ItemPanel extends JPanel {
         public SwordLabel() {
             setText("사용 불가");
             setSize(200, 50);
-            setLocation(155, 60);
+            setLocation(155, 50);
             setFont(new Font("맑은 고딕", Font.BOLD, 25));
         }
 
@@ -115,12 +161,14 @@ public class ItemPanel extends JPanel {
         }
     }
 
+    // ========================= 포션 버튼 =========================
+
     class PotionBtn extends JButton {
         private int healCount = 0;
 
         public PotionBtn() {
             setSize(100, 100);
-            setLocation(30, 190);
+            setLocation(30, 160);
             setBorderPainted(false);
             setContentAreaFilled(false);
             setFocusPainted(false);
@@ -131,17 +179,17 @@ public class ItemPanel extends JPanel {
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
+                    inputPanel.requestFocusOnTextField();
                     if(healCount >= 3) return;
 
                     scorePanel.healManHP();
-                    usePotion();
+                    potionLabel.usePotion();
                     healCount++;
 
                     if(healCount == 3) {
                         setIcon(new ImageIcon("resources/images/button/ingame/PotionEmpty.png"));
                     }
-                    inputPanel.requestFocusOnTextField();
+
                 }
             });
         }
@@ -153,7 +201,7 @@ public class ItemPanel extends JPanel {
         public PotionLabel() {
             setText(potionsLeft + " / " + MAX_POTION_CAPACITY);
             setSize(200, 50);
-            setLocation(165, 210);
+            setLocation(165, 180);
             setFont(new Font("맑은 고딕", Font.BOLD, 30));
         }
 
@@ -163,10 +211,13 @@ public class ItemPanel extends JPanel {
         }
     }
 
+    // ========================= 타임 버튼 =========================
     class TimeBtn extends JButton {
+        private int timeCount = 0;
+
         public TimeBtn() {
             setSize(100, 100);
-            setLocation(30, 340);
+            setLocation(30, 290);
 
             // 1. 버튼의 입체적인 테두리 제거 (가장자리 경계선 제거)
             setBorderPainted(false);
@@ -179,6 +230,25 @@ public class ItemPanel extends JPanel {
 
             ImageIcon timeIcon = new ImageIcon("resources/images/button/ingame/TimeOFF.png");
             setIcon(timeIcon);
+
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    inputPanel.requestFocusOnTextField();
+
+                    if(timeCount >= 3) return;
+
+                    timeCount++;
+
+                    if(timeCount == 3) {
+                        setIcon(new ImageIcon("resources/images/button/ingame/PotionEmpty.png"));
+                    }
+
+                    wordManager.pauseByItem();
+                    inputPanel.requestFocusOnTextField();
+                    timeLabel.useTimeStop();
+                }
+            });
         }
     }
 
@@ -189,11 +259,11 @@ public class ItemPanel extends JPanel {
         public TimeLabel() {
             setText(timeStopLeft + " / " + MAX_TIMESTOP_CAPACITY);
             setSize(200, 50);
-            setLocation(165, 365);
+            setLocation(165, 315);
             setFont(new Font("맑은 고딕", Font.BOLD, 30));
         }
 
-        public void usePotion() {
+        public void useTimeStop() {
             timeStopLeft--;
             setText(timeStopLeft + " / " + MAX_TIMESTOP_CAPACITY);
         }

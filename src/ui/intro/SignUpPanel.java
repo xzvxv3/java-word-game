@@ -3,7 +3,7 @@ package ui.intro;
 import manager.LoginManager;
 import manager.UserManager;
 import ui.common.GameImageButton;
-import ui.toolbar.StartToolBar;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -128,7 +128,7 @@ public class SignUpPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new LoginPanel(frame, loginManager, userManager), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
             }

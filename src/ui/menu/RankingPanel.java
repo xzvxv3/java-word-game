@@ -7,7 +7,7 @@ import manager.UserManager;
 import ui.common.GameImageButton;
 import ui.common.RankingNameLabel;
 import ui.common.RankingScoreLabel;
-import ui.toolbar.StartToolBar;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -81,8 +81,8 @@ public class RankingPanel extends JPanel {
             RankingNameLabel j = new RankingNameLabel(name);
             RankingScoreLabel a = new RankingScoreLabel(score);
 
-            j.setBounds(470, 200 + 45 * i, 120, 30);
-            a.setBounds(600, 200 + 45 * i, 70, 30);
+            j.setBounds(450, 200 + 45 * i, 120, 30);
+            a.setBounds(580, 200 + 45 * i, 70, 30);
             this.add(j);
             this.add(a);
 
@@ -103,7 +103,7 @@ public class RankingPanel extends JPanel {
             RankingNameLabel j = new RankingNameLabel(name);
             RankingScoreLabel a = new RankingScoreLabel(score);
 
-            j.setBounds(830, 200 + 45 * i, 120, 30);
+            j.setBounds(800, 200 + 45 * i, 120, 30);
             a.setBounds(930, 200 + 45 * i, 70, 30);
             this.add(j);
             this.add(a);
@@ -119,7 +119,7 @@ public class RankingPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new MenuPanel(frame, loginManager, userManager), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 System.out.println("[메뉴 화면]");
@@ -134,8 +134,6 @@ public class RankingPanel extends JPanel {
         // 이미지 크기 비율 맞게 버튼 크기에 맞춰 그림
         g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
         g.drawImage(rankingTitleImage.getImage(), 15, 15, 1070, 600, this);
-
-
     }
 }
 

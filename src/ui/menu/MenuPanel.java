@@ -5,7 +5,7 @@ import manager.LoginManager;
 import manager.UserManager;
 import ui.common.GameImageButton;
 import ui.intro.LoginPanel;
-import ui.toolbar.StartToolBar;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,7 +79,7 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new SelectModePanel(frame, userManager, loginManager), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 System.out.println("[모드 선택]");
@@ -93,7 +93,7 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new RankingPanel(frame, userManager, loginManager), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 System.out.println("[랭킹 화면]");
@@ -107,7 +107,7 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new LoginPanel(frame, loginManager, userManager), BorderLayout.CENTER);
-                frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
+                //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 loginManager.logout();

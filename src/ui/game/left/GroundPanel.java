@@ -1,5 +1,6 @@
 package ui.game.left;
 
+import character.type.MotionType;
 import manager.CharacterManager;
 import manager.WordManager;
 import javax.swing.*;
@@ -55,7 +56,7 @@ public class GroundPanel extends JPanel {
 
         // Enemy 초기 등장 설정
         switch (characterManager.getEnemyType()) {
-            case SCARECROW : characterManager.getEnemy().setIntroMove(260, 3000); break;
+            case SCARECROW : characterManager.getEnemy().setMotion(MotionType.IDLE); break;
             case MUSHROOM : characterManager.getEnemy().setIntroMove(260, 3000); break;
             case WOLF : characterManager.getEnemy().setIntroMove(330, 3000); break;
             case REAPER : characterManager.getEnemy().setIntroMove(200, 3000); break;

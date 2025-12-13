@@ -93,4 +93,16 @@ public class WordManager {
         wordMakerThread.start();
         wordFallingThread.start();
     }
+
+    public void pauseByItem() {
+        System.out.println("클릭");
+        wordFallingTask.timeStop();
+        wordMakerTask.timeStop();
+    }
+
+    // 강제 종료 (뒤로가기 버튼시 활성화)
+    public void shutDown() {
+        wordMakerTask.shutDown();
+        wordFallingTask.shutDown();
+    }
 }

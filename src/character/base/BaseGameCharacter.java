@@ -27,6 +27,7 @@ public abstract class BaseGameCharacter extends BaseAnimation {
     // 스레드 실행중인지
     private boolean isrunning = true;
 
+
     protected int targetX; // 목표지점 (전투를 시작하는 위치)
     protected double moveSpeed; // 이동 속도
 
@@ -82,6 +83,7 @@ public abstract class BaseGameCharacter extends BaseAnimation {
 
     // 전투 라이프사이클 (기존 로직 이동)
     protected boolean characterLifeCycle() {
+
         // 스레드 종료 유도. (자연스러운 종료를 위해 2초 딜레이)
         if(!isrunning) {
             if(System.currentTimeMillis() - nowTime >= 2000) {
@@ -146,6 +148,10 @@ public abstract class BaseGameCharacter extends BaseAnimation {
         nowTime = System.currentTimeMillis();
     }
 
+    public void shutDown() {
+        isrunning = false;
+    }
+
     // 공격 받았는지 체크
     public void onAttacked() {
         attacked = true;
@@ -160,4 +166,5 @@ public abstract class BaseGameCharacter extends BaseAnimation {
 
     // 캐릭터 현재 HP 반환
     public int getCurrentHp() { return hp; }
+
 }
