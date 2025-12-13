@@ -14,9 +14,7 @@ public abstract class BaseAnimation {
     protected boolean isDead = false;
 
     protected final int FRAME_DELAY; // 프레임 속도
-    protected final int MOTION_END_DELAY;
-
-    protected boolean isIntro = true; // 현재 인트로(등장) 중인가?
+    protected final int MOTION_END_DELAY; // 모션 종료 딜레이
 
     public BaseAnimation(JPanel panel, ImageLoader loader, int frameDelay, int motionEndDelay) {
         this.panel = panel;
@@ -63,7 +61,7 @@ public abstract class BaseAnimation {
     protected void onMotionEnd() {
 
         // 이동중인 상태 or 죽음 상태 -> 더이상의 모션을 주지 않음.
-        if (isIntro || isDead) { return; }
+        if (motionType == MotionType.RUN || motionType == MotionType.DEAD) { return; }
 
         // 특정 모션 종료 후, IDLE로 다시 전환
         if(motionType != MotionType.IDLE) {

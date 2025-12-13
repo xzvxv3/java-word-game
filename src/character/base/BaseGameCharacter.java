@@ -5,8 +5,6 @@ import character.type.MotionType;
 
 import javax.swing.*;
 
-// BaseAnimation으로 올릴 코드 더 있는지 확인할것
-
 // 역할: 전투가 가능한 캐릭터 (HP, 피격 판정 추가)
 public abstract class BaseGameCharacter extends BaseAnimation {
 
@@ -29,7 +27,6 @@ public abstract class BaseGameCharacter extends BaseAnimation {
     protected int targetX; // 목표지점
     protected double moveSpeed; // 이동 속도
 
-
     public BaseGameCharacter(JPanel panel, ImageLoader loader, int hp, int x, int y,
                              int damageDelay, int deadDelay, int motionEndDelay, int frameDelay) {
         super(panel, loader, frameDelay, motionEndDelay); // 부모(애니메이션) 초기화
@@ -40,34 +37,34 @@ public abstract class BaseGameCharacter extends BaseAnimation {
         this.DEAD_DELAY = deadDelay;
     }
 
-
     public int getX() { return x; }
     public int getY() { return y; }
 
     // [추가] 등장 세팅 메서드 (목표 위치와 도달 시간 설정)
     public void setIntroMove(int targetX, int durationMs) {
         this.targetX = targetX;
-        this.isIntro = true;
+
+        // 이동 모션으로 변환
+        setMotion(MotionType.RUN);
 
         // 거리 = |목표 - 시작|
-        // 프레임 횟수 = 총 시간 / 프레임 딜레이
-        // 속도 = 거리 / 프레임 횟수
         int distance = targetX - x;
-        int totalFrames = durationMs / super.FRAME_DELAY;
-        this.moveSpeed = distance / totalFrames;
 
-        // 걷거나 뛰는 모션이 있다면 여기서 설정 (예: setMotion(MotionType.RUN));
-        setMotion(MotionType.RUN);
+        // 프레임 횟수 = 총 시간 / 프레임 딜레이
+        int totalFrames = durationMs / super.FRAME_DELAY;
+
+        // 속도 = 거리 / 프레임 횟수
+        this.moveSpeed = distance / totalFrames;
     }
 
     // [추가] 이동 로직 처리
     protected void handleIntroMovement() {
-        if (!isIntro) return;
+        // 뛰고있는 상태가 아니라면, 처리하지않음
+        if (motionType != MotionType.RUN) return;
 
-        // 목표 지점에 거의 도달했는지 확인 (오차 범위 5px)
+        // 목표 지점에 거의 도달했는지 확인
         if (Math.abs(x - targetX) <= Math.abs(moveSpeed)) {
             x = targetX;
-            isIntro = false; // 이동 종료
             setMotion(MotionType.IDLE); // 도착하면 IDLE 모션
         } else {
             x += moveSpeed; // 좌표 이동
@@ -85,21 +82,19 @@ public abstract class BaseGameCharacter extends BaseAnimation {
         }
 
         // [추가] 인트로 중이면 이동 로직 수행, 아니면 전투 로직 수행
-        if (isIntro) {
+        if (motionType == MotionType.RUN) {
             handleIntroMovement();
         } else {
-            if (!isDead) {
-                handleAttackReaction();
+            if (motionType != MotionType.DEAD) {
+                handleDamageReaction();
                 handleDeadReaction();
             }
-
-
         }
 
         updateFrame(); // 화면 갱신 (부모 기능 사용)
 
         // 죽음 모션 + 스레드 종료 유도
-        if (isDead && motionType == MotionType.DEAD && idx == motionFrames.length - 1) {
+        if (motionType == MotionType.DEAD && idx == motionFrames.length - 1) {
             return false;
         }
 
@@ -107,9 +102,9 @@ public abstract class BaseGameCharacter extends BaseAnimation {
     }
 
 
-
-    protected void handleAttackReaction() {
-        if(!attacked || isDead) return; // 공격 받은 상태(X) or 이미 죽은 상태(O) -> 실행 안 함
+    //
+    protected void handleDamageReaction() {
+        if(!attacked || motionType == MotionType.DEAD) return; // 공격 받은 상태(X) or 이미 죽은 상태(O) -> 실행 안 함
 
         nowTime = System.currentTimeMillis(); // 현재 시간
 
@@ -119,11 +114,11 @@ public abstract class BaseGameCharacter extends BaseAnimation {
         }
     }
 
+    // 죽음 모션 처리
     protected void handleDeadReaction() {
-        if(hp <= 0 && !isDead) { // 피가 0 이하이면서 죽지 않은 상태라면
+        if(hp <= 0 && motionType != MotionType.DEAD) { // 피가 0 이하이면서 죽지 않은 상태라면
             try { Thread.sleep(DEAD_DELAY); } catch (InterruptedException e) { return; } // 자연스러운 모션 유도
             setMotion(MotionType.DEAD); // 죽음 모션 설정
-            isDead = true; // 죽음으로 설정
         }
     }
 

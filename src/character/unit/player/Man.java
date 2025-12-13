@@ -24,9 +24,8 @@ public class Man extends BaseGameCharacter implements Runnable {
 
     @Override
     protected void onMotionEnd() {
-        if(isDead) return;
-
-        if (isIntro && motionType == MotionType.RUN) {
+        // 이동중인 상태 or 죽음 상태 -> 더이상의 모션을 주지 않음.
+        if (motionType == MotionType.DEAD || motionType == MotionType.RUN) {
             return;
         }
 
