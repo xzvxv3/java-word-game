@@ -9,7 +9,7 @@ import javax.swing.*;
 // 마저 끝낼것
 public class RunAnimation extends BaseAnimation implements Runnable{
     public RunAnimation(JPanel jPanel, ImageLoader imageLoader) {
-        super(jPanel, imageLoader, 100);
+        super(jPanel, imageLoader, 100, 0);
     }
 
     @Override

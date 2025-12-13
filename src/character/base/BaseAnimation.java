@@ -11,8 +11,6 @@ public abstract class BaseAnimation {
     protected MotionType motionType;
     protected int idx = 0;
 
-    protected boolean isDead = false;
-
     protected final int FRAME_DELAY; // 프레임 속도
     protected final int MOTION_END_DELAY; // 모션 종료 딜레이
 
@@ -21,25 +19,16 @@ public abstract class BaseAnimation {
         this.imageLoader = loader;
         this.FRAME_DELAY = frameDelay;
         this.MOTION_END_DELAY = motionEndDelay;
-        initAnimation();
     }
 
-    public BaseAnimation(JPanel panel, ImageLoader loader, int frameDelay) {
-        this(panel, loader, frameDelay, 0);
-    }
-
-    private void initAnimation() {
-        this.motionType = MotionType.IDLE;
-        this.motionFrames = imageLoader.getMotionMap().get(MotionType.IDLE);
-    }
-
+    // 프레임 업데이트
     protected void updateFrame() {
-        if (motionFrames == null) return;
+        if (motionFrames == null) return; // 프레임이 없다면 반영X
         idx = (idx + 1) % motionFrames.length;
-        panel.repaint();
+        panel.repaint(); // 그리기
 
         try {
-            // 마지막 프레임일 때 처리
+            // 특정 모션의 마지막 프레임일 때 처리 (자연스러운 모션 변화 유도)
             if (idx == motionFrames.length - 1) {
 
                 // 모션 종료에 도달했을떄 -> Idle로 변경
@@ -57,7 +46,7 @@ public abstract class BaseAnimation {
         } catch (InterruptedException e) { return; }
     }
 
-
+    // 모션 종료에 도달했을떄 -> Idle로 변경
     protected void onMotionEnd() {
 
         // 이동중인 상태 or 죽음 상태 -> 더이상의 모션을 주지 않음.
