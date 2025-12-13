@@ -1,12 +1,9 @@
 package ui.menu;
 
-import character.type.EnemyType;
 import dto.User;
 import manager.LoginManager;
-import manager.RankingManager;
+import manager.UserManager;
 import ui.common.GameImageButton;
-import ui.game.GamePanel;
-import ui.toolbar.GameToolBar;
 import ui.toolbar.StartToolBar;
 
 import javax.swing.*;
@@ -33,12 +30,12 @@ public class RankingPanel extends JPanel {
     // 로그인 관리자
     private LoginManager loginManager = null;
     // 랭킹 관리자
-    private RankingManager rankingManager = null;
+    private UserManager userManager = null;
 
-    public RankingPanel(JFrame frame, RankingManager rankingManager, LoginManager loginManager, User user) {
+    public RankingPanel(JFrame frame, UserManager userManager, LoginManager loginManager) {
         this.frame = frame;
-        this.rankingManager = rankingManager;
-        this.user = user;
+        this.userManager = userManager;
+        this.loginManager = loginManager;
 
         setLayout(null);
         addBackBtn();
@@ -50,7 +47,7 @@ public class RankingPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
-                frame.getContentPane().add(new MenuPanel(frame, rankingManager, loginManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new MenuPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();

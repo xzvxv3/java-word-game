@@ -8,10 +8,8 @@ import javax.swing.*;
 
 public class Reaper extends BaseGameCharacter implements Runnable {
 
-    private ReaperImageLoader reaperImageLoader;
-
     public Reaper(JPanel panel, ImageLoader imageLoader, int hp) {
-        super(panel, imageLoader, hp, 250, 400, 140, 100);
+        super(panel, imageLoader, hp, 700, 365, 250, 400, 140, 100);
     }
 
     @Override

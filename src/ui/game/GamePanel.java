@@ -3,7 +3,8 @@ package ui.game;
 import character.type.EnemyType;
 import dto.User;
 import manager.CharacterManager;
-import manager.RankingManager;
+import manager.LoginManager;
+import manager.UserManager;
 import manager.WordManager;
 import ui.game.left.InputPanel;
 import ui.game.left.PlayPanel;
@@ -21,18 +22,18 @@ public class GamePanel extends JSplitPane {
 
     private CharacterManager characterManager = new CharacterManager();
     private WordManager wordManager = null;
-    private RankingManager rankingManager = null;
-    private User user = null;
+    private UserManager userManager = null;
+    private LoginManager loginManager = null;
 
     // 게임 전체 화면
-    public GamePanel(EnemyType enemyType, RankingManager rankingManager, User user) {
+    public GamePanel(EnemyType enemyType, LoginManager loginManager, UserManager userManager) {
         // Monster 설정
         characterManager.setEnemyType(enemyType);
 
-        this.rankingManager = rankingManager;
-        this.user = user;
+        this.userManager = userManager;
+        this.loginManager = loginManager;
 
-        wordManager = new WordManager(characterManager, rankingManager, user);
+        wordManager = new WordManager(characterManager, userManager, loginManager.getCurrentUser());
 
 
 
@@ -45,7 +46,7 @@ public class GamePanel extends JSplitPane {
         itemPanel = new ItemPanel(scorePanel); // 아이템 선택 Panel
 
         // ====================== 왼쪽 화면(게임 화면) ======================
-        playPanel = new PlayPanel(scorePanel, itemPanel, characterManager, wordManager, rankingManager, user);
+        playPanel = new PlayPanel(scorePanel, itemPanel, characterManager, wordManager, loginManager, userManager);
 
 
         // 컴포넌트 배치

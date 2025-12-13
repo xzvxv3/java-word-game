@@ -2,7 +2,8 @@ package ui.game.left;
 
 import dto.User;
 import manager.CharacterManager;
-import manager.RankingManager;
+import manager.LoginManager;
+import manager.UserManager;
 import manager.WordManager;
 import ui.game.right.ItemPanel;
 import ui.game.right.ScorePanel;
@@ -19,17 +20,19 @@ public class PlayPanel extends JPanel {
 
     private CharacterManager characterManager = null;
     private WordManager wordManager = null;
-    private RankingManager rankingManager = null;
+    private LoginManager loginManager = null;
+    private UserManager userManager = null;
 
     private User user = null;
 
-    public PlayPanel(ScorePanel scorePanel, ItemPanel itemPanel, CharacterManager characterManager, WordManager wordManager, RankingManager rankingManager, User user) {
+    public PlayPanel(ScorePanel scorePanel, ItemPanel itemPanel, CharacterManager characterManager, WordManager wordManager, LoginManager loginManager, UserManager userManager) {
         this.itemPanel = itemPanel;
         this.scorePanel = scorePanel;
 
+        this.loginManager = loginManager;
         this.characterManager = characterManager;
         this.wordManager = wordManager;
-        this.rankingManager = rankingManager;
+        this.userManager = userManager;
         this.user = user;
 
         setLayout(new BorderLayout());
@@ -37,8 +40,9 @@ public class PlayPanel extends JPanel {
         groundPanel = new GroundPanel(characterManager, wordManager); // wordStore 주입
 
         // 입력칸
-        inputPanel = new InputPanel(scorePanel, itemPanel, wordManager, characterManager, rankingManager, user);
+        inputPanel = new InputPanel(scorePanel, itemPanel, wordManager, characterManager, loginManager, userManager);
 
+        // itemPanel과 InputPanel의 상호작용을 위한 연결
         itemPanel.setCharacterManager(characterManager);
         itemPanel.setInputPanel(inputPanel);
 

@@ -1,7 +1,7 @@
 package ui.intro;
 
 import manager.LoginManager;
-import manager.RankingManager;
+import manager.UserManager;
 import ui.common.GameImageButton;
 import ui.toolbar.StartToolBar;
 
@@ -46,16 +46,16 @@ public class SignUpPanel extends JPanel {
     // 유저 관리 클래스
     private LoginManager loginManager;
     // 랭킹 관리 클래스
-    private RankingManager rankingManager;
+    private UserManager userManager;
 
     // 부모 프레임
     private JFrame frame;
 
-    public SignUpPanel(JFrame frame, LoginManager loginManager, RankingManager rankingManager) {
+    public SignUpPanel(JFrame frame, LoginManager loginManager, UserManager userManager) {
         setLayout(null);
         this.frame = frame;
         this.loginManager = loginManager;
-        this.rankingManager = rankingManager;
+        this.userManager = userManager;
 
         initComponent();
 
@@ -115,7 +115,7 @@ public class SignUpPanel extends JPanel {
 
                 // 가입 성공
                 JOptionPane.showMessageDialog(frame, "회원가입이 완료되었습니다!");
-                loginManager.addUser(id, password);
+                loginManager.signUp(id, password);
 
                 idTextField.setText("");
                 passwordTextField.setText("");
@@ -127,7 +127,7 @@ public class SignUpPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
-                frame.getContentPane().add(new LoginPanel(frame, loginManager, rankingManager), BorderLayout.CENTER);
+                frame.getContentPane().add(new LoginPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();

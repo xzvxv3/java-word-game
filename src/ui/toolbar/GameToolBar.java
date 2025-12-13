@@ -2,7 +2,7 @@ package ui.toolbar;
 
 import dto.User;
 import manager.LoginManager;
-import manager.RankingManager;
+import manager.UserManager;
 import ui.menu.SelectModePanel;
 
 import javax.swing.*;
@@ -15,19 +15,16 @@ public class GameToolBar extends JToolBar {
     private JButton startBtn = new JButton("Start");
     private JFrame frame;
 
-    // 사용자 아이디
-    private User user = null;
 
     // 로그인 관리자
     private LoginManager loginManager = null;
-    // 랭킹 관리자
-    private RankingManager rankingManager = null;
+    // 유저 관리자
+    private UserManager userManager = null;
 
-    public GameToolBar(JFrame frame, RankingManager rankingManager, LoginManager loginManager, User user) {
+    public GameToolBar(JFrame frame, UserManager userManager, LoginManager loginManager, User user) {
         this.frame = frame;
         this.loginManager = loginManager;
-        this.rankingManager = rankingManager;
-        this.user = user;
+        this.userManager = userManager;
         add(backBtn);
         add(startBtn);
 
@@ -37,7 +34,7 @@ public class GameToolBar extends JToolBar {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new SelectModePanel(frame, rankingManager, loginManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new SelectModePanel(frame, userManager, loginManager), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();

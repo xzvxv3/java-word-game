@@ -4,7 +4,8 @@ import dto.User;
 import manager.CharacterManager;
 import character.type.MotionType;
 import character.type.WeaponType;
-import manager.RankingManager;
+import manager.LoginManager;
+import manager.UserManager;
 import manager.WordManager;
 import ui.game.right.ItemPanel;
 import ui.game.right.ScorePanel;
@@ -25,7 +26,7 @@ public class InputPanel extends JPanel {
     // 단어 관리 클래스
     private WordManager wordManager = null;
     // 랭킹 관리 클래스
-    private RankingManager rankingManager = null;
+    private UserManager userManager = null;
 
     // 단어 저장소
     private Vector<Word> words = null;
@@ -33,9 +34,10 @@ public class InputPanel extends JPanel {
     private ScorePanel scorePanel = null;
     private ItemPanel itemPanel = null;
 
+    private LoginManager loginManager = null;
     private User user = null;
 
-    public InputPanel(ScorePanel scorePanel, ItemPanel itemPanel, WordManager wordManager, CharacterManager characterManager, RankingManager rankingManager, User user) {
+    public InputPanel(ScorePanel scorePanel, ItemPanel itemPanel, WordManager wordManager, CharacterManager characterManager, LoginManager loginManager, UserManager userManager) {
         this.setBackground(Color.GRAY);
 
         this.scorePanel = scorePanel;
@@ -43,8 +45,10 @@ public class InputPanel extends JPanel {
         this.wordManager = wordManager;
         words = wordManager.getWordVector();
         this.characterManager = characterManager;
-        this.rankingManager = rankingManager;
-        this.user = user;
+        this.userManager = userManager;
+        this.loginManager = loginManager;
+
+        this.user = loginManager.getCurrentUser();
 
         // 유저의 현재 점수 초기화 -> 0
         user.resetCurrentScore();
@@ -76,8 +80,7 @@ public class InputPanel extends JPanel {
                             scorePanel.increaseScore(1);
 
                             switch (characterManager.getManWeapon()) {
-                                case WeaponType.EMPTY :
-                                    user.incrementCurrentScore(1);
+                                case WeaponType.EMPTY : user.incrementCurrentScore(1);
                                     System.out.println("[공격] → 점수 +1");
                                     break;
                                 case WeaponType.SWORD :
@@ -118,10 +121,10 @@ public class InputPanel extends JPanel {
                                 else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
 
                                 // 모드에 따른 현재 유저의 점수 갱신
-                                user.updateCurrentScore(characterManager.getEnemyType());
+                                user.updateCurrentScore(characterManager.getEnemyType(), user.getCurrentScore());
 
                                 // 랭킹에 업데이트
-                                rankingManager.updateScore(user);
+                                userManager.updateUser(user);
                             }
 
                             break; // 단어를 맞췄으면, 더이상의 탐색은 하지 않는다.

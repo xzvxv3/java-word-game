@@ -9,6 +9,7 @@ public class WolfImageLoader extends ImageLoader {
     private ImageIcon[] deadMotion = new ImageIcon[5];
     private ImageIcon[] damageMotion = new ImageIcon[7];
     private ImageIcon[] attackMotion = new ImageIcon[14];
+    private ImageIcon[] runMotion = new ImageIcon[8];
 
     public WolfImageLoader() {
         setMotions(); // 이미지 생성
@@ -21,6 +22,7 @@ public class WolfImageLoader extends ImageLoader {
         motionMap.put(MotionType.DEAD, deadMotion);
         motionMap.put(MotionType.ENEMY_ATTACK01, attackMotion);
         motionMap.put(MotionType.DAMAGE, damageMotion);
+        motionMap.put(MotionType.RUN, runMotion);
     }
 
     // 이미지 생성
@@ -42,5 +44,8 @@ public class WolfImageLoader extends ImageLoader {
             if(i < 9) attackMotion[i] = new ImageIcon(BASE_PATH + "wolf/attack/LoboSombriuAttack000" + (i + 1) + ".png");
             else if(i >= 9) attackMotion[i] = new ImageIcon(BASE_PATH + "wolf/attack/LoboSombriuAttack00" + (i + 1) + ".png");
         }
+
+        for (int i = 0; i < 8; i++)
+            runMotion[i] = new ImageIcon(BASE_PATH + "wolf/walk/LoboSombriuWalk000" + (i + 1) + ".png");
     }
 }

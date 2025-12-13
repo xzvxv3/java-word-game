@@ -3,7 +3,7 @@ package ui.menu;
 import character.type.EnemyType;
 import dto.User;
 import manager.LoginManager;
-import manager.RankingManager;
+import manager.UserManager;
 import ui.common.GameImageButton;
 import ui.game.GamePanel;
 import ui.toolbar.GameToolBar;
@@ -63,13 +63,12 @@ public class SelectModePanel extends JPanel {
     // 로그인 관리자
     private LoginManager loginManager = null;
     // 랭킹 관리자
-    private RankingManager rankingManager = null;
+    private UserManager userManager = null;
 
-    public SelectModePanel(JFrame frame, RankingManager rankingManager, LoginManager loginManager, User user) {
+    public SelectModePanel(JFrame frame, UserManager userManager, LoginManager loginManager) {
         this.frame = frame;
-        this.rankingManager = rankingManager;
+        this.userManager = userManager;
         this.loginManager = loginManager;
-        this.user = user;
         setLayout(null);
         initComponent();
         addActionListeners();
@@ -104,8 +103,8 @@ public class SelectModePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new GamePanel(EnemyType.SCARECROW, rankingManager, user), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, rankingManager, loginManager, user), BorderLayout.NORTH);
+                frame.getContentPane().add(new GamePanel(EnemyType.SCARECROW, loginManager, userManager), BorderLayout.CENTER);
+                frame.getContentPane().add(new GameToolBar(frame, userManager, loginManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 System.out.println("[게임 시작] Pratice Mode");
@@ -118,8 +117,8 @@ public class SelectModePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new GamePanel(EnemyType.MUSHROOM, rankingManager, user), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, rankingManager, loginManager, user), BorderLayout.NORTH);
+                frame.getContentPane().add(new GamePanel(EnemyType.MUSHROOM, loginManager, userManager), BorderLayout.CENTER);
+                frame.getContentPane().add(new GameToolBar(frame, userManager, loginManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 System.out.println("[게임 시작] Easy Mode");
@@ -132,8 +131,8 @@ public class SelectModePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new GamePanel(EnemyType.WOLF, rankingManager, user), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, rankingManager, loginManager, user), BorderLayout.NORTH);
+                frame.getContentPane().add(new GamePanel(EnemyType.WOLF, loginManager, userManager), BorderLayout.CENTER);
+                frame.getContentPane().add(new GameToolBar(frame, userManager, loginManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 System.out.println("[게임 시작] Medium Mode");
@@ -146,8 +145,8 @@ public class SelectModePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new GamePanel(EnemyType.REAPER, rankingManager, user), BorderLayout.CENTER);
-                frame.getContentPane().add(new GameToolBar(frame, rankingManager, loginManager, user), BorderLayout.NORTH);
+                frame.getContentPane().add(new GamePanel(EnemyType.REAPER, loginManager, userManager), BorderLayout.CENTER);
+                frame.getContentPane().add(new GameToolBar(frame, userManager, loginManager, user), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 System.out.println("[게임 시작] Hard Mode");
@@ -159,7 +158,7 @@ public class SelectModePanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
-                frame.getContentPane().add(new MenuPanel(frame, rankingManager, loginManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new MenuPanel(frame,  loginManager, userManager), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();

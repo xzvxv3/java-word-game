@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Mushroom extends BaseGameCharacter implements Runnable {
     public Mushroom(JPanel panel, ImageLoader imageLoader, int hp) {
-        super(panel, imageLoader,  hp, 250, 400, 140, 100);
+        super(panel, imageLoader, hp, 700, 340,250, 400, 140, 100);
     }
 
     @Override

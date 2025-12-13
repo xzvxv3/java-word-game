@@ -2,7 +2,7 @@ package ui.menu;
 
 import dto.User;
 import manager.LoginManager;
-import manager.RankingManager;
+import manager.UserManager;
 import ui.common.GameImageButton;
 import ui.intro.LoginPanel;
 import ui.toolbar.StartToolBar;
@@ -48,11 +48,11 @@ public class MenuPanel extends JPanel {
     // 로그인 관리자 (로그아웃시 필요)
     private LoginManager loginManager = null;
     // 랭킹 관리자
-    private RankingManager rankingManager = null;
+    private UserManager userManager = null;
 
-    public MenuPanel(JFrame frame, RankingManager rankingManager, LoginManager loginManager, User user) {
+    public MenuPanel(JFrame frame, LoginManager loginManager, UserManager userManager) {
         this.frame = frame;
-        this.rankingManager = rankingManager;
+        this.userManager = userManager;
         this.loginManager = loginManager;
         this.user = user;
         setLayout(null);
@@ -78,7 +78,7 @@ public class MenuPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new SelectModePanel(frame, rankingManager, loginManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new SelectModePanel(frame, userManager, loginManager), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
@@ -92,7 +92,7 @@ public class MenuPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new RankingPanel(frame, rankingManager, loginManager, user), BorderLayout.CENTER);
+                frame.getContentPane().add(new RankingPanel(frame, userManager, loginManager), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
@@ -106,11 +106,11 @@ public class MenuPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
-                frame.getContentPane().add(new LoginPanel(frame, new LoginManager(), rankingManager), BorderLayout.CENTER);
+                frame.getContentPane().add(new LoginPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
-                System.out.println("[로그아웃] " + user.getId());
+                loginManager.logout();
             }
         });
 

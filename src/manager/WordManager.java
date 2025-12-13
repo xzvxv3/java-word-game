@@ -33,12 +33,12 @@ public class WordManager {
 
     // 캐릭터 관리자
     private CharacterManager characterManager;
-    private RankingManager rankingManager;
+    private UserManager userManager;
     private User user;
 
-    public WordManager(CharacterManager characterManager, RankingManager rankingManager, User user) {
+    public WordManager(CharacterManager characterManager, UserManager userManager, User user) {
         this.characterManager = characterManager;
-        this.rankingManager = rankingManager;
+        this.userManager = userManager;
         this.user = user;
     }
 
@@ -70,7 +70,7 @@ public class WordManager {
             System.exit(0);
         }
         // 단어 낙하 Runnable 생성
-        wordFallingTask = new WordFallingTask(scorePanel, wordStore, characterManager, view, rankingManager, user);
+        wordFallingTask = new WordFallingTask(scorePanel, wordStore, characterManager, view, userManager, user);
     }
 
     // 단어 생성 Runnable 생성

@@ -8,6 +8,7 @@ public class ReaperImageLoader extends ImageLoader {
     private ImageIcon[] attackMotion = new ImageIcon[10];
     private ImageIcon[] skillMotion = new ImageIcon[9];
     private ImageIcon[] damageMotion = new ImageIcon[4];
+    private ImageIcon[] runMotion = new ImageIcon[8];
 
     public ReaperImageLoader() {
         setMotions(); // 이미지 생성
@@ -21,6 +22,7 @@ public class ReaperImageLoader extends ImageLoader {
         motionMap.put(MotionType.ENEMY_ATTACK01, attackMotion);
         motionMap.put(MotionType.ENEMY_SKILL01, skillMotion);
         motionMap.put(MotionType.DAMAGE, damageMotion);
+        motionMap.put(MotionType.RUN, runMotion);
     }
 
     // 이미지 생성
@@ -45,5 +47,8 @@ public class ReaperImageLoader extends ImageLoader {
 
         // Damage Motion
         for (int i = 0; i < 4; i++) damageMotion[i] = new ImageIcon(BASE_PATH + "reaper/damage/damage00" + (i + 1) + ".png");
+
+        // Run Motion
+        for (int i = 0; i < 8; i++) runMotion[i] = new ImageIcon(BASE_PATH + "reaper/run/run00" + (i + 1) + ".png");
     }
 }

@@ -9,6 +9,7 @@ public class MushroomImageLoader extends ImageLoader {
     private ImageIcon[] deadMotion = new ImageIcon[4];
     private ImageIcon[] damageMotion = new ImageIcon[4];
     private ImageIcon[] attackMotion = new ImageIcon[8];
+    private ImageIcon[] runMotion = new ImageIcon[8];
 
     public MushroomImageLoader() {
         setMotions(); // 이미지 생성
@@ -21,6 +22,7 @@ public class MushroomImageLoader extends ImageLoader {
         motionMap.put(MotionType.DEAD, deadMotion);
         motionMap.put(MotionType.ENEMY_ATTACK01, attackMotion);
         motionMap.put(MotionType.DAMAGE, damageMotion);
+        motionMap.put(MotionType.RUN, runMotion);
     }
 
     // 이미지 생성
@@ -40,5 +42,8 @@ public class MushroomImageLoader extends ImageLoader {
         // Attack Motion
         for (int i = 0; i < 8; i++)
             attackMotion[i] = new ImageIcon(BASE_PATH + "mushroom/attack/MushroomAttack00" + (i + 1) + ".png");
+
+        for(int i=0; i<8; i++)
+            runMotion[i] = new ImageIcon(BASE_PATH + "mushroom/run/MushroomRun00" + (i + 1) + ".png");
     }
 }
