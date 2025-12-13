@@ -35,7 +35,10 @@ public class WordFallingTask implements Runnable {
 
     private ScorePanel scorePanel;
 
-    public WordFallingTask(ScorePanel scorePanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view, UserManager userManager, User user) {
+    private int startDelay;
+
+    public WordFallingTask(int startDelay, ScorePanel scorePanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view, UserManager userManager, User user) {
+        this.startDelay = startDelay;
         this.scorePanel = scorePanel;
         this.wordStore = wordStore;
         this.view = view;
@@ -48,6 +51,12 @@ public class WordFallingTask implements Runnable {
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(startDelay);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         while(running) {
             fallWords();
             try {

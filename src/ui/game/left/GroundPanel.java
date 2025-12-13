@@ -32,7 +32,8 @@ public class GroundPanel extends JPanel {
         // 모드에 따른 배경화면 설정
         setModeScene();
 
-        startGameSequence();
+        // 게임 시작
+        startGame();
     }
 
     // 모드에 따른 배경화면 설정
@@ -45,19 +46,14 @@ public class GroundPanel extends JPanel {
         }
     }
 
-
-    // [변경] 게임 시작 시퀀스 (인트로 -> 게임시작)
-    public void startGameSequence() {
+    public void startGame() {
         // 1. 캐릭터 스레드 시작 (움직일 준비)
         characterManager.gameStart();
 
-        // 2. 캐릭터에게 "4초 동안 중앙으로 와라" 명령
-        // Man: -300 -> -150 (원래 전투 위치)
+        // Man 초기 등장 설정
         characterManager.getMan().setIntroMove(270, 3000);
 
-        // Enemy: 1300 -> 700 (원래 전투 위치, 몬스터마다 다르면 분기 처리 필요)
-        // 예시로 700으로 설정. 실제로는 몬스터 타입별로 좌표가 다를 수 있음.
-
+        // Enemy 초기 등장 설정
         switch (characterManager.getEnemyType()) {
             case SCARECROW : characterManager.getEnemy().setIntroMove(260, 3000); break;
             case MUSHROOM : characterManager.getEnemy().setIntroMove(260, 3000); break;
@@ -65,20 +61,7 @@ public class GroundPanel extends JPanel {
             case REAPER : characterManager.getEnemy().setIntroMove(200, 3000); break;
         }
 
-        // 3. 별도 스레드에서 4초 대기 후 단어 매니저 실행
-        new Thread(() -> {
-            try {
-                // 4초 대기 (캐릭터들이 걸어오는 시간)
-                Thread.sleep(4000);
-
-                // 4. 대기 끝, 진짜 게임 시작 (단어 떨어지기)
-                System.out.println("인트로 종료 -> 게임 시작!");
-                wordManager.gameStart();
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
+        wordManager.gameStart(4000);
     }
 
     @Override
@@ -86,9 +69,6 @@ public class GroundPanel extends JPanel {
         super.paintComponent(g);
         g.drawImage(stageImage.getImage(), 0, 0, getWidth(), getHeight(), this);
 
-        // mushroom -> 260, wolf -> 330, reaper ->  200, man -> 270
-
-        // -150, 700
         enemyImage = characterManager.getEnemy().getCurrentFrame();
 
         // 몬스터 좌표

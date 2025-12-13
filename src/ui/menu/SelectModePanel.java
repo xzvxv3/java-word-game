@@ -79,7 +79,7 @@ public class SelectModePanel extends JPanel {
     private void initComponent() {
         // mode 버튼
         for (int i = 0; i < modeBtns.length; i++) {
-            modeBtns[i].setBounds(150 + 210 * i, 200, 150, 150);
+            modeBtns[i].setBounds(100 + 250 * i, 200, 150, 150);
         }
         // back 버튼
         backBtn.setBounds(50, 630, 140, 55);

@@ -24,7 +24,10 @@ public class WordMakerTask implements Runnable{
     private final int HEIGHT_SIZE = 30;
     private final int WIDTH_SIZE = 150;
 
-    public WordMakerTask(TextStore textStore, WordStore wordStore, GroundPanel view) {
+    private int startDelay;
+
+    public WordMakerTask(int startDelay, TextStore textStore, WordStore wordStore, GroundPanel view) {
+        this.startDelay = startDelay;
         this.textStore = textStore;
         this.wordStore = wordStore;
         this.view = view;
@@ -32,6 +35,12 @@ public class WordMakerTask implements Runnable{
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(startDelay);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         while(running) {
             makeWord();
             try {

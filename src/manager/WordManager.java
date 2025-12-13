@@ -64,29 +64,29 @@ public class WordManager {
     }
 
     // 단어 낙하 Runnable 생성
-    private void initWordFallingTask() {
+    private void initWordFallingTask(int startDelay) {
         if (view == null || scorePanel == null) {
             System.out.println("view나 scorepanel null임 다시 확인할것");
             System.exit(0);
         }
         // 단어 낙하 Runnable 생성
-        wordFallingTask = new WordFallingTask(scorePanel, wordStore, characterManager, view, userManager, user);
+        wordFallingTask = new WordFallingTask(startDelay, scorePanel, wordStore, characterManager, view, userManager, user);
     }
 
     // 단어 생성 Runnable 생성
-    private void initWordMakerTask() {
+    private void initWordMakerTask(int startDelay) {
         if(view == null) {
             System.out.println("view가 null임");
             System.exit(0);
         }
         // 단어 생성 Runnable 생성
-        wordMakerTask = new WordMakerTask(textStore, wordStore, view);
+        wordMakerTask = new WordMakerTask(startDelay, textStore, wordStore, view);
     }
 
     // 단어 생성 & 낙하 시작
-    public void gameStart() {
-        initWordFallingTask();
-        initWordMakerTask();
+    public void gameStart(int startDelay) {
+        initWordFallingTask(startDelay);
+        initWordMakerTask(startDelay);
         wordMakerThread = new Thread(wordMakerTask);
         wordFallingThread = new Thread(wordFallingTask);
 

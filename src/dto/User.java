@@ -8,15 +8,15 @@ public class User {
     private String password; // 비밀번호
 
     // Easy, Medium, Hard 점수
-    private int easyModeScore, mediumModeScore, hardModeScore;
+    private int easyModeScore, normalModeScore, hardModeScore;
 
     private int currentScore = 0;
 
-    public User(String id, String password, int easyModeScore, int mediumModeScore, int hardModeScore) {
+    public User(String id, String password, int easyModeScore, int normalModeScore, int hardModeScore) {
         this.id = id;
         this.password = password;
         this.easyModeScore = easyModeScore;
-        this.mediumModeScore = mediumModeScore;
+        this.normalModeScore = normalModeScore;
         this.hardModeScore = hardModeScore;
     }
 
@@ -39,7 +39,7 @@ public class User {
     // Easy Mode 점수 반환
     public int getEasyModeScore() { return easyModeScore; }
     // Medium Mode 점수 반환
-    public int getMediumModeScore() { return mediumModeScore; }
+    public int getNormalModeScore() { return normalModeScore; }
     // Hard Mode 점수 반환
     public int getHardModeScore() {return hardModeScore; }
 
@@ -47,7 +47,7 @@ public class User {
     public void updateCurrentScore(EnemyType enemyType, int currentScore) {
         switch (enemyType) {
             case MUSHROOM : if(easyModeScore < currentScore) easyModeScore = currentScore; break;
-            case WOLF : if(mediumModeScore < currentScore) mediumModeScore = currentScore; break;
+            case WOLF : if(normalModeScore < currentScore) normalModeScore = currentScore; break;
             case REAPER : if(hardModeScore < currentScore) hardModeScore = currentScore; break;
             default: return;
         }

@@ -60,7 +60,7 @@ public class UserManager {
             // 모든 유저 탐색
             for (User u : userMap.values()) {
                 String data = u.getId() + " " + u.getPassword() + " "
-                            + u.getEasyModeScore() + " " + u.getMediumModeScore()
+                            + u.getEasyModeScore() + " " + u.getNormalModeScore()
                             + " " + u.getHardModeScore() + "\n";
                 fw.write(data);
             }
@@ -90,7 +90,7 @@ public class UserManager {
 
             // 새로운 유저의 데이터
             String data = user.getId() + " " + user.getPassword() + " "
-                    + user.getEasyModeScore() + " " + user.getMediumModeScore()
+                    + user.getEasyModeScore() + " " + user.getNormalModeScore()
                     + " " + user.getHardModeScore() + "\n";
 
             // 파일에 저장
@@ -102,7 +102,6 @@ public class UserManager {
         }
     }
 
-
     // 모드에 따른 랭킹 반환
     public Vector<User> getRankingsByMode(EnemyType enemyType) {
         // 1. 전체 유저 리스트 가져오기
@@ -111,7 +110,7 @@ public class UserManager {
         // 2. 모드에 따라 다르게 정렬
         switch (enemyType) {
             case MUSHROOM : userVector.sort((o1, o2) -> o2.getEasyModeScore() - o1.getEasyModeScore()); break;
-            case WOLF : userVector.sort((o1, o2) -> o2.getMediumModeScore() - o1.getMediumModeScore()); break;
+            case WOLF : userVector.sort((o1, o2) -> o2.getNormalModeScore() - o1.getNormalModeScore()); break;
             case REAPER : userVector.sort((o1, o2) -> o2.getHardModeScore() - o1.getHardModeScore()); break;
         }
 

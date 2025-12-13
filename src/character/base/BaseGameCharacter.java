@@ -46,7 +46,7 @@ public abstract class BaseGameCharacter extends BaseAnimation {
     public int getY() { return y; }
 
     // 캐릭터 등장 초기 설정
-    public void setIntroMove(int targetX, int durationMs) {
+    public void setIntroMove(int targetX, int startDelay) {
         // 목표지점 (전투를 시작하는 위치)
         this.targetX = targetX;
 
@@ -57,7 +57,7 @@ public abstract class BaseGameCharacter extends BaseAnimation {
         int distance = targetX - x;
 
         // 프레임 횟수 = 총 시간 / 프레임 딜레이
-        int totalFrames = durationMs / super.FRAME_DELAY;
+        int totalFrames = startDelay / super.FRAME_DELAY;
 
         // 속도 = 거리 / 프레임 횟수
         moveSpeed = distance / totalFrames;
