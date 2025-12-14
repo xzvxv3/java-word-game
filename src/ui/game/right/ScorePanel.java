@@ -6,8 +6,6 @@ import character.type.EnemyType;
 import javax.swing.*;
 import java.awt.*;
 
-// CharacterManager을 불러와서, Sword인지 Empty인지에 따라 데미지 다르게 할 것
-
 // 점수 판넬
 public class ScorePanel extends JPanel {
     private int score = 0; // 초기 점수

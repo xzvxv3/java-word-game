@@ -46,7 +46,7 @@ public class WordMakerTask implements Runnable{
             makeWord();
 
             // 단어 생성 딜레이
-            try { Thread.sleep(2000); } catch (InterruptedException e) { throw new RuntimeException(e); }
+            try { Thread.sleep(1650); } catch (InterruptedException e) { throw new RuntimeException(e); }
         }
 
         System.out.println("[단어 생성 스레드 종료]");

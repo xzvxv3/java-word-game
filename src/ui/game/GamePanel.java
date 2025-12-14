@@ -20,24 +20,23 @@ public class GamePanel extends JSplitPane {
     private ItemPanel itemPanel; // 편집 판넬
     private InputPanel inputPanel;
 
-    private CharacterManager characterManager = new CharacterManager();
+    // 캐릭터 매니저를 SelectMode로 올려야할듯.
+
+    // private CharacterManager characterManager = new CharacterManager();
     private WordManager wordManager = null;
     private UserManager userManager = null;
     private LoginManager loginManager = null;
 
     private JFrame frame;
 
+    private CharacterManager characterManager = null;
     // 게임 전체 화면
-    public GamePanel(JFrame frame, EnemyType enemyType, LoginManager loginManager, UserManager userManager) {
+    public GamePanel(JFrame frame, CharacterManager characterManager, WordManager wordManager, LoginManager loginManager, UserManager userManager) {
         this.frame = frame;
-        // Monster 설정
-        characterManager.setEnemyType(enemyType);
-
+        this.characterManager = characterManager;
+        this.wordManager = wordManager;
         this.userManager = userManager;
         this.loginManager = loginManager;
-
-        wordManager = new WordManager(characterManager, userManager, loginManager.getCurrentUser());
-
 
         // ====================== 오른쪽 화면(점수 + 체력바, 아이템 선택 화면) ======================
         scorePanel = new ScorePanel(characterManager); // 점수 Panel 생성
@@ -49,7 +48,6 @@ public class GamePanel extends JSplitPane {
 
         // ====================== 왼쪽 화면(게임 화면) ======================
         playPanel = new PlayPanel(scorePanel, itemPanel, characterManager, wordManager, loginManager, userManager);
-
 
         // 컴포넌트 배치
         setOrientation(JSplitPane.HORIZONTAL_SPLIT); // 수직 구분선

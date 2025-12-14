@@ -167,4 +167,7 @@ public abstract class BaseGameCharacter extends BaseAnimation {
     // 캐릭터 현재 HP 반환
     public int getCurrentHp() { return hp; }
 
+    public void setHP(int hp) {
+        this.hp = hp;
+    }
 }

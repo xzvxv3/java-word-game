@@ -1,5 +1,6 @@
 package manager;
 
+import character.type.EnemyType;
 import dto.User;
 import ui.game.left.GroundPanel;
 import ui.game.right.ScorePanel;
@@ -30,6 +31,8 @@ public class WordManager {
     private GroundPanel view;
     // 점수 판정 Panel
     private ScorePanel scorePanel;
+
+    private int wordFallSpeed;
 
     // 캐릭터 관리자
     private CharacterManager characterManager;
@@ -63,6 +66,18 @@ public class WordManager {
         view.revalidate();
     }
 
+    public void setPraticeWordFallSpeed(int wordFallSpeed) {
+        this.wordFallSpeed = wordFallSpeed;
+    }
+
+    public void setWordFallSpeed(EnemyType enemyType) {
+        switch (enemyType) {
+            case MUSHROOM : this.wordFallSpeed = 170; break;
+            case WOLF : this.wordFallSpeed = 140; break;
+            case REAPER : this.wordFallSpeed = 110; break;
+        }
+    }
+
     // 단어 낙하 Runnable 생성
     private void initWordFallingTask(int startDelay) {
         if (view == null || scorePanel == null) {
@@ -70,7 +85,7 @@ public class WordManager {
             System.exit(0);
         }
         // 단어 낙하 Runnable 생성
-        wordFallingTask = new WordFallingTask(startDelay, scorePanel, wordStore, characterManager, view, userManager, user);
+        wordFallingTask = new WordFallingTask(startDelay, wordFallSpeed, scorePanel, wordStore, characterManager, view, userManager, user);
     }
 
     // 단어 생성 Runnable 생성

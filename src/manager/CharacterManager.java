@@ -95,7 +95,6 @@ public class CharacterManager {
         return enemyType;
     }
 
-
     public WeaponType getManWeapon() {
         return man.getCurrentWeapon();
     }
@@ -168,6 +167,11 @@ public class CharacterManager {
                 reaper.decreaseHP(amount);
                 break;
         }
+    }
+
+    // 몬스터 체력 설정
+    public void setEnemyHP(int hp) {
+        scarecrowHP = hp;
     }
 
     public void gameStart() {

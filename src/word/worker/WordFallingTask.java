@@ -37,8 +37,11 @@ public class WordFallingTask implements Runnable {
 
     private int startDelay;
 
-    public WordFallingTask(int startDelay, ScorePanel scorePanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view, UserManager userManager, User user) {
+    private int wordFallSpeed;
+
+    public WordFallingTask(int startDelay, int wordFallSpeed, ScorePanel scorePanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view, UserManager userManager, User user) {
         this.startDelay = startDelay;
+        this.wordFallSpeed = wordFallSpeed;
         this.scorePanel = scorePanel;
         this.wordStore = wordStore;
         this.view = view;
@@ -60,12 +63,26 @@ public class WordFallingTask implements Runnable {
 
             fallWords();
 
+            // 80 -> 매우 빠름, 110 -> 빠름, 140 -> 보통, 170 -> 쉬움
+
             // 단어 낙하 속도
-            try { Thread.sleep(150); } catch (InterruptedException e) { throw new RuntimeException(e); }
+            try { Thread.sleep(wordFallSpeed); } catch (InterruptedException e) { throw new RuntimeException(e); }
         }
 
         System.out.println("[단어 낙하 스레드 종료]");
     }
+
+//    public void setPraticeWordFallSpeed(int fallingSpeed) {
+//        this.wordFallSpeed = fallingSpeed;
+//    }
+//
+//    public void setWordFallSpeed(EnemyType enemyType) {
+//        switch (enemyType) {
+//            case MUSHROOM : this.fallingSpeed = 170; break;
+//            case WOLF : this.fallingSpeed = 140; break;
+//            case REAPER : this.fallingSpeed = 110; break;
+//        }
+//    }
 
     // 강제 종료 (뒤로가기 버튼시 활성화)
     public void shutDown() {
