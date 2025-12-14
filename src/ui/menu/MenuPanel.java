@@ -28,7 +28,7 @@ public class MenuPanel extends JPanel {
             BTN_PATH + "ranking_btn_rollover.png"
     );
 
-    JButton settingBtn = new GameImageButton(
+    JButton settingsBtn = new GameImageButton(
             BTN_PATH + "settings_btn.png",
             BTN_PATH + "settings_btn_rollover.png"
     );
@@ -38,7 +38,7 @@ public class MenuPanel extends JPanel {
             BTN_PATH + "logout_btn_rollover.png"
     );
 
-    JButton[] btns = {selectModeBtn, rankingBtn, settingBtn, logoutBtn};
+    JButton[] btns = {selectModeBtn, rankingBtn, settingsBtn, logoutBtn};
 
     private JFrame frame;
 
@@ -100,6 +100,20 @@ public class MenuPanel extends JPanel {
             }
         });
 
+        // 설정 화면
+        settingsBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.getContentPane().removeAll();
+                frame.getContentPane().setLayout(new BorderLayout());
+                frame.getContentPane().add(new SettingsPanel(frame, userManager, loginManager), BorderLayout.CENTER);
+                frame.revalidate();
+                frame.repaint();
+                System.out.println("[설정 화면]");
+            }
+        });
+
+
         // 로그아웃 버튼
         logoutBtn.addActionListener(new ActionListener() {
             @Override
@@ -107,7 +121,6 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new LoginPanel(frame, loginManager, userManager), BorderLayout.CENTER);
-                //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 loginManager.logout();

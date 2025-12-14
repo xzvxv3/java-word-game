@@ -162,12 +162,33 @@ public class SelectModePanel extends JPanel {
                 int option = JOptionPane.showConfirmDialog(frame, panel, "연습 모드 설정", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
                 if (option == JOptionPane.OK_OPTION) {
-                    int wordFallingSpeed = speedSlider.getValue(); // 단어 낙하 속도
-                    int scarecrowHP = Integer.parseInt(hpTextField.getText()); // 몬스터 체력
 
-                    wordManager.setPraticeWordFallSpeed(wordFallingSpeed);
+                    String inputHp = hpTextField.getText().trim(); // 공백 제거
 
-                    characterManager.setEnemyHP(scarecrowHP);
+                    if(inputHp.isEmpty()) {
+                        System.out.println("숫자를 입력하세요!");
+                        return;
+                    }
+
+                    int hp = -1; // 임시 초기화
+
+                    try {
+                        hp = Integer.parseInt(inputHp);
+
+                        if(hp <= 0) {
+                            System.out.println("체력은 1 이상이어야 합니다.");
+                            return;
+                        }
+
+                    } catch (NumberFormatException exception) {
+                        System.out.println("잘못된 입력");
+                        return;
+                    }
+
+                    int wordFallSpeed = speedSlider.getValue(); // 단어 낙하 속도
+
+                    wordManager.setPraticeWordFallSpeed(wordFallSpeed);
+                    characterManager.setEnemyHP(hp);
 
                     frame.getContentPane().removeAll();
                     frame.getContentPane().setLayout(new BorderLayout());

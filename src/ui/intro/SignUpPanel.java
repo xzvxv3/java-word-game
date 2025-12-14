@@ -70,9 +70,9 @@ public class SignUpPanel extends JPanel {
         passwordTextField.setBounds(450, 300, 270, 40);
 
         checkIdButton.setBounds(720, 228, 50, 33);
-        createAccountButton.setBounds(800, 660, 250, 50);
+        createAccountButton.setBounds(800, 685, 250, 50);
 
-        backButton.setBounds(50, 660, 140, 55);
+        backButton.setBounds(50, 685, 140, 55);
     }
 
     // 컴포넌트 이벤트 추가
@@ -128,9 +128,9 @@ public class SignUpPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new LoginPanel(frame, loginManager, userManager), BorderLayout.CENTER);
-                //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                System.out.println("[로그인 화면]");
             }
         });
     }

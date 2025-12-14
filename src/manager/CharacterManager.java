@@ -39,7 +39,7 @@ public class CharacterManager {
     // Man 체력
     private int manHP = 100;
     // Monster 체력
-    private int scarecrowHP = 10, mushroomHP = 2, wolfHP = 5, reaperHP = 60;
+    private int scarecrowHP, mushroomHP = 5, wolfHP = 30, reaperHP = 60;
 
     // 게임 강제 종료 (뒤로가기 버튼시 활성)
     public void shutDown() {

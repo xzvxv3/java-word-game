@@ -20,6 +20,7 @@ public class RankingPanel extends JPanel {
     private ImageIcon backgroundImage = new ImageIcon("resources/images/background/common/default.png");
     private ImageIcon rankingTitleImage = new ImageIcon("resources/images/element/ranking/ranking_title_lbl4.png");
 
+
     private JFrame frame;
 
     // 뒤로가기 버튼
