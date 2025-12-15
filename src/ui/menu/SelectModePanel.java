@@ -2,10 +2,7 @@ package ui.menu;
 
 import character.type.EnemyType;
 import dto.User;
-import manager.CharacterManager;
-import manager.LoginManager;
-import manager.UserManager;
-import manager.WordManager;
+import manager.*;
 import ui.common.GameImageButton;
 import ui.game.GamePanel;
 import ui.toolbar.GameToolBar;
@@ -109,6 +106,7 @@ public class SelectModePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 characterManager.setEnemyType(EnemyType.SCARECROW);
                 wordManager = new WordManager(characterManager, userManager, loginManager.getCurrentUser());
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
 
                 JPanel panel = new JPanel();
                 panel.setLayout(null);
@@ -195,6 +193,7 @@ public class SelectModePanel extends JPanel {
                     frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
                     frame.revalidate();
                     frame.repaint();
+
                     System.out.println("[게임 시작] Pratice Mode");
                 }
                 else {
@@ -216,6 +215,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
                 System.out.println("[게임 시작] Easy Mode");
             }
         });
@@ -233,6 +233,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
                 System.out.println("[게임 시작] Medium Mode");
             }
         });
@@ -250,6 +251,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
                 System.out.println("[게임 시작] Hard Mode");
             }
         });

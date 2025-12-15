@@ -1,9 +1,6 @@
 package ui.game.right;
 
-import manager.CharacterManager;
-import manager.LoginManager;
-import manager.UserManager;
-import manager.WordManager;
+import manager.*;
 import ui.common.GameImageButton;
 import ui.game.left.InputPanel;
 import ui.menu.MenuPanel;
@@ -181,6 +178,8 @@ public class ItemPanel extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     inputPanel.requestFocusOnTextField();
                     if(healCount >= 3) return;
+
+                    SoundManager.getAudio().play("resources/sounds/potion.wav");
 
                     scorePanel.healManHP();
                     potionLabel.usePotion();

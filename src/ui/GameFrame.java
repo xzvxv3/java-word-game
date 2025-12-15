@@ -36,7 +36,7 @@ public class GameFrame extends JFrame {
 
     // 게임 초기 화면
     private void showLogin() {
-        getContentPane().add(menuPanel, BorderLayout.CENTER);
+        getContentPane().add(loginPanel, BorderLayout.CENTER);
     }
 
     // 메뉴바 생성

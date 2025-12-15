@@ -138,7 +138,7 @@ public class ScorePanel extends JPanel {
         public ScoreTextLabel() {
             setText("SCORE");
             setSize(150, 100);
-            setLocation(60, -10);
+            setLocation(75, -10);
             setFont(new Font("맑은 고딕", Font.BOLD, 30));
         }
     }
@@ -148,7 +148,7 @@ public class ScorePanel extends JPanel {
         public ScoreLabel() {
             setText(Integer.toString(score));
             setSize(200, 100);
-            setLocation(180, -10);
+            setLocation(195, -10);
             setFont(new Font("맑은 고딕", Font.BOLD, 30));
         }
     }

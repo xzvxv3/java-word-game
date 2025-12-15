@@ -4,6 +4,7 @@ import dto.User;
 import manager.CharacterManager;
 import character.type.EnemyType;
 import character.type.MotionType;
+import manager.SoundManager;
 import manager.UserManager;
 import ui.game.right.ScorePanel;
 import word.Word;
@@ -170,6 +171,13 @@ public class WordFallingTask implements Runnable {
                 // 단어 라벨 충돌 판정
                 if(word.isAtBottom()) {
 
+
+                    switch (characterManager.getEnemyType()) {
+                        case EnemyType.MUSHROOM : SoundManager.getAudio().play("resources/sounds/mushroom_attack.wav"); break;
+                        case EnemyType.WOLF : SoundManager.getAudio().play("resources/sounds/wolf_attack.wav"); break;
+                        case EnemyType.REAPER : SoundManager.getAudio().play("resources/sounds/reaper_attack.wav"); break;
+                    }
+
                     // Mushroom, Wolf 공격
                     if(characterManager.getEnemyType() == EnemyType.MUSHROOM || characterManager.getEnemyType() == EnemyType.WOLF) {
                         characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01);
@@ -187,11 +195,7 @@ public class WordFallingTask implements Runnable {
 
                     // Reaper 공격
                     if(characterManager.getEnemyType() == EnemyType.REAPER) {
-                        int r = (int) (Math.random() * 2);
-                        switch (r) {
-                            case 0 : characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01); break;
-                            case 1 : characterManager.getEnemy().setMotion(MotionType.ENEMY_SKILL01); break;
-                        }
+                        characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01);
                         scorePanel.decreaseManHP(20);
                         characterManager.decreaseManHP(20);
                     }

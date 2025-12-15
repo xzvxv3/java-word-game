@@ -2,12 +2,9 @@ package ui.game.left;
 
 import character.type.EnemyType;
 import dto.User;
-import manager.CharacterManager;
+import manager.*;
 import character.type.MotionType;
 import character.type.WeaponType;
-import manager.LoginManager;
-import manager.UserManager;
-import manager.WordManager;
 import ui.game.right.ItemPanel;
 import ui.game.right.ScorePanel;
 import word.Word;
@@ -104,6 +101,7 @@ public class InputPanel extends JPanel {
                             int r = (int) (Math.random() * 4);
 
                             if(characterManager.getManWeapon() == WeaponType.EMPTY) {
+                                SoundManager.getAudio().play("resources/sounds/punch01.wav");
                                 switch (r) {
                                     case 0 : characterManager.getMan().setMotion(MotionType.MAN_ATTACK01); break;
                                     case 1 : characterManager.getMan().setMotion(MotionType.MAN_ATTACK02); break;
@@ -113,6 +111,7 @@ public class InputPanel extends JPanel {
                             }
 
                             else if(characterManager.getManWeapon() == WeaponType.SWORD) {
+                                SoundManager.getAudio().play("resources/sounds/sword.wav");
                                 switch (r) {
                                     case 0 : characterManager.getMan().setMotion(MotionType.MAN_SWORD_ATTACK01); break;
                                     case 1 : characterManager.getMan().setMotion(MotionType.MAN_SWORD_ATTACK02); break;
@@ -146,6 +145,7 @@ public class InputPanel extends JPanel {
 
                         if(before == after) {
                             System.out.println("[Reaper 스킬 발동!]");
+                            SoundManager.getAudio().play("resources/sounds/reaper_skill.wav");
                             characterManager.useReaperSkill();
                             wordManager.useReaperSkill();
                         }

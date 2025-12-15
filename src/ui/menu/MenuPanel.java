@@ -2,6 +2,7 @@ package ui.menu;
 
 import dto.User;
 import manager.LoginManager;
+import manager.SoundManager;
 import manager.UserManager;
 import ui.common.GameImageButton;
 import ui.intro.LoginPanel;
@@ -82,6 +83,7 @@ public class MenuPanel extends JPanel {
                 //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
                 System.out.println("[모드 선택]");
             }
         });
@@ -96,6 +98,7 @@ public class MenuPanel extends JPanel {
                 //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
                 System.out.println("[랭킹 화면]");
             }
         });
@@ -109,6 +112,7 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().add(new SettingsPanel(frame, userManager, loginManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
                 System.out.println("[설정 화면]");
             }
         });
@@ -123,6 +127,7 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().add(new LoginPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
                 loginManager.logout();
             }
         });
