@@ -45,6 +45,10 @@ public class WordManager {
         this.user = user;
     }
 
+    public void useReaperSkill() {
+        wordFallingTask.useReaperSkill();
+    }
+
     // 낙하 단어장 반환
     public Vector<Word> getWordVector() {
         return wordStore.getWordVector();
@@ -117,7 +121,8 @@ public class WordManager {
 
     // 강제 종료 (뒤로가기 버튼시 활성화)
     public void shutDown() {
-        wordMakerTask.shutDown();
-        wordFallingTask.shutDown();
+        wordMakerThread.interrupt();
+        wordFallingThread.interrupt();
+        System.out.println("종료완료");
     }
 }

@@ -1,5 +1,6 @@
 package ui.game.left;
 
+import character.type.EnemyType;
 import dto.User;
 import manager.CharacterManager;
 import character.type.MotionType;
@@ -70,8 +71,13 @@ public class InputPanel extends JPanel {
                 String userText = tf.getText();
                 tf.setText("");
 
+                // if(characterManager.getEnemyType() == EnemyType.REAPER && )
+
                 synchronized (words) {
                     Iterator<Word> it = words.iterator();
+
+                    int before = words.size();
+                    System.out.println("[현재 단어 개수] : " + before);
 
                     while(it.hasNext()) {
                         Word word = it.next();
@@ -92,6 +98,8 @@ public class InputPanel extends JPanel {
 
                             it.remove();
                             wordManager.removeWord(word);
+
+                            System.out.println("[맞춘 후 단어 개수] : " + words.size());
 
                             int r = (int) (Math.random() * 4);
 
@@ -127,8 +135,19 @@ public class InputPanel extends JPanel {
                                 // 랭킹에 업데이트
                                 userManager.updateUser(user);
                             }
-
                             break; // 단어를 맞췄으면, 더이상의 탐색은 하지 않는다.
+                        }
+                    }
+
+                    // 모든 단어를 탐색했는데도, 단어의 개수가 줄지 않았다면 -> 사용자는 단어를 맞추지 못함
+                    // -> Repaer 몬스터 한정 스킬 발동
+                    if(characterManager.getEnemyType() == EnemyType.REAPER) {
+                        int after = words.size();
+
+                        if(before == after) {
+                            System.out.println("[Reaper 스킬 발동!]");
+                            characterManager.useReaperSkill();
+                            wordManager.useReaperSkill();
                         }
                     }
                 }

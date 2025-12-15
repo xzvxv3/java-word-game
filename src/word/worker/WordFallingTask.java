@@ -54,39 +54,81 @@ public class WordFallingTask implements Runnable {
 
     @Override
     public void run() {
-
         // startDelay초 후, 단어가 생성되기 시작
-        try { Thread.sleep(startDelay); } catch (InterruptedException e) { throw new RuntimeException(e); }
+        try { Thread.sleep(startDelay); } catch (InterruptedException e) {
+            System.out.println("[단어 낙하 스레드 종료]");
+            return;
+        }
 
         while(running) {
             checkTimeStop();
 
+            // 스킬 사용중일시
+            if(isUseSkill) {
+                checkSkillSchedule();
+                checkRapidFallTime();
+            }
+
             fallWords();
 
-            // 80 -> 매우 빠름, 110 -> 빠름, 140 -> 보통, 170 -> 쉬움
-
             // 단어 낙하 속도
-            try { Thread.sleep(wordFallSpeed); } catch (InterruptedException e) { throw new RuntimeException(e); }
+            try { Thread.sleep(wordFallSpeed); } catch (InterruptedException e) {
+                System.out.println("[단어 낙하 스레드 종료]");
+                return;
+            }
         }
 
         System.out.println("[단어 낙하 스레드 종료]");
     }
+    // 스킬 발동 예약 시간 (자연스러운 딜레이 유도)
+    private long skillScheduledTime = 0;
 
-//    public void setPraticeWordFallSpeed(int fallingSpeed) {
-//        this.wordFallSpeed = fallingSpeed;
-//    }
-//
-//    public void setWordFallSpeed(EnemyType enemyType) {
-//        switch (enemyType) {
-//            case MUSHROOM : this.fallingSpeed = 170; break;
-//            case WOLF : this.fallingSpeed = 140; break;
-//            case REAPER : this.fallingSpeed = 110; break;
-//        }
-//    }
+    // [추가] 예약된 시간이 되면 급낙하 실행
+    private void checkSkillSchedule() {
+        // 예약된 시간이 있고(>0), 현재 시간이 그 시간을 지났다면
+        if (skillScheduledTime > 0 && System.currentTimeMillis() >= skillScheduledTime) {
+            rapidFall(); // 급낙하 시작!
+            skillScheduledTime = 0; // 예약 초기화 (중복 실행 방지)
+        }
+    }
 
-    // 강제 종료 (뒤로가기 버튼시 활성화)
-    public void shutDown() {
-        running = false;
+    private boolean isUseSkill = false;
+
+    // 0.5초뒤에 스킬 발생 (자연스러운 딜레이 유도)
+    public void useReaperSkill() {
+        if(isTimeStop) return;
+        isUseSkill = true;
+        skillScheduledTime = System.currentTimeMillis() + 500;
+    }
+
+    // 급낙하가 끝나는 시간
+    private long rapidFallEndTime = 0;
+
+    // 원래의 단어 낙하 속도
+    private int originalFallSpeed = 0;
+
+    // 단어 급낙하 발동
+    public void rapidFall() {
+        // 원래 속도 백업
+        originalFallSpeed = wordFallSpeed;
+
+        // 단어 낙하 속도 변경
+        wordFallSpeed = 20;
+
+        // 스킬 지속시간 (0.2초)
+        rapidFallEndTime = System.currentTimeMillis() + 200;
+    }
+
+    // 단어 급낙하 종료
+    private void checkRapidFallTime() {
+        if(rapidFallEndTime > 0 && System.currentTimeMillis() > rapidFallEndTime) {
+            wordFallSpeed = originalFallSpeed; // 단어 속도 복수
+
+            rapidFallEndTime = 0;
+
+            isUseSkill = false;
+            System.out.println("[리퍼 스킬 종료]");
+        }
     }
 
     private boolean isTimeStop = false;
@@ -97,7 +139,9 @@ public class WordFallingTask implements Runnable {
                 System.out.println("⏳ 3초간 멈춤...");
                 wait(3000); // 3초 대기 (Lock 반납하고 잠듦)
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("[단어 낙하 중 일시 정지]");
+                running = false;
+                return;
             }
             // 3초 지나면 자동으로 코드가 여기로 내려옴
             isTimeStop = false; // 플래그 끄기 (다시 움직임)
@@ -105,11 +149,10 @@ public class WordFallingTask implements Runnable {
         }
     }
 
-    // [추가] 외부(Manager)에서 호출하는 버튼
+    // 아이템 사용 -> 단어 낙하 일시 중지
     public synchronized void timeStop() {
         isTimeStop = true;
     }
-
 
     // 단어 낙하 시작
     private void fallWords() {

@@ -37,7 +37,10 @@ public class WordMakerTask implements Runnable{
     public void run() {
 
         // startDelay초 후, 단어가 생성되기 시작
-        try { Thread.sleep(startDelay); } catch (InterruptedException e) { throw new RuntimeException(e); }
+        try { Thread.sleep(startDelay); } catch (InterruptedException e) {
+            System.out.println("[단어 생성 스레드 종료]");
+            return;
+        }
 
         while(running) {
 
@@ -46,7 +49,10 @@ public class WordMakerTask implements Runnable{
             makeWord();
 
             // 단어 생성 딜레이
-            try { Thread.sleep(1650); } catch (InterruptedException e) { throw new RuntimeException(e); }
+            try { Thread.sleep(1650); } catch (InterruptedException e) {
+                System.out.println("[단어 생성 스레드 종료]");
+                return;
+            }
         }
 
         System.out.println("[단어 생성 스레드 종료]");
@@ -59,14 +65,18 @@ public class WordMakerTask implements Runnable{
 
     private boolean isTimeStop = false;
 
+    // 타임 스탑 활성됐는지
     private synchronized void checkTimeStop() {
         if (isTimeStop) {
             try {
                 System.out.println("⏳ 3초간 멈춤...");
                 wait(3000); // 3초 대기 (Lock 반납하고 잠듦)
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("[단어 생성 중 일시 정지]");
+                running = false;
+                return;
             }
+
             // 3초 지나면 자동으로 코드가 여기로 내려옴
             isTimeStop = false; // 플래그 끄기 (다시 움직임)
             System.out.println("⏰ 3초 끝! 다시 시작");

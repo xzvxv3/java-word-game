@@ -3,6 +3,7 @@ package manager;
 import character.base.BaseGameCharacter;
 import character.imageloader.*;
 import character.type.EnemyType;
+import character.type.MotionType;
 import character.type.WeaponType;
 import character.unit.monster.Mushroom;
 import character.unit.monster.Reaper;
@@ -173,6 +174,11 @@ public class CharacterManager {
     public void setEnemyHP(int hp) {
         scarecrowHP = hp;
     }
+
+    public void useReaperSkill() {
+        getEnemy().setMotion(MotionType.ENEMY_SKILL01);
+    }
+
 
     public void gameStart() {
         // Man 스레드
