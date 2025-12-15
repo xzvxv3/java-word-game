@@ -49,7 +49,6 @@ public class User {
             case MUSHROOM : if(easyModeScore < currentScore) easyModeScore = currentScore; break;
             case WOLF : if(normalModeScore < currentScore) normalModeScore = currentScore; break;
             case REAPER : if(hardModeScore < currentScore) hardModeScore = currentScore; break;
-            default: return;
         }
     }
 }

@@ -260,6 +260,7 @@ public class SelectModePanel extends JPanel {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new MenuPanel(frame,  loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();

@@ -3,6 +3,7 @@ package ui.menu;
 import character.type.EnemyType;
 import dto.User;
 import manager.LoginManager;
+import manager.SoundManager;
 import manager.UserManager;
 import ui.common.GameImageButton;
 import ui.common.RankingNameLabel;
@@ -118,6 +119,7 @@ public class RankingPanel extends JPanel {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new MenuPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);

@@ -1,6 +1,7 @@
 package ui.menu;
 
 import manager.LoginManager;
+import manager.SoundManager;
 import manager.UserManager;
 import ui.common.GameImageButton;
 
@@ -273,6 +274,7 @@ public class SettingsPanel extends JPanel {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new MenuPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();

@@ -1,6 +1,7 @@
 package ui.intro;
 
 import manager.LoginManager;
+import manager.SoundManager;
 import manager.UserManager;
 import ui.common.GameImageButton;
 
@@ -13,7 +14,7 @@ import java.awt.event.ActionListener;
 public class SignUpPanel extends JPanel {
 
     // 배경화면 이미지
-    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/ingame/normalday.png");
+    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/ingame/morning.png");
     // 회원 가입 글자 이미지
     private ImageIcon signUpTitleImage = new ImageIcon("resources/images/element/intro/signup_title_lbl.png");
     // ID 글자 이미지
@@ -96,8 +97,11 @@ public class SignUpPanel extends JPanel {
 
         // 계정 추가 버튼
         createAccountButton.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+
                 // ID 중복 체크
                 if (!isIdVerified) {
                     JOptionPane.showMessageDialog(frame, "아이디 중복 확인을 먼저 해주세요.", "알림", JOptionPane.WARNING_MESSAGE);
@@ -126,6 +130,7 @@ public class SignUpPanel extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new LoginPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
@@ -157,5 +162,7 @@ public class SignUpPanel extends JPanel {
         g.drawImage(idLabel.getImage(), 250, 110, 280, 280, this);
 
         g.drawImage(passwordLabel.getImage(), 160, 200, 280, 260, this);
+
+        g.drawImage(new ImageIcon("resources/sprites/scarecrow/idle/ScareCrowIDie001.png").getImage(), 450, 550, 230, 120, this);
     }
 }

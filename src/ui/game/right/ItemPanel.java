@@ -89,6 +89,7 @@ public class ItemPanel extends JPanel {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new SelectModePanel(frame, userManager, loginManager), BorderLayout.CENTER);
                 frame.revalidate();
@@ -112,10 +113,10 @@ public class ItemPanel extends JPanel {
             setFocusPainted(false);
             setIcon(new ImageIcon("resources/images/button/ingame/SwordOFF.png"));
 
-            // 버튼 한번 클릭하면 다시 못바꾸게?
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    SoundManager.getAudio().play("resources/sounds/sword_btn.wav");
                     if(scorePanel.isPossibleChangeWeapon()) {
                         characterManager.changeManWeapon();
                         setAlreadyUsedSword();
@@ -233,6 +234,7 @@ public class ItemPanel extends JPanel {
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    SoundManager.getAudio().play("resources/sounds/time_btn.wav");
                     inputPanel.requestFocusOnTextField();
 
                     if(timeCount >= 3) return;

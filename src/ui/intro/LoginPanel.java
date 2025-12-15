@@ -1,10 +1,13 @@
 package ui.intro;
 
 import character.imageloader.ManImageLoader;
+import character.imageloader.MushroomImageLoader;
+import character.imageloader.ReaperImageLoader;
+import character.imageloader.WolfImageLoader;
 import character.ui.RunAnimation;
 
-import dto.User;
 import manager.LoginManager;
+import manager.SoundManager;
 import manager.UserManager;
 import ui.menu.MenuPanel;
 import ui.common.GameImageButton;
@@ -46,7 +49,11 @@ public class LoginPanel extends JPanel {
     );
 
     // 캐릭터 뛰는 모션
-    private RunAnimation runAnimation = new RunAnimation(this, new ManImageLoader());
+    private RunAnimation runManAnimation = new RunAnimation(this, new ManImageLoader());
+    private RunAnimation runMushroomAnimation = new RunAnimation(this, new MushroomImageLoader());
+
+    private Thread runManMotionThread;
+    private Thread runMushroomMotionThread;
 
     // 유저 관리 클래스
     private LoginManager loginManager;
@@ -69,7 +76,7 @@ public class LoginPanel extends JPanel {
         // 컴포넌트 패널에 추가
         addComponents();
         // 움직이는 모션 추가
-        //runMotionStart();
+        runMotionStart();
     }
 
     // 컴포넌트 요소 초기화
@@ -89,12 +96,13 @@ public class LoginPanel extends JPanel {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                stopMotion();
+                SoundManager.getAudio().play("resources/sounds/login_btn.wav");
                 id = idTextField.getText(); // id
                 password = String.valueOf(passwordTextField.getPassword()); // password
                 if(loginManager.login(id, password)) {
                     frame.getContentPane().removeAll();
                     frame.getContentPane().add(new MenuPanel(frame, loginManager, userManager), BorderLayout.CENTER);
-                    //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                     frame.revalidate();
                     frame.repaint();
                 }
@@ -105,10 +113,13 @@ public class LoginPanel extends JPanel {
         signupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                stopMotion();
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new SignUpPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+
                 System.out.println("[회원가입 화면]");
             }
         });
@@ -117,6 +128,7 @@ public class LoginPanel extends JPanel {
         exitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
 
                 JLabel label = new JLabel("게임을 종료합니다");
                 label.setFont(new Font("맑은 고딕", Font.BOLD, 18)); // 폰트와 크기 설정 (더 크게)
@@ -144,8 +156,17 @@ public class LoginPanel extends JPanel {
 
     // 뛰는 모션 시작
     private void runMotionStart() {
-        Thread runMotionThread = new Thread(runAnimation);
-        runMotionThread.start();
+        runManMotionThread = new Thread(runManAnimation);
+        runManMotionThread.start();
+
+        runMushroomMotionThread = new Thread(runMushroomAnimation);
+        runMushroomMotionThread.start();
+    }
+
+    private void stopMotion() {
+        runManMotionThread.interrupt();
+        runMushroomMotionThread.interrupt();
+        System.out.println("모션 종료");
     }
 
     @Override
@@ -160,9 +181,15 @@ public class LoginPanel extends JPanel {
         // Password 글자
         g.drawImage(passwordImage.getImage(), 160, 200, 280, 260, this);
         // Run 모션 이미지
-//        ImageIcon currentFrame = runAnimation.getCurrentFrame();
-//        if (currentFrame != null) {
-//            g.drawImage(currentFrame.getImage(), 170, 450, 200, 200, this);
-//        }
+
+        ImageIcon manMotionImage = runManAnimation.getCurrentFrame();
+        if (manMotionImage != null) {
+            g.drawImage(manMotionImage.getImage(), 300, 465, 200, 200, this);
+        }
+
+        ImageIcon mushroomMotionImage = runMushroomAnimation.getCurrentFrame();
+        if (mushroomMotionImage != null) {
+            g.drawImage(mushroomMotionImage.getImage(), 580, 400, 350, 400, this);
+        }
     }
 }

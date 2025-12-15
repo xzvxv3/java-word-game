@@ -33,7 +33,6 @@ public class SoundManager {
             });
             clip.open(AudioSystem.getAudioInputStream(soundFile));
             clip.start();
-            System.out.println("[사운드 재생]");
         } catch (Exception e) {
             System.out.println("[사운드 재생 실패]");
         }
