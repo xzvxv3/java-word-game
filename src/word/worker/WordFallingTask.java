@@ -6,6 +6,7 @@ import character.type.EnemyType;
 import character.type.MotionType;
 import manager.SoundManager;
 import manager.UserManager;
+import manager.WordManager;
 import ui.game.right.ScorePanel;
 import word.Word;
 import word.WordStore;
@@ -32,7 +33,7 @@ public class WordFallingTask implements Runnable {
     private Vector<Word> words;
 
     // 스레드 작동 여부
-    private boolean running = true;
+    private boolean isrunning = true;
 
     private ScorePanel scorePanel;
 
@@ -40,11 +41,14 @@ public class WordFallingTask implements Runnable {
 
     private int wordFallSpeed;
 
-    public WordFallingTask(int startDelay, int wordFallSpeed, ScorePanel scorePanel, WordStore wordStore, CharacterManager characterManager, GroundPanel view, UserManager userManager, User user) {
+    private WordManager wordManager = null;
+
+    public WordFallingTask(int startDelay, int wordFallSpeed, ScorePanel scorePanel, WordStore wordStore, WordManager wordManager, CharacterManager characterManager, GroundPanel view, UserManager userManager, User user) {
         this.startDelay = startDelay;
         this.wordFallSpeed = wordFallSpeed;
         this.scorePanel = scorePanel;
         this.wordStore = wordStore;
+        this.wordManager = wordManager;
         this.view = view;
         this.characterManager = characterManager;
         this.user = user;
@@ -57,11 +61,11 @@ public class WordFallingTask implements Runnable {
     public void run() {
         // startDelay초 후, 단어가 생성되기 시작
         try { Thread.sleep(startDelay); } catch (InterruptedException e) {
-            System.out.println("[단어 낙하 스레드 종료]");
+            // System.out.println("[단어 낙하 스레드 종료]");
             return;
         }
 
-        while(running) {
+        while(isrunning) {
             checkTimeStop();
 
             // 스킬 사용중일시
@@ -70,25 +74,26 @@ public class WordFallingTask implements Runnable {
                 checkRapidFallTime();
             }
 
+            // 단어 낙하
             fallWords();
 
             // 단어 낙하 속도
             try { Thread.sleep(wordFallSpeed); } catch (InterruptedException e) {
-                System.out.println("[단어 낙하 스레드 종료]");
+                // System.out.println("[단어 낙하 스레드 종료]");
                 return;
             }
         }
 
-        System.out.println("[단어 낙하 스레드 종료]");
+        // System.out.println("[단어 낙하 스레드 종료]");
     }
     // 스킬 발동 예약 시간 (자연스러운 딜레이 유도)
     private long skillScheduledTime = 0;
 
-    // [추가] 예약된 시간이 되면 급낙하 실행
+    // 0.5초뒤에 스킬 발생 체크
     private void checkSkillSchedule() {
-        // 예약된 시간이 있고(>0), 현재 시간이 그 시간을 지났다면
+        // 예약된 시간이 있고, 현재 시간이 그 시간을 지났다면
         if (skillScheduledTime > 0 && System.currentTimeMillis() >= skillScheduledTime) {
-            rapidFall(); // 급낙하 시작!
+            rapidFall(); // 급낙하 시작
             skillScheduledTime = 0; // 예약 초기화 (중복 실행 방지)
         }
     }
@@ -132,21 +137,22 @@ public class WordFallingTask implements Runnable {
         }
     }
 
+    // Time Stop 아이템 사용 여부
     private boolean isTimeStop = false;
 
     private synchronized void checkTimeStop() {
         if (isTimeStop) {
             try {
-                System.out.println("⏳ 3초간 멈춤...");
+                System.out.println("[Time Stop 아이템 사용]");
                 wait(3000); // 3초 대기 (Lock 반납하고 잠듦)
             } catch (InterruptedException e) {
-                System.out.println("[단어 낙하 중 일시 정지]");
-                running = false;
+                // System.out.println("[단어 낙하 중 일시 정지]");
+                isrunning = false;
                 return;
             }
             // 3초 지나면 자동으로 코드가 여기로 내려옴
             isTimeStop = false; // 플래그 끄기 (다시 움직임)
-            System.out.println("⏰ 3초 끝! 다시 시작");
+            System.out.println("[Time Stop 아이템 종료]");
         }
     }
 
@@ -171,7 +177,6 @@ public class WordFallingTask implements Runnable {
                 // 단어 라벨 충돌 판정
                 if(word.isAtBottom()) {
 
-
                     switch (characterManager.getEnemyType()) {
                         case EnemyType.MUSHROOM : SoundManager.getAudio().play("resources/sounds/mushroom_attack.wav"); break;
                         case EnemyType.WOLF : SoundManager.getAudio().play("resources/sounds/wolf_attack.wav"); break;
@@ -183,36 +188,40 @@ public class WordFallingTask implements Runnable {
                         characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01);
 
                         if(characterManager.getEnemyType() == EnemyType.MUSHROOM) {
-                            scorePanel.decreaseManHP(5);
-                            characterManager.decreaseManHP(5);
+                            scorePanel.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
+                            characterManager.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
                         }
 
                         else if(characterManager.getEnemyType() == EnemyType.WOLF) {
-                            scorePanel.decreaseManHP(10);
-                            characterManager.decreaseManHP(10);
+                            scorePanel.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
+                            characterManager.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
                         }
                     }
 
                     // Reaper 공격
                     if(characterManager.getEnemyType() == EnemyType.REAPER) {
                         characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01);
-                        scorePanel.decreaseManHP(20);
-                        characterManager.decreaseManHP(20);
+                        scorePanel.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
+                        characterManager.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
                     }
 
+                    // 허수아비를 제외한 나머지 몬스터의 공격은 Man의 데미지 모션 유도
                     if(characterManager.getEnemyType() != EnemyType.SCARECROW) {
-                        characterManager.getMan().decreaseHP(1);
                         characterManager.getMan().onAttacked();
                     }
 
-                    view.remove(word); // 화면에서 단어 삭제
-                    it.remove(); // 단어 완전 제거
+                    // 화면에서 단어 삭제
+                    view.remove(word);
+                    // 단어 완전 제거
+                    it.remove();
 
-                    System.out.println(characterManager.getEnemyType() + " 공격");
+                    System.out.println("[" + characterManager.getEnemyType() + "] 공격");
 
-                    // 게임 종료 되는지
+                    // 게임 종료 되는지 체크
                     if(characterManager.isGameOver()) {
-                        running = false;
+                        wordManager.shutDown();
+
+                        // 캐릭터 스레드 종료 유도 (자연스러운 종료 위해, interrupt() 사용X)
                         if(characterManager.getCurrentEnemyHP() <= 0) characterManager.getMan().stop();
                         else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
 

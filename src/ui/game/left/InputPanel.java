@@ -46,10 +46,9 @@ public class InputPanel extends JPanel {
         this.userManager = userManager;
         this.loginManager = loginManager;
 
-        // this.user = loginManager.getCurrentUser();
-        this.user = new User("A", "1234", 0, 0, 0);
-
-        // 유저의 현재 점수 초기화 -> 0
+        // 현재 유저
+        this.user = loginManager.getCurrentUser();
+        // 현재 유저 점수 초기화
         user.resetCurrentScore();
 
         add(inputField);
@@ -68,27 +67,25 @@ public class InputPanel extends JPanel {
                 String userText = tf.getText();
                 tf.setText("");
 
-                // if(characterManager.getEnemyType() == EnemyType.REAPER && )
-
                 synchronized (words) {
                     Iterator<Word> it = words.iterator();
 
                     int before = words.size();
-                    System.out.println("[현재 단어 개수] : " + before);
 
                     while(it.hasNext()) {
                         Word word = it.next();
 
                         // 단어를 맞췄을 경우
                         if(word.getText().equals(userText)) {
-                            scorePanel.increaseScore(1);
-
                             switch (characterManager.getManWeapon()) {
-                                case WeaponType.EMPTY : user.incrementCurrentScore(1);
+                                case WeaponType.EMPTY :
+                                    user.incrementCurrentScore(1);
+                                    scorePanel.increaseScore(1);
                                     System.out.println("[공격] → 점수 +1");
                                     break;
                                 case WeaponType.SWORD :
                                     user.incrementCurrentScore(3);
+                                    scorePanel.increaseScore(3);
                                     System.out.println("[공격] → 점수 +3");
                                     break;
                             }
@@ -96,8 +93,7 @@ public class InputPanel extends JPanel {
                             it.remove();
                             wordManager.removeWord(word);
 
-                            System.out.println("[맞춘 후 단어 개수] : " + words.size());
-
+                            // 랜덤 모션 용도
                             int r = (int) (Math.random() * 4);
 
                             if(characterManager.getManWeapon() == WeaponType.EMPTY) {
@@ -120,11 +116,18 @@ public class InputPanel extends JPanel {
                                 }
                             }
 
-                            characterManager.decreaseEnemyHP(1);
+                            if(characterManager.getManWeapon() == WeaponType.SWORD) {
+                                characterManager.decreaseEnemyHP(3);
+                            }
+                            else if(characterManager.getManWeapon() == WeaponType.EMPTY) {
+                                characterManager.decreaseEnemyHP(1);
+                            }
+
                             characterManager.getEnemy().onAttacked();
 
                             // 게임 종료 되는지
                             if(characterManager.isGameOver()) {
+                                wordManager.shutDown();
                                 if(characterManager.getCurrentEnemyHP() <= 0) characterManager.getMan().stop();
                                 else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
 

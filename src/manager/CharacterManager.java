@@ -27,7 +27,7 @@ public class CharacterManager {
     private WolfImageLoader wolfImageLoader = new WolfImageLoader();
     private ReaperImageLoader reaperImageLoader = new ReaperImageLoader();
 
-    private Thread manThread, enemyThread, gameStopThread;
+    private Thread manThread, enemyThread;
 
     // 현재 Enemy
     private EnemyType enemyType;
@@ -42,12 +42,23 @@ public class CharacterManager {
     // Monster 체력
     private int scarecrowHP, mushroomHP = 5, wolfHP = 30, reaperHP = 60;
 
-    // 게임 강제 종료 (뒤로가기 버튼시 활성)
-    public void shutDown() {
-        getMan().shutDown();
-        getEnemy().shutDown();
-        System.out.println("[게임 나가기]");
+    private int mushroomAttackPower = 5, wolfAttackPower = 10, reaperAttackPower = 20;
+
+    public int getMonsterAttackPower(EnemyType enemyType) {
+        switch (enemyType) {
+            case MUSHROOM : return 5;
+            case WOLF : return 10;
+            case REAPER: return 20;
+        }
+        return -1;
     }
+
+    public void shutDown() {
+        manThread.interrupt();
+        enemyThread.interrupt();
+        System.out.println("[캐릭터 스레드 종료]");
+    }
+
 
     public CharacterManager() {
         // 시작은 무기 보유X
@@ -121,7 +132,10 @@ public class CharacterManager {
         return manHP;
     }
 
-    // 버그 발생 !!
+    public void healManHP() {
+        getMan().setHP(getCurrentManHP() + 20);
+    }
+
     // Enemy 체력 반환
     public int getEnemyHP() {
         switch (enemyType) {

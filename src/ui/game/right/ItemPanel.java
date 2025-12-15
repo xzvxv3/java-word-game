@@ -64,6 +64,7 @@ public class ItemPanel extends JPanel {
     }
 
     public void setInputPanel(InputPanel inputPanel) {this.inputPanel = inputPanel; }
+
     // 무기 활성화
     public void setSwordON() {
         if(swordLabel.isAlreadyUsedSword()) return;
@@ -78,11 +79,6 @@ public class ItemPanel extends JPanel {
         swordLabel.setAlreadyUsedSword();
     }
 
-    public void usePotion() {
-        potionLabel.usePotion();
-    }
-
-
     private void initBackBtn() {
         backBtn.setBounds(70, 420, 140, 55);
 
@@ -94,15 +90,18 @@ public class ItemPanel extends JPanel {
                 frame.getContentPane().add(new SelectModePanel(frame, userManager, loginManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                characterManager.shutDown();
-                wordManager.shutDown();
-                System.out.println("[모드 선택]");
+
+                // 게임이 종료되지 않은 경우에만, 스레드 강제 종료
+                // 게임이 종료됐는데도 스레드를 다시 interrupt() 시키는걸 방지하기 위하
+                if(!characterManager.isGameOver()) {
+                    characterManager.shutDown();
+                    wordManager.shutDown();
+                }
             }
         });
 
         add(backBtn);
     }
-
 
     class SwordBtn extends JButton {
         public SwordBtn() {
@@ -183,6 +182,7 @@ public class ItemPanel extends JPanel {
                     SoundManager.getAudio().play("resources/sounds/potion.wav");
 
                     scorePanel.healManHP();
+                    characterManager.healManHP();
                     potionLabel.usePotion();
                     healCount++;
 

@@ -1,11 +1,8 @@
 package ui.intro;
-
 import manager.LoginManager;
 import manager.SoundManager;
 import manager.UserManager;
 import ui.common.GameImageButton;
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +23,7 @@ public class SignUpPanel extends JPanel {
     private JTextField idTextField = new JTextField(); // ID 입력칸
     private JTextField passwordTextField = new JTextField(); // Password 입력칸
 
+    // 아이디, 패스워드
     private String id, password;
 
     // 아이디 생성 가능 여부
@@ -38,6 +36,7 @@ public class SignUpPanel extends JPanel {
             "resources/images/button/intro/create_account_btn.png",
             "resources/images/button/intro/create_account_btn_rollover.png"
     );
+
     // 뒤로가기 버튼
     JButton backButton = new GameImageButton(
             "resources/images/button/common/back_btn.png",
@@ -58,10 +57,11 @@ public class SignUpPanel extends JPanel {
         this.loginManager = loginManager;
         this.userManager = userManager;
 
+        // 컴포넌트 요소 초기화
         initComponent();
-
+        // 컴포넌트 이벤트 추가
         addActionListeners();
-
+        // 컴포넌트 패널에 추가
         addComponents();
     }
 
@@ -69,10 +69,8 @@ public class SignUpPanel extends JPanel {
     private void initComponent() {
         idTextField.setBounds(450, 225, 270, 40);
         passwordTextField.setBounds(450, 300, 270, 40);
-
         checkIdButton.setBounds(720, 228, 50, 33);
         createAccountButton.setBounds(800, 685, 250, 50);
-
         backButton.setBounds(50, 685, 140, 55);
     }
 
@@ -83,7 +81,6 @@ public class SignUpPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 id = idTextField.getText(); // id
-
                 String msg = loginManager.checkIdValidity(id); // 해당 id에 관한 메시지
 
                 if(msg.equals("아이디 사용 가능")) {
@@ -97,11 +94,9 @@ public class SignUpPanel extends JPanel {
 
         // 계정 추가 버튼
         createAccountButton.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 SoundManager.getAudio().play("resources/sounds/click_btn.wav");
-
                 // ID 중복 체크
                 if (!isIdVerified) {
                     JOptionPane.showMessageDialog(frame, "아이디 중복 확인을 먼저 해주세요.", "알림", JOptionPane.WARNING_MESSAGE);
@@ -156,13 +151,11 @@ public class SignUpPanel extends JPanel {
 
         // 전체 배경 화면
         g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-
         g.drawImage(signUpTitleImage.getImage(), 300, -130, 500, 500, this);
-
         g.drawImage(idLabel.getImage(), 250, 110, 280, 280, this);
-
         g.drawImage(passwordLabel.getImage(), 160, 200, 280, 260, this);
 
+        // 허수아비 그림
         g.drawImage(new ImageIcon("resources/sprites/scarecrow/idle/ScareCrowIDie001.png").getImage(), 450, 550, 230, 120, this);
     }
 }

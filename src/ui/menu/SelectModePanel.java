@@ -68,10 +68,12 @@ public class SelectModePanel extends JPanel {
     private CharacterManager characterManager = new CharacterManager();
     private WordManager wordManager = null;
 
+
     public SelectModePanel(JFrame frame, UserManager userManager, LoginManager loginManager) {
         this.frame = frame;
         this.userManager = userManager;
         this.loginManager = loginManager;
+
         setLayout(null);
         initComponent();
         addActionListeners();
@@ -234,7 +236,7 @@ public class SelectModePanel extends JPanel {
                 frame.revalidate();
                 frame.repaint();
                 SoundManager.getAudio().play("resources/sounds/click_btn.wav");
-                System.out.println("[게임 시작] Medium Mode");
+                System.out.println("[게임 시작] Normal Mode");
             }
         });
 

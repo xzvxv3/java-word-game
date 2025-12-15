@@ -1,5 +1,6 @@
 package ui.game.right;
 
+import character.type.WeaponType;
 import manager.CharacterManager;
 import character.type.EnemyType;
 

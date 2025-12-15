@@ -19,6 +19,9 @@ public class MenuPanel extends JPanel {
 
     private final String BTN_PATH = "resources/images/button/menu/";
 
+    // 단어장 기본 경로 (수업 자료)
+    private String wordBookPATH = "resources/words/words.txt";
+
     JButton selectModeBtn = new GameImageButton(
              BTN_PATH + "selectmode_btn.png",
             BTN_PATH + "selectmode_btn_rollover.png"
@@ -80,7 +83,6 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new SelectModePanel(frame, userManager, loginManager), BorderLayout.CENTER);
-                //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 SoundManager.getAudio().play("resources/sounds/click_btn.wav");
@@ -95,7 +97,6 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new RankingPanel(frame, userManager, loginManager), BorderLayout.CENTER);
-                //frame.getContentPane().add(new StartToolBar(), BorderLayout.NORTH);
                 frame.revalidate();
                 frame.repaint();
                 SoundManager.getAudio().play("resources/sounds/click_btn.wav");

@@ -39,6 +39,7 @@ public class WordManager {
     private UserManager userManager;
     private User user;
 
+
     public WordManager(CharacterManager characterManager, UserManager userManager, User user) {
         this.characterManager = characterManager;
         this.userManager = userManager;
@@ -89,7 +90,7 @@ public class WordManager {
             System.exit(0);
         }
         // 단어 낙하 Runnable 생성
-        wordFallingTask = new WordFallingTask(startDelay, wordFallSpeed, scorePanel, wordStore, characterManager, view, userManager, user);
+        wordFallingTask = new WordFallingTask(startDelay, wordFallSpeed, scorePanel, wordStore, this, characterManager, view, userManager, user);
     }
 
     // 단어 생성 Runnable 생성
@@ -123,6 +124,6 @@ public class WordManager {
     public void shutDown() {
         wordMakerThread.interrupt();
         wordFallingThread.interrupt();
-        System.out.println("종료완료");
+        System.out.println("[단어 스레드 종료]");
     }
 }

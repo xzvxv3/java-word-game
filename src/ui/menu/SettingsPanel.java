@@ -1,6 +1,7 @@
 package ui.menu;
 
 import manager.LoginManager;
+import manager.SettingsManager;
 import manager.SoundManager;
 import manager.UserManager;
 import ui.common.GameImageButton;
@@ -14,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Vector;
 
 public class SettingsPanel extends JPanel {
@@ -58,10 +60,13 @@ public class SettingsPanel extends JPanel {
 
     private JTextField inputWordTextField = new JTextField();
 
+    private String wordBookPath = null;
+
     public SettingsPanel(JFrame frame, UserManager userManager, LoginManager loginManager) {
         this.frame = frame;
         this.userManager = userManager;
         this.loginManager = loginManager;
+        this.wordBookPath = wordBookPath;
         setLayout(null);
 
         // 컴포넌트 요소들의 초기 설정
@@ -130,8 +135,6 @@ public class SettingsPanel extends JPanel {
         add(wordListScrollPane);
     }
 
-
-
     // ===============================================
 
     private void addEventAction() {
@@ -142,6 +145,9 @@ public class SettingsPanel extends JPanel {
                 // 단어장 경로 불러오기
                 String selectedWordBook = wordBookNameList.getSelectedValue();
                 currentWordBookPath = "resources/words/" + selectedWordBook + ".txt";
+
+                // 앞으로 이 단어장으로 게임이 시작됨
+                SettingsManager.getInstance().setCurrentWordBookPath(currentWordBookPath);
 
                 // 단어를 담을 벡터
                 Vector<String> textVector = new Vector<>();

@@ -1,18 +1,13 @@
 package ui.intro;
-
 import character.imageloader.ManImageLoader;
 import character.imageloader.MushroomImageLoader;
-import character.imageloader.ReaperImageLoader;
-import character.imageloader.WolfImageLoader;
 import character.ui.RunAnimation;
-
 import manager.LoginManager;
 import manager.SoundManager;
 import manager.UserManager;
 import ui.menu.MenuPanel;
 import ui.common.GameImageButton;
 import ui.common.GameTextField;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -52,6 +47,7 @@ public class LoginPanel extends JPanel {
     private RunAnimation runManAnimation = new RunAnimation(this, new ManImageLoader());
     private RunAnimation runMushroomAnimation = new RunAnimation(this, new MushroomImageLoader());
 
+    // 모션 스레드
     private Thread runManMotionThread;
     private Thread runMushroomMotionThread;
 
@@ -142,7 +138,6 @@ public class LoginPanel extends JPanel {
                 }
             }
         });
-
     }
 
     // 컴포넌트 패널에 추가
@@ -163,10 +158,11 @@ public class LoginPanel extends JPanel {
         runMushroomMotionThread.start();
     }
 
+    // 뛰는 모션 종료
     private void stopMotion() {
         runManMotionThread.interrupt();
         runMushroomMotionThread.interrupt();
-        System.out.println("모션 종료");
+        System.out.println("[로그인 캐릭터 모션 종료]");
     }
 
     @Override
@@ -180,13 +176,14 @@ public class LoginPanel extends JPanel {
         g.drawImage(idImage.getImage(), 250, 110, 280, 280, this);
         // Password 글자
         g.drawImage(passwordImage.getImage(), 160, 200, 280, 260, this);
-        // Run 모션 이미지
 
+        // MAN 이미지
         ImageIcon manMotionImage = runManAnimation.getCurrentFrame();
         if (manMotionImage != null) {
             g.drawImage(manMotionImage.getImage(), 300, 465, 200, 200, this);
         }
 
+        // Mushroom 이미지
         ImageIcon mushroomMotionImage = runMushroomAnimation.getCurrentFrame();
         if (mushroomMotionImage != null) {
             g.drawImage(mushroomMotionImage.getImage(), 580, 400, 350, 400, this);

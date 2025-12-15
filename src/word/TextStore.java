@@ -1,5 +1,7 @@
 package word;
 
+import manager.SettingsManager;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Scanner;
@@ -15,7 +17,7 @@ public class TextStore {
     // 초기 설정
     public TextStore() {
         try {
-            Scanner sc = new Scanner(new FileReader("resources/words/words.txt"));
+            Scanner sc = new Scanner(new FileReader(SettingsManager.getInstance().getCurrentWordBookPath()));
             while(sc.hasNext()) {
                 textVector.add(sc.nextLine());
             }
