@@ -1,7 +1,8 @@
  # 객체지향언어2 기말 미니 프로젝트
 
 ### 게임 구도
-<img width="276" height="276" alt="image" src="https://github.com/user-attachments/assets/09ae3764-163f-4e54-abdf-f82f82fa9df4" />
+<img width="500" height="500" alt="제목 없음 (1000 x 1000 px)의 사본의 사본 (1)" src="https://github.com/user-attachments/assets/70c6e8e2-3d2a-4090-b753-1c80a493c40f" />
+
 
 주인공은 4마리의 적과 대치한다. 각각의 적은 서로 다른 HP , 공격력을 가지고 있다. 모드는 각각 4개의 모드가 있고, 각각 연습 모드, 쉬움 모드, 보통 모드, 어려움 모드로 나뉘어져 있다.
 
@@ -9,7 +10,8 @@
 
 &nbsp;
 
-<img width="206" height="206" alt="image" src="https://github.com/user-attachments/assets/535ba597-158b-4530-ac06-4db90a7b5b68" />
+<img width="500" height="500" alt="man" src="https://github.com/user-attachments/assets/86615e11-e355-453a-a4b5-2f20e8f53c81" />
+
 
 주인공은 게임 시작 시 체력 100, 공격력 1, 무기 없음 상태로 시작한다.
 
@@ -17,7 +19,8 @@
 
 &nbsp;
 
-<img width="217" height="217" alt="image" src="https://github.com/user-attachments/assets/17fcd1bd-8de8-4805-9007-059717713650" />
+<img width="500" height="500" alt="swordman" src="https://github.com/user-attachments/assets/33a64c86-e841-4207-b9bd-96f7a51a2d6d" />
+
 
 점수를 3점 획득하면 오른쪽 하단 패널에 무기 버튼이 활성화된다. 
 
@@ -27,7 +30,8 @@
 
 ## 게임 모드
 
-<img width="249" height="249" alt="image" src="https://github.com/user-attachments/assets/02c28bbb-1bab-46bd-99cd-fbe8940637f5" />
+<img width="500" height="500" alt="scarecrow" src="https://github.com/user-attachments/assets/1296b601-4040-443e-a085-190e7a111574" />
+
 
 Scarecrow는 사용자의 설정에 따라 체력과 단어 낙하속도를 원하는대로 지정할 수 있다. 
 
@@ -37,7 +41,8 @@ Scarecrow는 사용자의 설정에 따라 체력과 단어 낙하속도를 원�
 
 &nbsp;
 
-<img width="286" height="286" alt="image" src="https://github.com/user-attachments/assets/46611625-861e-43ff-a697-f03889e53188" />
+<img width="500" height="500" alt="mushroom" src="https://github.com/user-attachments/assets/14184f09-8051-41c5-89f4-bd821fac66cb" />
+
 
 Mushroom은 체력 5, 공격력 5을 가진 약한 몬스터이다. 
 
@@ -45,7 +50,8 @@ Mushroom은 체력 5, 공격력 5을 가진 약한 몬스터이다.
 
 &nbsp;
 
-<img width="286" height="286" alt="image" src="https://github.com/user-attachments/assets/e1d048f5-5571-45e4-8777-95a6cf30de04" />
+<img width="500" height="500" alt="wolf" src="https://github.com/user-attachments/assets/b75b8246-659c-41df-bb5a-8f9abf01df33" />
+
 
 Wolf는 체력 30, 공격력 10을 가진 약하지 않은 몬스터이다. 
 
@@ -53,7 +59,8 @@ Wolf는 체력 30, 공격력 10을 가진 약하지 않은 몬스터이다.
 
 &nbsp;
 
-<img width="292" height="292" alt="image" src="https://github.com/user-attachments/assets/25a10656-c6f1-4158-b1c9-4a8615d7ca96" />
+<img width="500" height="500" alt="reaper" src="https://github.com/user-attachments/assets/77fac7b7-70b5-4454-bff4-1ffd1cedc53f" />
+
 
 Reaper는 체력 60, 공격력 20을 가진 강한 몬스터이다.
 
@@ -67,7 +74,8 @@ Reaper는 체력 60, 공격력 20을 가진 강한 몬스터이다.
 
 ## 아이템
 
-<img width="311" height="311" alt="image" src="https://github.com/user-attachments/assets/d1215efe-2c90-4036-abf7-05769e3553a4" />
+<img width="500" height="500" alt="swordpotion" src="https://github.com/user-attachments/assets/e6c42920-8cb0-49df-a975-d77c85f4f15f" />
+
 
 위에 나와있듯이, 3점 이상의 점수를 획득하면 무기 버튼이 활성화된다. 
 
@@ -79,7 +87,8 @@ Reaper는 체력 60, 공격력 20을 가진 강한 몬스터이다.
 
 &nbsp;
 
-<img width="310" height="310" alt="image" src="https://github.com/user-attachments/assets/c3e9f180-34a5-49e0-ab0a-d6bc51d68065" />
+<img width="500" height="500" alt="timestop" src="https://github.com/user-attachments/assets/bed39321-7f71-49a4-b397-a1f33be71e29" />
+
 
 모든 스테이지마다 시간을 멈출 수 있는 3번의 기회가 주어진다.
 
