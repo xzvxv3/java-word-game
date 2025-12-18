@@ -14,13 +14,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginPanel extends JPanel {
+    // 이미지 기본 경로
+    private final String IMG_PATH = "resources/images/";
+
     // 배경화면 이미지
-    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/ingame/normalday.png");
+    private ImageIcon backgroundImage = new ImageIcon(IMG_PATH + "background/ingame/normalday.png");
     // 게임 제목 이미지
-    private ImageIcon gameTitleImage = new ImageIcon("resources/images/element/intro/game_title_lbl.png");
+    private ImageIcon gameTitleImage = new ImageIcon(IMG_PATH + "element/intro/game_title_lbl.png");
     // id, password 이미지
-    private ImageIcon idImage = new ImageIcon("resources/images/element/intro/id_lbl.png");
-    private ImageIcon passwordImage = new ImageIcon("resources/images/element/intro/password_lbl.png");
+    private ImageIcon idImage = new ImageIcon(IMG_PATH + "element/intro/id_lbl.png");
+    private ImageIcon passwordImage = new ImageIcon(IMG_PATH + "element/intro/password_lbl.png");
     // id, password 입력칸
     private JTextField idTextField = new GameTextField();
     private JPasswordField passwordTextField = new JPasswordField(20); // Password 입력칸
@@ -29,18 +32,19 @@ public class LoginPanel extends JPanel {
 
     // 로그인 버튼
     private JButton loginButton = new GameImageButton(
-            "resources/images/button/intro/login_btn.png",
-            "resources/images/button/intro/login_btn_rollover.png"
+            IMG_PATH + "button/intro/login_btn.png",
+            IMG_PATH + "button/intro/login_btn_rollover.png"
     );
     // 회원 가입 버튼
     private JButton signupButton = new GameImageButton(
-            "resources/images/button/intro/signup_btn.png",
-            "resources/images/button/intro/signup_btn_rollover.png"
+            IMG_PATH + "button/intro/signup_btn.png",
+            IMG_PATH + "button/intro/signup_btn_rollover.png"
     );
 
+    // 게임 종료 버튼
     private JButton exitBtn = new GameImageButton(
-            "resources/images/button/intro/exit_btn01.png",
-            "resources/images/button/intro/exit_btn_rollover01.png"
+            IMG_PATH + "button/intro/exit_btn01.png",
+            IMG_PATH + "button/intro/exit_btn_rollover01.png"
     );
 
     // 캐릭터 뛰는 모션
@@ -146,7 +150,7 @@ public class LoginPanel extends JPanel {
         add(passwordTextField); // Password 입력 칸
         add(loginButton); // 로그인 버튼 (누를 시, 게임 초기 화면으로 넘어감)
         add(signupButton); // 회원 가입 버튼, (누를 시, 회원 가입 창으로 넘어감)
-        add(exitBtn);
+        add(exitBtn); // 게임 종료 버튼
     }
 
     // 뛰는 모션 시작

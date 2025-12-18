@@ -9,38 +9,41 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SignUpPanel extends JPanel {
-
+    // 이미지 기본 경로
+    private final String IMG_PATH = "resources/images/";
     // 배경화면 이미지
-    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/ingame/morning.png");
+    private ImageIcon backgroundImage = new ImageIcon(IMG_PATH + "background/ingame/morning.png");
     // 회원 가입 글자 이미지
-    private ImageIcon signUpTitleImage = new ImageIcon("resources/images/element/intro/signup_title_lbl.png");
+    private ImageIcon signUpTitleImage = new ImageIcon(IMG_PATH + "element/intro/signup_title_lbl.png");
     // ID 글자 이미지
-    private ImageIcon idLabel = new ImageIcon("resources/images/element/intro/id_lbl.png");
+    private ImageIcon idLabel = new ImageIcon(IMG_PATH + "element/intro/id_lbl.png");
     // PASSWORD 글자 이미지
-    private ImageIcon passwordLabel = new ImageIcon("resources/images/element/intro/password_lbl.png");
+    private ImageIcon passwordLabel = new ImageIcon(IMG_PATH + "element/intro/password_lbl.png");
 
-    // 아이디, 비밀번호 입력 칸
-    private JTextField idTextField = new JTextField(); // ID 입력칸
-    private JTextField passwordTextField = new JTextField(); // Password 입력칸
+    // 아이디 입력 칸
+    private JTextField idTextField = new JTextField();
+    // 비밀번호 입력 칸
+    private JTextField passwordTextField = new JTextField();
 
     // 아이디, 패스워드
-    private String id, password;
+    private String id = null, password = null;
 
     // 아이디 생성 가능 여부
     private boolean isIdVerified = false;
 
-    // ID 중복 방지 버튼
+    // 아이디 중복 방지 버튼
     private JButton checkIdButton = new JButton("Check");
+
     // 회원 가입 버튼
-    private JButton createAccountButton = new GameImageButton(
-            "resources/images/button/intro/create_account_btn.png",
-            "resources/images/button/intro/create_account_btn_rollover.png"
+    private GameImageButton createAccountButton = new GameImageButton(
+            IMG_PATH + "button/intro/create_account_btn.png",
+            IMG_PATH + "button/intro/create_account_btn_rollover.png"
     );
 
     // 뒤로가기 버튼
-    JButton backButton = new GameImageButton(
-            "resources/images/button/common/back_btn.png",
-            "resources/images/button/common/back_btn_rollover.png"
+    GameImageButton backButton = new GameImageButton(
+            IMG_PATH + "button/common/back_btn.png",
+            IMG_PATH + "button/common/back_btn_rollover.png"
     );
 
     // 유저 관리 클래스
@@ -48,9 +51,10 @@ public class SignUpPanel extends JPanel {
     // 랭킹 관리 클래스
     private UserManager userManager;
 
-    // 부모 프레임
+    // JFrame
     private JFrame frame;
 
+    // 회원가입 패널
     public SignUpPanel(JFrame frame, LoginManager loginManager, UserManager userManager) {
         setLayout(null);
         this.frame = frame;
@@ -80,13 +84,17 @@ public class SignUpPanel extends JPanel {
         checkIdButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                id = idTextField.getText(); // id
-                String msg = loginManager.checkIdValidity(id); // 해당 id에 관한 메시지
+                id = idTextField.getText(); // 아이디
+                String msg = loginManager.checkIdValidity(id); // 해당 아이디에 관한 메시지 (아이디 생성 가능 여부)
 
+                // 아이디 생성 가능하다면
                 if(msg.equals("아이디 사용 가능")) {
+                    // 알림창 출력
                     JOptionPane.showMessageDialog(frame, "사용 가능한 아이디입니다!");
-                    isIdVerified = true; // 아이디 생성 가능
+                    // 아이디 생성 가능
+                    isIdVerified = true;
                 } else {
+                    // 알림창에 해당 아이디에 관한 메시지 출력
                     JOptionPane.showMessageDialog(frame, msg, "아이디 오류", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -96,28 +104,33 @@ public class SignUpPanel extends JPanel {
         createAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
-                // ID 중복 체크
+                // 아이디 중복 체크
                 if (!isIdVerified) {
                     JOptionPane.showMessageDialog(frame, "아이디 중복 확인을 먼저 해주세요.", "알림", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
-                String id = idTextField.getText(); // id
-                String password = passwordTextField.getText(); // password
+                // 아이디
+                String id = idTextField.getText();
+                // 패스워드
+                String password = passwordTextField.getText();
 
-                // Password 체크
+                // 패스워드 체크
                 if (password.isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "비밀번호를 입력해주세요.");
                     return;
                 }
 
-                // 가입 성공
+                // 가입 성공 알림창
                 JOptionPane.showMessageDialog(frame, "회원가입이 완료되었습니다!");
+                // 로그인 매니저에게 회원가입 시키라고 알림
                 loginManager.signUp(id, password);
 
+                // 모두 완료했으면 아이디, 패스워드 입력 칸을 다시 빈칸으로
                 idTextField.setText("");
                 passwordTextField.setText("");
+
+                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
             }
         });
 
@@ -137,12 +150,17 @@ public class SignUpPanel extends JPanel {
 
     // 컴포넌트 패널에 추가
     private void addComponents() {
-        add(idTextField); // ID 입력 칸
-        add(passwordTextField); // Password 입력 칸
+        // 아이디 입력 칸
+        add(idTextField);
+        // 패스워드 입력 칸
+        add(passwordTextField);
 
-        add(checkIdButton); // 아이디 중복 체크 버튼
-        add(createAccountButton);  // 계정 생성 버튼
-        add(backButton); // 뒤로가기 버튼
+        // 아이디 중복 체크 버튼
+        add(checkIdButton);
+        // 계정 생성 버튼
+        add(createAccountButton);
+        // 뒤로가기 버튼
+        add(backButton);
     }
 
     @Override
@@ -151,8 +169,11 @@ public class SignUpPanel extends JPanel {
 
         // 전체 배경 화면
         g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+        // 회원 가입 타이틀
         g.drawImage(signUpTitleImage.getImage(), 300, -130, 500, 500, this);
+        // 아이디 라벨
         g.drawImage(idLabel.getImage(), 250, 110, 280, 280, this);
+        // 패스워드 라벨
         g.drawImage(passwordLabel.getImage(), 160, 200, 280, 260, this);
 
         // 허수아비 그림

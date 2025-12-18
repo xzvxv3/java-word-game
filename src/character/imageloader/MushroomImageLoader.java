@@ -1,9 +1,8 @@
 package character.imageloader;
-
 import character.type.MotionType;
-
 import javax.swing.*;
 
+// Mushroom 이미지 로더
 public class MushroomImageLoader extends ImageLoader {
     private ImageIcon[] idleMotion = new ImageIcon[4];
     private ImageIcon[] deadMotion = new ImageIcon[4];
@@ -12,8 +11,10 @@ public class MushroomImageLoader extends ImageLoader {
     private ImageIcon[] runMotion = new ImageIcon[8];
 
     public MushroomImageLoader() {
-        setMotions(); // 이미지 생성
-        recordAllMotions(); // 이미지 저장
+        // 이미지 생성
+        setMotions();
+        // 이미지 저장
+        recordAllMotions();
     }
 
     // 이미지 저장
@@ -43,6 +44,7 @@ public class MushroomImageLoader extends ImageLoader {
         for (int i = 0; i < 8; i++)
             attackMotion[i] = new ImageIcon(BASE_PATH + "mushroom/attack/MushroomAttack00" + (i + 1) + ".png");
 
+        // Run Motion
         for(int i=0; i<8; i++)
             runMotion[i] = new ImageIcon(BASE_PATH + "mushroom/run/MushroomRun00" + (i + 1) + ".png");
     }

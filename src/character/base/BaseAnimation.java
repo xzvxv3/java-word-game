@@ -1,19 +1,27 @@
 package character.base;
-
 import character.imageloader.ImageLoader;
 import character.type.MotionType;
 import javax.swing.*;
 
+// 캐릭터의 애니메이션 처리를 담당하는 추상 클래스
 public abstract class BaseAnimation {
-    protected JPanel panel;
-    protected ImageLoader imageLoader;
-    protected ImageIcon[] motionFrames;
-    protected MotionType motionType;
+    // 캐릭터를 그릴 패널
+    protected JPanel panel = null;
+    // 이미지 로더
+    protected ImageLoader imageLoader = null;
+    // 현재 모션 프레임
+    protected ImageIcon[] motionFrames = null;
+    // 현재 모션 타입
+    protected MotionType motionType = null;
+    // 현재 모션 프레임의 순서
     protected int idx = 0;
 
-    protected final int FRAME_DELAY; // 프레임 속도
-    protected final int MOTION_END_DELAY; // 모션 종료 딜레이
+    // 프레임 속도
+    protected final int FRAME_DELAY;
+    // 모션 종료 딜레이
+    protected final int MOTION_END_DELAY;
 
+    // 캐릭터 기본 애니메이션
     public BaseAnimation(JPanel panel, ImageLoader loader, int frameDelay, int motionEndDelay) {
         this.panel = panel;
         this.imageLoader = loader;
@@ -23,9 +31,14 @@ public abstract class BaseAnimation {
 
     // 프레임 업데이트
     protected void updateFrame() {
-        if (motionFrames == null) return; // 프레임이 없다면 반영X
+        // 프레임이 없다면 반영X
+        if (motionFrames == null) return;
+
+        // 다음 프레임으로
         idx = (idx + 1) % motionFrames.length;
-        panel.repaint(); // 그리기
+
+        // 모션 그리기
+        panel.repaint();
 
         try {
             // 특정 모션의 마지막 프레임일 때 처리 (자연스러운 모션 변화 유도)
@@ -39,7 +52,6 @@ public abstract class BaseAnimation {
                     Thread.sleep(MOTION_END_DELAY);
                 }
             }
-
             // 프레임 딜레이
             Thread.sleep(FRAME_DELAY);
 

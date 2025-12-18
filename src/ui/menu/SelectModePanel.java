@@ -1,13 +1,8 @@
 package ui.menu;
-
-import character.type.EnemyType;
-import dto.User;
+import character.type.MonsterType;
 import manager.*;
 import ui.common.GameImageButton;
 import ui.game.GamePanel;
-import ui.toolbar.GameToolBar;
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,11 +10,11 @@ import java.awt.event.ActionListener;
 import java.util.Hashtable;
 
 public class SelectModePanel extends JPanel {
-
+    // 버튼 기본 경로
     private final String BTN_PATH = "resources/images/button/";
-
+    // 배경화면 이미지 경로
     private ImageIcon backgroundImage = new ImageIcon("resources/images/background/common/default.png");
-
+    // 게임 제목 이미지 경로
     private ImageIcon gameTitleImage = new ImageIcon("resources/images/element/menu/selectmode_lbl.png");
 
     // Scarecrow 모드 버튼
@@ -54,33 +49,33 @@ public class SelectModePanel extends JPanel {
 
     // 게임 모드 버튼 배열
     private JButton[] modeBtns = {scarecrowBtn, mushroomBtn, wolfBtn, reaperBtn};
-
-    private JFrame frame;
-
-    // 사용자 아이디
-    private User user = null;
-
+    // JFrame
+    private JFrame frame = null;
     // 로그인 관리자
     private LoginManager loginManager = null;
     // 랭킹 관리자
     private UserManager userManager = null;
-
+    // 캐릭터 관리자
     private CharacterManager characterManager = new CharacterManager();
+    // 단어 관리자
     private WordManager wordManager = null;
 
-
+    // 모드 선택 패널
     public SelectModePanel(JFrame frame, UserManager userManager, LoginManager loginManager) {
         this.frame = frame;
         this.userManager = userManager;
         this.loginManager = loginManager;
-
         setLayout(null);
+
+        // 버튼 크기, 위치 설정
         initComponent();
+        // 버튼에게 이벤트 리스너 등록
         addActionListeners();
+        // 패널에 버튼 추가
         addComponents();
     }
 
-    // 컴포넌트 요소 초기화
+    // 버튼 크기, 위치 초기화
     private void initComponent() {
         // mode 버튼
         for (int i = 0; i < modeBtns.length; i++) {
@@ -101,15 +96,17 @@ public class SelectModePanel extends JPanel {
 
     // 컴포넌트 이벤트 추가
     private void addActionListeners() {
-
         // Scarecrow 모드
         scarecrowBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                characterManager.setEnemyType(EnemyType.SCARECROW);
+                // 캐릭터 관리자에게 Scarecrow 모드로 설정하라고 알림
+                characterManager.setMonsterType(MonsterType.SCARECROW);
+                // 현재의 정보를 바탕으로 단어 관리자 생성
                 wordManager = new WordManager(characterManager, userManager, loginManager.getCurrentUser());
                 SoundManager.getAudio().play("resources/sounds/click_btn.wav");
 
+                // 팝업창을 꾸밀 패널
                 JPanel panel = new JPanel();
                 panel.setLayout(null);
 
@@ -122,22 +119,22 @@ public class SelectModePanel extends JPanel {
                 speedLabel.setBounds(10, 10, 280, 30); // 맨 위에 위치
                 speedLabel.setHorizontalAlignment(JLabel.CENTER); // 글자 가운데 정렬
 
+                // 단어 낙하 속도 조절 슬라이더
                 JSlider speedSlider = new JSlider(JSlider.HORIZONTAL, 80, 170, 140);
                 speedSlider.setInverted(true); // 느림 -> 빠름 (역순으로)
                 speedSlider.setMajorTickSpacing(30); // 큰 눈금 간격
-
                 speedSlider.setPaintTicks(true); // 슬라이더 눈금 보이게함
                 speedSlider.setPaintLabels(true); // 슬라이더 라벨 보이게함
 
-                // 라벨 테이블
+                // 단어 낙하 속도의 라벨들
                 Hashtable<Integer, JLabel> speedLabelTable = new Hashtable<>();
-                speedLabelTable.put(80, new JLabel("Very Hard")); // 가장 작은 숫자 (딜레이 짧음)
+                speedLabelTable.put(80, new JLabel("Very Hard")); // 가장 작은 숫자
                 speedLabelTable.put(110, new JLabel("Hard"));
                 speedLabelTable.put(140, new JLabel("Medium"));
-                speedLabelTable.put(170, new JLabel("Easy"));     // 가장 큰 숫자 (딜레이 김)
+                speedLabelTable.put(170, new JLabel("Easy")); // 가장 큰 숫자
                 speedSlider.setLabelTable(speedLabelTable);
 
-                // 라벨 바로 아래에 배치
+                // 단어 낙하 속도 조절 라벨 바로 아래에 배치
                 speedSlider.setBounds(10, 35, 280, 50);
 
                 // ====================================
@@ -148,6 +145,7 @@ public class SelectModePanel extends JPanel {
                 hpLabel.setHorizontalAlignment(JLabel.CENTER);
                 hpLabel.setBounds(10, 120, 280, 20);
 
+                // 체력 입력 칸
                 JTextField hpTextField = new JTextField(5);
                 hpTextField.setHorizontalAlignment(JTextField.CENTER);
                 hpTextField.setBounds(100, 155, 100, 30);
@@ -158,44 +156,41 @@ public class SelectModePanel extends JPanel {
                 panel.add(hpLabel);
                 panel.add(hpTextField);
 
-                // 2. 팝업창 띄우기
+                // 팝업창 띄우기
                 int option = JOptionPane.showConfirmDialog(frame, panel, "연습 모드 설정", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
+                // 확인 버튼 누를 시, 게임 시작
                 if (option == JOptionPane.OK_OPTION) {
-
-                    String inputHp = hpTextField.getText().trim(); // 공백 제거
-
-                    if(inputHp.isEmpty()) {
-                        System.out.println("숫자를 입력하세요!");
-                        return;
-                    }
-
-                    int hp = -1; // 임시 초기화
-
+                    // 공백 제거
+                    String inputHp = hpTextField.getText();
+                    // 임시로 -1 초기화
+                    int hp = -1;
+                    // 예외 처리
                     try {
                         hp = Integer.parseInt(inputHp);
-
                         if(hp <= 0) {
                             System.out.println("체력은 1 이상이어야 합니다.");
                             return;
                         }
-
                     } catch (NumberFormatException exception) {
                         System.out.println("잘못된 입력");
                         return;
                     }
 
-                    int wordFallSpeed = speedSlider.getValue(); // 단어 낙하 속도
+                    // 단어 낙하 속도
+                    int wordFallSpeed = speedSlider.getValue();
 
+                    // 단어 관리자에게 입력 받은 단어 낙하 속도를 넘겨줌
                     wordManager.setPraticeWordFallSpeed(wordFallSpeed);
-                    characterManager.setEnemyHP(hp);
+                    // 캐릭터 관리자에게 입력 받은 체력을 넘겨줌
+                    characterManager.setMonsterHP(hp);
 
+                    // 화면 생성
                     frame.getContentPane().removeAll();
                     frame.getContentPane().setLayout(new BorderLayout());
                     frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
                     frame.revalidate();
                     frame.repaint();
-
                     System.out.println("[게임 시작] Pratice Mode");
                 }
                 else {
@@ -208,10 +203,14 @@ public class SelectModePanel extends JPanel {
         mushroomBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                characterManager.setEnemyType(EnemyType.MUSHROOM);
+                // 캐릭터 관리자에게 Scarecrow 모드로 설정하라고 알림
+                characterManager.setMonsterType(MonsterType.MUSHROOM);
+                // 현재의 정보를 바탕으로 단어 관리자 생성
                 wordManager = new WordManager(characterManager, userManager, loginManager.getCurrentUser());
-                wordManager.setWordFallSpeed(EnemyType.MUSHROOM);
+                // Mushroom에 맞는 단어 낙하 속도 설정
+                wordManager.setWordFallSpeed(MonsterType.MUSHROOM);
 
+                // 화면 생성
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
@@ -226,10 +225,14 @@ public class SelectModePanel extends JPanel {
         wolfBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                characterManager.setEnemyType(EnemyType.WOLF);
+                // 캐릭터 관리자에게 Wolf 모드로 설정하라고 알림
+                characterManager.setMonsterType(MonsterType.WOLF);
+                // 현재의 정보를 바탕으로 단어 관리자 생성
                 wordManager = new WordManager(characterManager, userManager, loginManager.getCurrentUser());
-                wordManager.setWordFallSpeed(EnemyType.WOLF);
+                // Wolf에 맞는 단어 낙하 속도 설정
+                wordManager.setWordFallSpeed(MonsterType.WOLF);
 
+                // 화면 생성
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
@@ -244,10 +247,14 @@ public class SelectModePanel extends JPanel {
         reaperBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                characterManager.setEnemyType(EnemyType.REAPER);
+                // 캐릭터 관리자에게 Wolf 모드로 설정하라고 알림
+                characterManager.setMonsterType(MonsterType.REAPER);
+                // 현재의 정보를 바탕으로 단어 관리자 생성
                 wordManager = new WordManager(characterManager, userManager, loginManager.getCurrentUser());
-                wordManager.setWordFallSpeed(EnemyType.REAPER);
+                // Wolf에 맞는 단어 낙하 속도 설정
+                wordManager.setWordFallSpeed(MonsterType.REAPER);
 
+                // 화면 생성
                 frame.getContentPane().removeAll();
                 frame.getContentPane().setLayout(new BorderLayout());
                 frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
@@ -258,26 +265,27 @@ public class SelectModePanel extends JPanel {
             }
         });
 
-        // Back 버튼
+        // 뒤로가기 버튼
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
+                // 화면 생성
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new MenuPanel(frame,  loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
+                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
                 System.out.println("[메뉴 화면]");
             }
         });
     }
 
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // 이미지 크기 비율 맞게 버튼 크기에 맞춰 그림
+        // 배경 화면
         g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+        // 게임 제목
         g.drawImage(gameTitleImage.getImage(), 250, -250, 600, 700, this);
     }
 }

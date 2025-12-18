@@ -1,7 +1,8 @@
 package character.imageloader;
-
 import character.type.MotionType;
 import javax.swing.ImageIcon;
+
+// Reaper 이미지 로더
 public class ReaperImageLoader extends ImageLoader {
     private ImageIcon[] idleMotion = new ImageIcon[8];
     private ImageIcon[] deadMotion = new ImageIcon[10];
@@ -11,8 +12,10 @@ public class ReaperImageLoader extends ImageLoader {
     private ImageIcon[] runMotion = new ImageIcon[8];
 
     public ReaperImageLoader() {
-        setMotions(); // 이미지 생성
-        recordAllMotions(); // 이미지 저장
+        // 이미지 생성
+        setMotions();
+        // 이미지 저장
+        recordAllMotions();
     }
 
     // 이미지 저장

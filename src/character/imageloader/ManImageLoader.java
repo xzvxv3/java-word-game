@@ -1,9 +1,8 @@
 package character.imageloader;
-
 import character.type.MotionType;
-
 import javax.swing.*;
 
+// 주인공 이미지 로더
 public class ManImageLoader extends ImageLoader{
     private ImageIcon[] idleMotion = new ImageIcon[7];
     private ImageIcon[] damageMotion = new ImageIcon[4];
@@ -23,8 +22,10 @@ public class ManImageLoader extends ImageLoader{
     private ImageIcon[] swordAttackMotion04 = new ImageIcon[5];
 
     public ManImageLoader() {
-        setMotions(); // 이미지 생성
-        recordAllMotions(); // 이미지 저장
+        // 이미지 생성
+        setMotions();
+        // 이미지 저장
+        recordAllMotions();
     }
 
     // 이미지 저장
@@ -104,6 +105,5 @@ public class ManImageLoader extends ImageLoader{
         // SwordAttackMotion04
         for (int i = 0; i < 5; i++)
             swordAttackMotion04[i] = new ImageIcon(BASE_PATH + "sword/attack4/StandingSlash0" + (i + 1) + ".png");
-
     }
 }

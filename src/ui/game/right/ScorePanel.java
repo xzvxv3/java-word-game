@@ -1,42 +1,49 @@
 package ui.game.right;
-
-import character.type.WeaponType;
 import manager.CharacterManager;
-import character.type.EnemyType;
-
 import javax.swing.*;
 import java.awt.*;
 
 // 점수 판넬
 public class ScorePanel extends JPanel {
-    private int score = 0; // 초기 점수
-    private final int WEAPON_UNLOCK_SCORE = 2;
-
-    private ScoreTextLabel scoreTextLabel = new ScoreTextLabel();
-    private ScoreLabel scoreLabel = new ScoreLabel();
-
+    // 이미지 기본 경로
     private static final String BG_PATH = "resources/images/element/ingame/";
 
+    // 초기 점수
+    private int score = 0;
+
+    // 점수 글자 라벨
+    private ScoreTextLabel scoreTextLabel = new ScoreTextLabel();
+    // 점수 숫자 라벳
+    private ScoreLabel scoreLabel = new ScoreLabel();
+
+    // 캐릭터 프로필 사진
     private ImageIcon manHpIconImage = new ImageIcon(BG_PATH + "ManHpIconImage.png");
     private ImageIcon scarecrowIconImage = new ImageIcon(BG_PATH + "ScarecrowHpIconImage.png");
     private ImageIcon mushroomHpIconImage = new ImageIcon(BG_PATH + "MushroomHpIconImage.png");
     private ImageIcon wolfHpIconImage = new ImageIcon(BG_PATH + "WolfHpIconImage.png");
     private ImageIcon reaperHpIconImage = new ImageIcon(BG_PATH + "ReaperHpIconImage.png");
 
+    // 주인공 체력바
     private ManHpBar manHpBar;
+    // 몬스터 체력바
     private EnemyHpBar enemyHpBar;
 
+    // 캐릭터 관리자
     private CharacterManager characterManager;
 
+    // 점수 패널
     public ScorePanel(CharacterManager characterManager) {
         this.setBackground(Color.GRAY);
         setLayout(null);
         this.characterManager = characterManager;
 
+        // 점수 글자 라벨 추가
         add(scoreTextLabel);
+        // 점수 숫자 라벨 추가
         add(scoreLabel);
     }
 
+    // 체력바 설정
     public void setHpBar(int manHP, int monsterHP) {
         manHpBar = new ManHpBar(manHP);
         enemyHpBar = new EnemyHpBar(monsterHP);
@@ -47,49 +54,42 @@ public class ScorePanel extends JPanel {
     // Man 체력바
     class ManHpBar extends JProgressBar {
         public ManHpBar(int hp) {
+            // 체력바의 최솟값, 최댓값
             super(0, hp);
+            // 초기 상태
             setValue(hp);
-
-            setStringPainted(false); // HP 수치를 텍스트로 표시하도록 변경 (옵션)
-
-            // 위치 + 크기 필수
-            setBounds(87, 100, 180, 20);  // (x, y, w, h)
-
-            //setOpaque(false);
-            setBorderPainted(false);
+            setBounds(87, 100, 180, 20);
         }
 
         @Override
         protected void paintComponent(Graphics g) {
+            // 컴포넌트의 현재 크기 가져오기
             int w = getWidth();
             int h = getHeight();
 
+            // 현재 체력과 전체 체력의 비율 계산 -> 체력바의 너비 설정
             int hpWidth = (int) (w * (getValue() / (double) getMaximum()));
 
-            Graphics2D g2 = (Graphics2D) g;
+            // 체력이 깎인 빈 공간
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, w, h);
 
-            // 빈 부분 (회색)
-            g2.setColor(Color.WHITE);
-            g2.fillRect(0, 0, w, h);
-
-            // 남은 HP 부분 (빨간색)
-            g2.setColor(Color.GREEN);
-            g2.fillRect(0, 0, hpWidth, h);
+            // 남은 체력
+            g.setColor(Color.GREEN);
+            g.fillRect(0, 0, hpWidth, h);
         }
 
+        // 체력 감소
         public void decrease(int amount) {
             int newHp = Math.max(0, getValue() - amount);
             setValue(newHp);
-            repaint();   // 화면 갱신
-        }
-
-        public void heal() {
-            setValue(getValue() + 20);
             repaint();
         }
 
-        public void setHP(int hp) {
-            setValue(hp);
+        // 체력 증가
+        public void heal() {
+            setValue(getValue() + 20);
+            repaint();
         }
     }
 
@@ -97,44 +97,37 @@ public class ScorePanel extends JPanel {
     class EnemyHpBar extends JProgressBar {
         public EnemyHpBar(int hp) {
             super(0, hp);
-
             setValue(hp);
-
-            setStringPainted(false); // HP 수치를 텍스트로 표시하도록 변경 (옵션)
-
-            // 위치 + 크기 필수
             setBounds(87, 190, 180, 20);  // (x, y, w, h)
-            setOpaque(false);
-            setBorderPainted(false);
         }
-
 
         @Override
         protected void paintComponent(Graphics g) {
+            // 컴포넌트의 현재 크기 가져오기
             int w = getWidth();
             int h = getHeight();
 
+            // 현재 체력과 전체 체력의 비율 계산 -> 체력바의 너비 설정
             int hpWidth = (int) (w * (getValue() / (double) getMaximum()));
 
-            Graphics2D g2 = (Graphics2D) g;
+            // 체력이 깎인 빈 공간
+            g.setColor(Color.WHITE);
+            g.fillRect(0, 0, w, h);
 
-            // 빈 부분 (회색)
-            g2.setColor(Color.WHITE);
-            g2.fillRect(0, 0, w, h);
-
-            // 남은 HP 부분 (빨간색)
-            g2.setColor(Color.RED);
-            g2.fillRect(0, 0, hpWidth, h);
+            // 남은 체력
+            g.setColor(Color.RED);
+            g.fillRect(0, 0, hpWidth, h);
         }
 
+        // 체력 감소
         public void decrease(int amount) {
             int newHp = Math.max(0, getValue() - amount);
             setValue(newHp);
-            repaint();   // 화면 갱신
+            repaint();
         }
     }
 
-    // Score 라벨
+    // 점수 글자 라벨
     class ScoreTextLabel extends JLabel {
         public ScoreTextLabel() {
             setText("SCORE");
@@ -144,7 +137,7 @@ public class ScorePanel extends JPanel {
         }
     }
 
-    // Score 점수 현황 라벨
+    // 점수 숫자 라벨
     class ScoreLabel extends JLabel {
         public ScoreLabel() {
             setText(Integer.toString(score));
@@ -176,8 +169,9 @@ public class ScorePanel extends JPanel {
         decreaseEnemyHp(amount);
     }
 
+    // 무기 변경 가능한지
     public boolean isPossibleChangeWeapon() {
-        return score >= WEAPON_UNLOCK_SCORE;
+        return score >= characterManager.getWeaponUnlockScore();
     }
 
     @Override
@@ -186,7 +180,8 @@ public class ScorePanel extends JPanel {
         // 전체 배경 화면
         g.drawImage(manHpIconImage.getImage(), -70, -10, 250, 250, this);
 
-        switch (characterManager.getEnemyType()) {
+        // 몬스터 프로필
+        switch (characterManager.getMonsterType()) {
             case SCARECROW : g.drawImage(scarecrowIconImage.getImage(), -70, 80, 250, 250, this); break;
             case MUSHROOM : g.drawImage(mushroomHpIconImage.getImage(), -70, 80, 250, 250, this); break;
             case WOLF : g.drawImage(wolfHpIconImage.getImage(), -70, 80, 250, 250, this); break;

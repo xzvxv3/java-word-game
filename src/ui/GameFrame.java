@@ -17,18 +17,21 @@ public class GameFrame extends JFrame {
     private LoginPanel loginPanel = new LoginPanel(this, loginManager, userManager);
 
     public GameFrame() {
-        super("게임");
+        // 게임 제목
+        super("Man's Journey");
+        // 창이 꺼지면 모든 요소가 종료되게끔
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // 사용자가 임의로 크기 변경 불가능
         setResizable(false);
         setSize(1100, 800);
-        setLocation(350, 100);
+        setLocation(350, 50);
 
         makeMenu(); // 메뉴
         showLogin(); // 로그인 화면으로 이동
-        setVisible(true);
+        setVisible(true); // 설정한 프레임 창을 화면에 실제로 보이게 함
     }
 
-    // 게임 초기 화면
+    // 게임 초기 화면 -> 로그인 창
     private void showLogin() {
         getContentPane().add(loginPanel, BorderLayout.CENTER);
     }

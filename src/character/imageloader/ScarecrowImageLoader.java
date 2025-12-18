@@ -1,9 +1,8 @@
 package character.imageloader;
-
 import character.type.MotionType;
-
 import javax.swing.*;
 
+// Scarecrow 이미지 로더
 public class ScarecrowImageLoader extends ImageLoader{
 
     private ImageIcon[] idleMotion = new ImageIcon[3];
@@ -11,8 +10,10 @@ public class ScarecrowImageLoader extends ImageLoader{
     private ImageIcon[] damageMotion = new ImageIcon[9];
 
     public ScarecrowImageLoader() {
-        setMotions(); // 이미지 생성
-        recordAllMotions(); // 이미지 저장
+        // 이미지 생성
+        setMotions();
+        // 이미지 저장
+        recordAllMotions();
     }
 
     // 이미지 저장

@@ -1,47 +1,55 @@
 package word.worker;
-
-import dto.User;
-import manager.CharacterManager;
-import character.type.EnemyType;
+import user.User;
+import manager.*;
+import character.type.MonsterType;
 import character.type.MotionType;
-import manager.SoundManager;
-import manager.UserManager;
-import manager.WordManager;
 import ui.game.right.ScorePanel;
 import word.Word;
 import word.WordStore;
 import ui.game.left.GroundPanel;
-
 import java.util.Iterator;
 import java.util.Vector;
 
+// 단어 낙하 클래스
 public class WordFallingTask implements Runnable {
 
     // 게임 화면
-    private GroundPanel view;
+    private GroundPanel view = null;
+    // 점수 패널
+    private ScorePanel scorePanel = null;
+    // 단어 저장소
+    private WordStore wordStore = null;
 
-    // 단어 관리 클래스
-    private WordStore wordStore;
-
-    // 캐릭터 관리 클래스
+    // 캐릭터 관리자
     private CharacterManager characterManager = null;
-
+    // 단어 관리자
+    private WordManager wordManager = null;
+    // 유저 관리자
     private UserManager userManager = null;
+    // 현재 유저
     private User user = null;
 
     // 단어 저장소
-    private Vector<Word> words;
+    private Vector<Word> words = null;
 
     // 스레드 작동 여부
-    private boolean isrunning = true;
+    private volatile boolean isrunning = true;
+    // 스킬을 발동했는지
+    private volatile boolean isUseSkill = false;
+    // Time Stop 아이템 사용 여부
+    private volatile boolean isTimeStop = false;
 
-    private ScorePanel scorePanel;
-
+    // 시작 딜레이
     private int startDelay;
-
+    // 단어 낙하 속도
     private int wordFallSpeed;
 
-    private WordManager wordManager = null;
+    // 스킬 발동 예약 시간 (자연스러운 딜레이 유도)
+    private long skillScheduledTime = 0;
+    // 급낙하가 끝나는 시간 (스킬 전용)
+    private long rapidFallEndTime = 0;
+    // 원래의 단어 낙하 속도 (스킬 전용)
+    private int originalFallSpeed = 0;
 
     public WordFallingTask(int startDelay, int wordFallSpeed, ScorePanel scorePanel, WordStore wordStore, WordManager wordManager, CharacterManager characterManager, GroundPanel view, UserManager userManager, User user) {
         this.startDelay = startDelay;
@@ -53,7 +61,6 @@ public class WordFallingTask implements Runnable {
         this.characterManager = characterManager;
         this.user = user;
         this.userManager = userManager;
-
         words = wordStore.getWordVector();
     }
 
@@ -70,7 +77,9 @@ public class WordFallingTask implements Runnable {
 
             // 스킬 사용중일시
             if(isUseSkill) {
+                // 0.5초뒤에 스킬 발생 체크
                 checkSkillSchedule();
+                // 스킬 종료 되는지 체크
                 checkRapidFallTime();
             }
 
@@ -83,11 +92,8 @@ public class WordFallingTask implements Runnable {
                 return;
             }
         }
-
         // System.out.println("[단어 낙하 스레드 종료]");
     }
-    // 스킬 발동 예약 시간 (자연스러운 딜레이 유도)
-    private long skillScheduledTime = 0;
 
     // 0.5초뒤에 스킬 발생 체크
     private void checkSkillSchedule() {
@@ -98,20 +104,12 @@ public class WordFallingTask implements Runnable {
         }
     }
 
-    private boolean isUseSkill = false;
-
     // 0.5초뒤에 스킬 발생 (자연스러운 딜레이 유도)
     public void useReaperSkill() {
         if(isTimeStop) return;
         isUseSkill = true;
         skillScheduledTime = System.currentTimeMillis() + 500;
     }
-
-    // 급낙하가 끝나는 시간
-    private long rapidFallEndTime = 0;
-
-    // 원래의 단어 낙하 속도
-    private int originalFallSpeed = 0;
 
     // 단어 급낙하 발동
     public void rapidFall() {
@@ -125,39 +123,43 @@ public class WordFallingTask implements Runnable {
         rapidFallEndTime = System.currentTimeMillis() + 200;
     }
 
-    // 단어 급낙하 종료
+    // 스킬 종료 되는지 체크
     private void checkRapidFallTime() {
+        // 급낙하 종료 조건
         if(rapidFallEndTime > 0 && System.currentTimeMillis() > rapidFallEndTime) {
-            wordFallSpeed = originalFallSpeed; // 단어 속도 복수
+            // 단어 낙하 속도를 원래대로 복구
+            wordFallSpeed = originalFallSpeed;
 
+            // 종료 시간 초기화
             rapidFallEndTime = 0;
 
+            // 타임 스탑 아이템 종료
             isUseSkill = false;
             System.out.println("[리퍼 스킬 종료]");
         }
     }
 
-    // Time Stop 아이템 사용 여부
-    private boolean isTimeStop = false;
-
-    private synchronized void checkTimeStop() {
+    // 타임 스탑 아이템 사용했는지
+    private void checkTimeStop() {
         if (isTimeStop) {
             try {
                 System.out.println("[Time Stop 아이템 사용]");
-                wait(3000); // 3초 대기 (Lock 반납하고 잠듦)
+                // 3초간 단어 낙하 중단
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 // System.out.println("[단어 낙하 중 일시 정지]");
                 isrunning = false;
                 return;
             }
-            // 3초 지나면 자동으로 코드가 여기로 내려옴
-            isTimeStop = false; // 플래그 끄기 (다시 움직임)
+
+            // 타임 스탑 아이템 종료
+            isTimeStop = false;
             System.out.println("[Time Stop 아이템 종료]");
         }
     }
 
     // 아이템 사용 -> 단어 낙하 일시 중지
-    public synchronized void timeStop() {
+    public void timeStop() {
         isTimeStop = true;
     }
 
@@ -170,69 +172,89 @@ public class WordFallingTask implements Runnable {
 
             // 단어 라벨 순회
             while(it.hasNext()) {
-                Word word = it.next(); // 단어 라벨 추출
-                word.fall(); // 단어 라벨 떨어트림
-                view.repaint(); // 화면 울렁거림 방지
+                // 단어 라벨 추출
+                Word word = it.next();
+                // 단어 라벨 떨어트림
+                word.fall();
+
+                // 화면 재갱신
+                view.repaint();
 
                 // 단어 라벨 충돌 판정
                 if(word.isAtBottom()) {
-
-                    switch (characterManager.getEnemyType()) {
-                        case EnemyType.MUSHROOM : SoundManager.getAudio().play("resources/sounds/mushroom_attack.wav"); break;
-                        case EnemyType.WOLF : SoundManager.getAudio().play("resources/sounds/wolf_attack.wav"); break;
-                        case EnemyType.REAPER : SoundManager.getAudio().play("resources/sounds/reaper_attack.wav"); break;
-                    }
-
-                    // Mushroom, Wolf 공격
-                    if(characterManager.getEnemyType() == EnemyType.MUSHROOM || characterManager.getEnemyType() == EnemyType.WOLF) {
-                        characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01);
-
-                        if(characterManager.getEnemyType() == EnemyType.MUSHROOM) {
-                            scorePanel.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
-                            characterManager.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
-                        }
-
-                        else if(characterManager.getEnemyType() == EnemyType.WOLF) {
-                            scorePanel.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
-                            characterManager.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
-                        }
-                    }
-
-                    // Reaper 공격
-                    if(characterManager.getEnemyType() == EnemyType.REAPER) {
-                        characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01);
-                        scorePanel.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
-                        characterManager.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getEnemyType()));
-                    }
-
-                    // 허수아비를 제외한 나머지 몬스터의 공격은 Man의 데미지 모션 유도
-                    if(characterManager.getEnemyType() != EnemyType.SCARECROW) {
-                        characterManager.getMan().onAttacked();
-                    }
-
+                    // 몬스터의 공격
+                    monsterAttack();
                     // 화면에서 단어 삭제
                     view.remove(word);
                     // 단어 완전 제거
                     it.remove();
 
-                    System.out.println("[" + characterManager.getEnemyType() + "] 공격");
-
-                    // 게임 종료 되는지 체크
-                    if(characterManager.isGameOver()) {
-                        wordManager.shutDown();
-
-                        // 캐릭터 스레드 종료 유도 (자연스러운 종료 위해, interrupt() 사용X)
-                        if(characterManager.getCurrentEnemyHP() <= 0) characterManager.getMan().stop();
-                        else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
-
-                        // 모드에 따른 현재 유저의 점수 갱신
-                        user.updateCurrentScore(characterManager.getEnemyType(), user.getCurrentScore());
-
-                        // 랭킹에 업데이트
-                        userManager.updateUser(user);
-                    }
+                    System.out.println("[" + characterManager.getMonsterType() + "] 공격");
                 }
             }
+        }
+
+        // 게임 종료 되는지 체크
+        if(characterManager.isGameOver()) {
+            // 게임 종료
+            gameOver();
+        }
+    }
+
+    // 몬스터의 공격
+    private void monsterAttack() {
+        switch (characterManager.getMonsterType()) {
+            case MonsterType.MUSHROOM:
+                SoundManager.getAudio().play("resources/sounds/mushroom_attack.wav");
+                break;
+            case MonsterType.WOLF:
+                SoundManager.getAudio().play("resources/sounds/wolf_attack.wav");
+                break;
+            case MonsterType.REAPER:
+                SoundManager.getAudio().play("resources/sounds/reaper_attack.wav");
+                break;
+        }
+
+        // Mushroom, Wolf 공격
+        if (characterManager.getMonsterType() == MonsterType.MUSHROOM || characterManager.getMonsterType() == MonsterType.WOLF) {
+            characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01);
+            if (characterManager.getMonsterType() == MonsterType.MUSHROOM) {
+                scorePanel.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getMonsterType()));
+                characterManager.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getMonsterType()));
+            } else if (characterManager.getMonsterType() == MonsterType.WOLF) {
+                scorePanel.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getMonsterType()));
+                characterManager.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getMonsterType()));
+            }
+        }
+
+        // Reaper 공격
+        if (characterManager.getMonsterType() == MonsterType.REAPER) {
+            characterManager.getEnemy().setMotion(MotionType.ENEMY_ATTACK01);
+            scorePanel.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getMonsterType()));
+            characterManager.decreaseManHP(characterManager.getMonsterAttackPower(characterManager.getMonsterType()));
+        }
+
+        // 허수아비를 제외한 나머지 몬스터의 공격은 Man의 데미지 모션 유도
+        if (characterManager.getMonsterType() != MonsterType.SCARECROW) {
+            characterManager.getMan().onAttacked();
+        }
+    }
+
+    // 게임 종료
+    private void gameOver() {
+        // 단어 관련 스레드 모두 중단 유도
+        wordManager.shutDown();
+
+        // 캐릭터 스레드 종료 유도 (자연스러운 종료 위해, interrupt() 사용X)
+        if(characterManager.getCurrentMonsterHP() <= 0) characterManager.getMan().stop();
+        else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
+
+        // 모드에 따른 현재 유저의 랭킹 갱신 (words 파일인 경우에만 점수를 갱신)
+        if(SettingsManager.getInstance().getCurrentWordBookPath().equals("resources/words/words.txt")) {
+            // 유저 점수 갱신
+            user.updateCurrentScore(characterManager.getMonsterType(), user.getCurrentScore());
+            // 랭킹에 업데이트
+            userManager.updateUser(user);
         }
     }
 }

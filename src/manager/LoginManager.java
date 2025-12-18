@@ -1,23 +1,14 @@
 package manager;
+import user.User;
 
-import dto.User;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Scanner;
-
-// 한글패치 안 됨
+// 로그인 관리자
 public class LoginManager {
-
     // 유저 관리자
     private UserManager userManager = null;
-
     // 현재 로그인중인 유저
     private User currentUser = null;
 
+    // 로그인 관리자
     public LoginManager(UserManager userManager) {
         this.userManager = userManager;
     }
@@ -66,11 +57,12 @@ public class LoginManager {
         this.currentUser = null;
     }
 
-    // [추가] 외부에서 현재 유저 정보가 필요할 때 호출
+    // 현재 유저 정보 반환
     public User getCurrentUser() {
         return currentUser;
     }
 
+    // 아이디 검사
     public String checkIdValidity(String id) {
         // 1. 빈 값 체크
         if (id == null || id.isEmpty()) {
@@ -87,6 +79,7 @@ public class LoginManager {
             return "이미 사용 중인 아이디입니다.";
         }
 
-        return "아이디 사용 가능"; // 모든 통과
+        // 모든 검사 통과
+        return "아이디 사용 가능";
     }
 }
