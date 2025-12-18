@@ -1,4 +1,95 @@
-# 객체지향언어2 기말 미니 프로젝트
+ # 객체지향언어2 기말 미니 프로젝트
+
+### 게임 구도
+<img width="276" height="276" alt="image" src="https://github.com/user-attachments/assets/09ae3764-163f-4e54-abdf-f82f82fa9df4" />
+
+주인공은 4마리의 적과 대치한다. 각각의 적은 서로 다른 HP , 공격력을 가지고 있다. 모드는 각각 4개의 모드가 있고, 각각 연습 모드, 쉬움 모드, 보통 모드, 어려움 모드로 나뉘어져 있다.
+
+점수 판정 → 단어를 맞추면 Man이 Monster을 공격한다. 반대로 단어가 바닥에 떨어지거나 맞추지 못하면 Monster가 Man을 공격한다. 각각의 상황은 공격력에 따른 점수 +a, -a가 반영된다.
+
+&nbsp;
+
+<img width="206" height="206" alt="image" src="https://github.com/user-attachments/assets/535ba597-158b-4530-ac06-4db90a7b5b68" />
+
+주인공은 게임 시작 시 체력 100, 공격력 1, 무기 없음 상태로 시작한다.
+
+단어를 맞출 때마다 네 가지 공격 모션 중 하나가 랜덤으로 재생된다.
+
+&nbsp;
+
+<img width="217" height="217" alt="image" src="https://github.com/user-attachments/assets/17fcd1bd-8de8-4805-9007-059717713650" />
+
+점수를 3점 획득하면 오른쪽 하단 패널에 무기 버튼이 활성화된다. 
+
+무기를 장착하면 공격력이 1에서 3으로 증가하며, 단어를 맞출 때마다 네 가지 공격 모션 중 하나가 이전과 동일하게 랜덤으로 재생된다.
+
+&nbsp;
+
+## 게임 모드
+
+<img width="249" height="249" alt="image" src="https://github.com/user-attachments/assets/02c28bbb-1bab-46bd-99cd-fbe8940637f5" />
+
+Scarecrow는 사용자의 설정에 따라 체력과 단어 낙하속도를 원하는대로 지정할 수 있다. 
+
+또한 이 캐릭터는 공격을 하지 않는다. 오로지 사용자의 연습을 위해서 존재하는 모드이다. 
+
+아침에 출현한다.
+
+&nbsp;
+
+<img width="286" height="286" alt="image" src="https://github.com/user-attachments/assets/46611625-861e-43ff-a697-f03889e53188" />
+
+Mushroom은 체력 5, 공격력 5을 가진 약한 몬스터이다. 
+
+낮에 출현한다.
+
+&nbsp;
+
+<img width="286" height="286" alt="image" src="https://github.com/user-attachments/assets/e1d048f5-5571-45e4-8777-95a6cf30de04" />
+
+Wolf는 체력 30, 공격력 10을 가진 약하지 않은 몬스터이다. 
+
+밤에 출현한다.
+
+&nbsp;
+
+<img width="292" height="292" alt="image" src="https://github.com/user-attachments/assets/25a10656-c6f1-4158-b1c9-4a8615d7ca96" />
+
+Reaper는 체력 60, 공격력 20을 가진 강한 몬스터이다.
+
+주인공이 단어를 오타를 내서 맞히지 못한 경우에는 고유의 스킬을 사용한다.
+
+해당 스킬은 모든 단어를 0.2초간 급낙하를 시킨다.
+
+주인공이 단어를 놓친 경우에는 일반 공격을 한다.
+
+밤에 출현한다.
+
+## 아이템
+
+<img width="311" height="311" alt="image" src="https://github.com/user-attachments/assets/d1215efe-2c90-4036-abf7-05769e3553a4" />
+
+위에 나와있듯이, 3점 이상의 점수를 획득하면 무기 버튼이 활성화된다. 
+
+이를 누르면 주인공은 무기를 장착하고 싸울 수 있게 된다.
+
+포션은 모든 스테이지마다 기본적으로 3개씩 주어진다.
+
+포션을 사용할때마다 체력이 20씩 증가한다.
+
+&nbsp;
+
+<img width="310" height="310" alt="image" src="https://github.com/user-attachments/assets/c3e9f180-34a5-49e0-ab0a-d6bc51d68065" />
+
+모든 스테이지마다 시간을 멈출 수 있는 3번의 기회가 주어진다.
+
+이때 단어를 맞춰서 단어를 없앨 수 있다.
+
+3번의 기회를 다 쓰면, 더이상 사용하지 못한다.
+
+&nbsp;
+
+## 게임 실행
 
 ### [로그인 화면]
 <img width="1920" height="1080" alt="login" src="https://github.com/user-attachments/assets/ddc10cd6-d18f-4ba4-9de8-b50651933dc6" />
@@ -87,5 +178,24 @@
 ### [로그아웃]
 <img width="1920" height="1080" alt="snapshot19" src="https://github.com/user-attachments/assets/76455482-dfa8-422b-bcd9-518dda284ba8" />
 
+---
 
+### 다이어그램
 
+<img width="5200" height="2856" alt="ㅇㅇㅇ" src="https://github.com/user-attachments/assets/0aa6e7b8-f830-4623-8611-9af469e598cd" />
+
+---
+
+### 게임 에셋 출처:
+
+배경화면: https://assetstore.unity.com/packages/2d/environments/free-4k-parallax-vector-backgrounds-299874
+
+주인공: https://assetstore.unity.com/packages/2d/characters/pixel-prototype-player-sprites-221542
+
+Scarecrow : https://assetstore.unity.com/packages/2d/characters/straw-training-dummy-pixel-art-323464
+
+Mushroom : https://assetstore.unity.com/packages/2d/characters/monsters-creatures-fantasy-167949
+
+Wolf : https://assetstore.unity.com/packages/2d/characters/dark-wolf-2d-animation-284086
+
+Reaper : https://assetstore.unity.com/packages/2d/characters/bringer-of-death-free-195719
