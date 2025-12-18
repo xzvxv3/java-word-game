@@ -1,15 +1,16 @@
-<img width="1920" height="1080" alt="snapshot10" src="https://github.com/user-attachments/assets/5c35ae1b-ae43-40be-82ab-0ce7289a5b9f" /># java-mini-project
-객체지향언어2 기말 미니 프로젝트
+# 객체지향언어2 기말 미니 프로젝트
 
 ---
 
-[로그인 화면]
+### [로그인 화면]
 
-<img width="1920" height="1080" alt="login" src="https://github.com/user-attachments/assets/ddc10cd6-d18f-4ba4-9de8-b50651933dc6" />  
+<img width="1920" height="1080" alt="login" src="https://github.com/user-attachments/assets/ddc10cd6-d18f-4ba4-9de8-b50651933dc6" />
+&nbsp;
 
 [회원가입 화면]
 
-<img width="1920" height="1080" alt="signup" src="https://github.com/user-attachments/assets/2320e695-f583-4d25-b0b9-ed5f0a42e227" />  
+<img width="1920" height="1080" alt="signup" src="https://github.com/user-attachments/assets/2320e695-f583-4d25-b0b9-ed5f0a42e227" />
+&nbsp;
 
 [회원가입 성공]
 
