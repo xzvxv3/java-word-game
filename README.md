@@ -205,16 +205,20 @@ Reaper는 체력 60, 공격력 20을 가진 강한 몬스터이다.
 
 ### 게임 에셋 출처:
 
-배경화면: https://assetstore.unity.com/packages/2d/environments/free-4k-parallax-vector-backgrounds-299874
+**배경화면:** [Unity Asset Store](https://assetstore.unity.com/packages/2d/environments/free-4k-parallax-vector-backgrounds-299874)
 
-주인공: https://assetstore.unity.com/packages/2d/characters/pixel-prototype-player-sprites-221542
+**주인공:** [Unity Asset Store](https://assetstore.unity.com/packages/2d/characters/pixel-prototype-player-sprites-221542)
 
-Scarecrow : https://assetstore.unity.com/packages/2d/characters/straw-training-dummy-pixel-art-323464
+**Scarecrow:** [Unity Asset Store](https://assetstore.unity.com/packages/2d/characters/straw-training-dummy-pixel-art-323464)
 
-Mushroom : https://assetstore.unity.com/packages/2d/characters/monsters-creatures-fantasy-167949
+**Mushroom:** [Unity Asset Store](https://assetstore.unity.com/packages/2d/characters/monsters-creatures-fantasy-167949)
 
-Wolf : https://assetstore.unity.com/packages/2d/characters/dark-wolf-2d-animation-284086
+**Wolf:** [Unity Asset Store](https://assetstore.unity.com/packages/2d/characters/dark-wolf-2d-animation-284086)
 
-Reaper : https://assetstore.unity.com/packages/2d/characters/bringer-of-death-free-195719
+**Reaper:** [Unity Asset Store](https://assetstore.unity.com/packages/2d/characters/bringer-of-death-free-195719)
+
+**포션:** [Unity Asset Store](https://assetstore.unity.com/packages/2d/gui/icons/pixel-magical-potions-pack-282794)
+
+**무기:** [Unity Asset Store](https://assetstore.unity.com/packages/2d/gui/icons/game-weapon-icons-package-285331)
 
 </div>
