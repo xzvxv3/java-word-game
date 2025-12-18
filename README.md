@@ -2,7 +2,7 @@
 
 ---
 
-### [로그인 화면]
+<center>### [로그인 화면] </center>
 
 <img width="1920" height="1080" alt="login" src="https://github.com/user-attachments/assets/ddc10cd6-d18f-4ba4-9de8-b50651933dc6" />
 &nbsp;
