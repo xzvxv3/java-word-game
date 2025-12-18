@@ -1,12 +1,18 @@
+<div align="center">
+ 
  # 객체지향언어2 기말 미니 프로젝트
 
 ### 게임 구도
 <img width="500" height="500" alt="제목 없음 (1000 x 1000 px)의 사본의 사본 (1)" src="https://github.com/user-attachments/assets/70c6e8e2-3d2a-4090-b753-1c80a493c40f" />
 
 
-주인공은 4마리의 적과 대치한다. 각각의 적은 서로 다른 HP , 공격력을 가지고 있다. 모드는 각각 4개의 모드가 있고, 각각 연습 모드, 쉬움 모드, 보통 모드, 어려움 모드로 나뉘어져 있다.
+주인공은 4마리의 적과 대치한다. 각각의 적은 서로 다른 HP , 공격력을 가지고 있다. 
 
-점수 판정 → 단어를 맞추면 Man이 Monster을 공격한다. 반대로 단어가 바닥에 떨어지거나 맞추지 못하면 Monster가 Man을 공격한다. 각각의 상황은 공격력에 따른 점수 +a, -a가 반영된다.
+모드는 각각 4개의 모드가 있고, 각각 연습 모드, 쉬움 모드, 보통 모드, 어려움 모드로 나뉘어져 있다.
+
+점수 판정 → 단어를 맞추면 Man이 Monster을 공격한다. 
+
+반대로 단어가 바닥에 떨어지거나 맞추지 못하면 Monster가 Man을 공격한다. 각각의 상황은 공격력에 따른 점수 +a, -a가 반영된다.
 
 &nbsp;
 
@@ -71,6 +77,8 @@ Reaper는 체력 60, 공격력 20을 가진 강한 몬스터이다.
 주인공이 단어를 놓친 경우에는 일반 공격을 한다.
 
 밤에 출현한다.
+
+&nbsp;
 
 ## 아이템
 
@@ -208,3 +216,5 @@ Mushroom : https://assetstore.unity.com/packages/2d/characters/monsters-creature
 Wolf : https://assetstore.unity.com/packages/2d/characters/dark-wolf-2d-animation-284086
 
 Reaper : https://assetstore.unity.com/packages/2d/characters/bringer-of-death-free-195719
+
+</div>
