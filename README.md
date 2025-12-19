@@ -10,9 +10,9 @@
 
 모드는 각각 4개의 모드가 있고, 각각 연습 모드, 쉬움 모드, 보통 모드, 어려움 모드로 나뉘어져 있다.
 
-점수 판정 → 단어를 맞추면 Man이 Monster을 공격한다. 
+점수 판정 → 단어를 맞추면 주인공이 몬스터를 공격한다. 
 
-반대로 단어가 바닥에 떨어지거나 맞추지 못하면 Monster가 Man을 공격한다. 각각의 상황은 공격력에 따른 점수 +a, -a가 반영된다.
+반대로 단어가 바닥에 떨어지거나 맞추지 못하면 몬스터가 주인공을 공격한다. 각각의 상황은 공격력에 따른 점수 +a, -a가 반영된다.
 
 &nbsp;
 
@@ -41,7 +41,7 @@
 
 Scarecrow는 사용자의 설정에 따라 체력과 단어 낙하속도를 원하는대로 지정할 수 있다. 
 
-또한 이 캐릭터는 공격을 하지 않는다. 오로지 사용자의 연습을 위해서 존재하는 모드이다. 
+또한 이 몬스터는 공격을 하지 않는다. 오로지 사용자의 연습을 위해서 존재하는 모드이다. 
 
 아침에 출현한다.
 
@@ -160,7 +160,7 @@ Reaper는 체력 60, 공격력 20을 가진 강한 몬스터이다.
 <img width="1920" height="1080" alt="snapshot10" src="https://github.com/user-attachments/assets/22f7ddad-9e93-4f45-a469-b6aba733d066" />
 &nbsp;
 
-### [Mushroom의 공격]
+### [몬스터 Mushroom의 공격]
 <img width="1920" height="1080" alt="snapshot11" src="https://github.com/user-attachments/assets/83bdb6d9-295a-458a-a671-02e2010b8666" />
 &nbsp;
 
@@ -176,7 +176,7 @@ Reaper는 체력 60, 공격력 20을 가진 강한 몬스터이다.
 <img width="1920" height="1080" alt="snapshot14" src="https://github.com/user-attachments/assets/f05e6f1d-a6a5-4a9a-bc43-8fd2ee65667b" />
 &nbsp;
 
-### [몬스터 공격]
+### [몬스터 Reaper의 공격]
 <img width="1920" height="1080" alt="snapshot15" src="https://github.com/user-attachments/assets/c9766c67-4317-4131-941b-dcab7990b665" />
 &nbsp;
 
