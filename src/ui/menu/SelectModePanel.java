@@ -11,11 +11,11 @@ import java.util.Hashtable;
 
 public class SelectModePanel extends JPanel {
     // 버튼 기본 경로
-    private final String BTN_PATH = "resources/images/button/";
+    private final String BTN_PATH = "/images/button/";
     // 배경화면 이미지 경로
-    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/common/default.png");
+    private ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/images/background/common/default.png"));
     // 게임 제목 이미지 경로
-    private ImageIcon gameTitleImage = new ImageIcon("resources/images/element/menu/selectmode_lbl.png");
+    private ImageIcon gameTitleImage = new ImageIcon(getClass().getResource("/images/element/menu/selectmode_lbl.png"));
 
     // Scarecrow 모드 버튼
     private JButton scarecrowBtn = new GameImageButton(
@@ -104,7 +104,7 @@ public class SelectModePanel extends JPanel {
                 characterManager.setMonsterType(MonsterType.SCARECROW);
                 // 현재의 정보를 바탕으로 단어 관리자 생성
                 wordManager = new WordManager(characterManager, userManager, loginManager.getCurrentUser());
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
 
                 // 팝업창을 꾸밀 패널
                 JPanel panel = new JPanel();
@@ -216,7 +216,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
                 System.out.println("[게임 시작] Easy Mode");
             }
         });
@@ -238,7 +238,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
                 System.out.println("[게임 시작] Normal Mode");
             }
         });
@@ -260,7 +260,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().add(new GamePanel(frame, characterManager, wordManager, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
                 System.out.println("[게임 시작] Hard Mode");
             }
         });
@@ -274,7 +274,7 @@ public class SelectModePanel extends JPanel {
                 frame.getContentPane().add(new MenuPanel(frame,  loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
+                SoundManager.getAudio().play("/sounds/back_btn.wav");
                 System.out.println("[메뉴 화면]");
             }
         });

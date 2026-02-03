@@ -1,7 +1,8 @@
 package word;
 import manager.SettingsManager;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -13,16 +14,27 @@ public class TextStore {
 
     // 초기 설정
     public TextStore() {
+        String path = SettingsManager.getInstance().getCurrentWordBookPath();
         try {
-            // 단어장을 불러옴
-            Scanner sc = new Scanner(new FileReader(SettingsManager.getInstance().getCurrentWordBookPath()));
-            // 단어장의 단어들을 벡터에 삽입
-            while(sc.hasNext()) {
-                textVector.add(sc.nextLine());
+            InputStream is = getClass().getResourceAsStream(path);
+
+            if (is == null) {
+                System.out.println("[파일 존재X] 경로를 확인하세요: " + path);
+                System.exit(0);
             }
 
-        } catch(FileNotFoundException e) {
-            System.out.println("[파일 존재X]");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
+                    textVector.add(line);
+                }
+            }
+            reader.close();
+
+        } catch (Exception e) {
+            System.out.println("[단어장 로드 실패]");
+            e.printStackTrace();
             System.exit(0);
         }
     }

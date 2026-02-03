@@ -205,13 +205,13 @@ public class WordFallingTask implements Runnable {
     private void monsterAttack() {
         switch (characterManager.getMonsterType()) {
             case MonsterType.MUSHROOM:
-                SoundManager.getAudio().play("resources/sounds/mushroom_attack.wav");
+                SoundManager.getAudio().play("/sounds/mushroom_attack.wav");
                 break;
             case MonsterType.WOLF:
-                SoundManager.getAudio().play("resources/sounds/wolf_attack.wav");
+                SoundManager.getAudio().play("/sounds/wolf_attack.wav");
                 break;
             case MonsterType.REAPER:
-                SoundManager.getAudio().play("resources/sounds/reaper_attack.wav");
+                SoundManager.getAudio().play("/sounds/reaper_attack.wav");
                 break;
         }
 
@@ -250,7 +250,7 @@ public class WordFallingTask implements Runnable {
         else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
 
         // 모드에 따른 현재 유저의 랭킹 갱신 (words 파일인 경우에만 점수를 갱신)
-        if(SettingsManager.getInstance().getCurrentWordBookPath().equals("resources/words/words.txt")) {
+        if(SettingsManager.getInstance().getCurrentWordBookPath().equals("/words/words.txt")) {
             // 유저 점수 갱신
             user.updateCurrentScore(characterManager.getMonsterType(), user.getCurrentScore());
             // 랭킹에 업데이트

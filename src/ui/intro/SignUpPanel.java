@@ -10,15 +10,15 @@ import java.awt.event.ActionListener;
 
 public class SignUpPanel extends JPanel {
     // 이미지 기본 경로
-    private final String IMG_PATH = "resources/images/";
+    private final String IMG_PATH = "/images/";
     // 배경화면 이미지
-    private ImageIcon backgroundImage = new ImageIcon(IMG_PATH + "background/ingame/morning.png");
+    private ImageIcon backgroundImage = new ImageIcon(getClass().getResource(IMG_PATH + "background/ingame/morning.png"));
     // 회원 가입 글자 이미지
-    private ImageIcon signUpTitleImage = new ImageIcon(IMG_PATH + "element/intro/signup_title_lbl.png");
+    private ImageIcon signUpTitleImage = new ImageIcon(getClass().getResource(IMG_PATH + "element/intro/signup_title_lbl.png"));
     // ID 글자 이미지
-    private ImageIcon idLabel = new ImageIcon(IMG_PATH + "element/intro/id_lbl.png");
+    private ImageIcon idLabel = new ImageIcon(getClass().getResource(IMG_PATH + "element/intro/id_lbl.png"));
     // PASSWORD 글자 이미지
-    private ImageIcon passwordLabel = new ImageIcon(IMG_PATH + "element/intro/password_lbl.png");
+    private ImageIcon passwordLabel = new ImageIcon(getClass().getResource(IMG_PATH + "element/intro/password_lbl.png"));
 
     // 아이디 입력 칸
     private JTextField idTextField = new JTextField();
@@ -130,7 +130,7 @@ public class SignUpPanel extends JPanel {
                 idTextField.setText("");
                 passwordTextField.setText("");
 
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
             }
         });
 
@@ -138,7 +138,7 @@ public class SignUpPanel extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
+                SoundManager.getAudio().play("/sounds/back_btn.wav");
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new LoginPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
@@ -177,6 +177,6 @@ public class SignUpPanel extends JPanel {
         g.drawImage(passwordLabel.getImage(), 160, 200, 280, 260, this);
 
         // 허수아비 그림
-        g.drawImage(new ImageIcon("resources/sprites/scarecrow/idle/ScareCrowIDie001.png").getImage(), 450, 550, 230, 120, this);
+        g.drawImage(new ImageIcon(getClass().getResource("/sprites/scarecrow/idle/ScareCrowIDie001.png")).getImage(), 450, 550, 230, 120, this);
     }
 }

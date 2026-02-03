@@ -11,13 +11,13 @@ import java.awt.event.ActionListener;
 
 public class MenuPanel extends JPanel {
     // 배경 이미지
-    private ImageIcon backgroundImage = new ImageIcon("resources/images/background/common/default.png");
+    private ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/images/background/common/default.png"));
 
     // 버튼 이미지 경로
-    private final String BTN_PATH = "resources/images/button/menu/";
+    private final String BTN_PATH = "/images/button/menu/";
 
     // 단어장 기본 경로 (수업 자료)
-    private String wordBookPATH = "resources/words/words.txt";
+    private String wordBookPATH = "/words/words.txt";
 
     // 모드 선택 버튼
     JButton selectModeBtn = new GameImageButton(
@@ -85,7 +85,7 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().add(new SelectModePanel(frame, userManager, loginManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
                 System.out.println("[모드 선택]");
             }
         });
@@ -99,7 +99,7 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().add(new RankingPanel(frame, userManager, loginManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
                 System.out.println("[랭킹 화면]");
             }
         });
@@ -113,7 +113,7 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().add(new SettingsPanel(frame, userManager, loginManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
                 System.out.println("[설정 화면]");
             }
         });
@@ -127,7 +127,7 @@ public class MenuPanel extends JPanel {
                 frame.getContentPane().add(new LoginPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
                 loginManager.logout();
             }
         });

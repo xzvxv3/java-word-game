@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class GroundPanel extends JPanel {
     // 배경 화면 이미지 경로
-    private static final String BG_PATH = "resources/images/background/ingame/";
+    private static final String BG_PATH = "/images/background/ingame/";
     // 배경 화면 이미지를 담을 곳
     ImageIcon stageImage = null;
 
@@ -36,10 +36,10 @@ public class GroundPanel extends JPanel {
     // 모드에 따른 배경화면 설정
     private void setModeScene() {
         switch (characterManager.getMonsterType()) {
-            case SCARECROW : stageImage = new ImageIcon(BG_PATH + "morning.png"); break;
-            case MUSHROOM : stageImage = new ImageIcon(BG_PATH + "normalday.png"); break;
-            case WOLF : stageImage = new ImageIcon(BG_PATH + "night.png"); break;
-            case REAPER :  stageImage = new ImageIcon(BG_PATH + "night.png"); break;
+            case SCARECROW : stageImage = new ImageIcon(getClass().getResource(BG_PATH + "morning.png")); break;
+            case MUSHROOM : stageImage = new ImageIcon(getClass().getResource(BG_PATH + "normalday.png")); break;
+            case WOLF : stageImage = new ImageIcon(getClass().getResource(BG_PATH + "night.png")); break;
+            case REAPER :  stageImage = new ImageIcon(getClass().getResource(BG_PATH + "night.png")); break;
         }
     }
 

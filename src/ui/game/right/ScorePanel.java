@@ -6,7 +6,7 @@ import java.awt.*;
 // 점수 판넬
 public class ScorePanel extends JPanel {
     // 이미지 기본 경로
-    private static final String BG_PATH = "resources/images/element/ingame/";
+    private static final String BG_PATH = "/images/element/ingame/";
 
     // 초기 점수
     private int score = 0;
@@ -17,11 +17,11 @@ public class ScorePanel extends JPanel {
     private ScoreLabel scoreLabel = new ScoreLabel();
 
     // 캐릭터 프로필 사진
-    private ImageIcon manHpIconImage = new ImageIcon(BG_PATH + "ManHpIconImage.png");
-    private ImageIcon scarecrowIconImage = new ImageIcon(BG_PATH + "ScarecrowHpIconImage.png");
-    private ImageIcon mushroomHpIconImage = new ImageIcon(BG_PATH + "MushroomHpIconImage.png");
-    private ImageIcon wolfHpIconImage = new ImageIcon(BG_PATH + "WolfHpIconImage.png");
-    private ImageIcon reaperHpIconImage = new ImageIcon(BG_PATH + "ReaperHpIconImage.png");
+    private ImageIcon manHpIconImage = new ImageIcon(getClass().getResource(BG_PATH + "ManHpIconImage.png"));
+    private ImageIcon scarecrowIconImage = new ImageIcon(getClass().getResource(BG_PATH + "ScarecrowHpIconImage.png"));
+    private ImageIcon mushroomHpIconImage = new ImageIcon(getClass().getResource(BG_PATH + "MushroomHpIconImage.png"));
+    private ImageIcon wolfHpIconImage = new ImageIcon(getClass().getResource(BG_PATH + "WolfHpIconImage.png"));
+    private ImageIcon reaperHpIconImage = new ImageIcon(getClass().getResource(BG_PATH + "ReaperHpIconImage.png"));
 
     // 주인공 체력바
     private ManHpBar manHpBar;

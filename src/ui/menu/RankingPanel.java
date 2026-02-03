@@ -15,9 +15,9 @@ import java.util.Vector;
 
 public class RankingPanel extends JPanel {
     // 이미지 기본 경로
-    private final String IMG_PATH = "resources/images/";
-    private ImageIcon backgroundImage = new ImageIcon(IMG_PATH + "background/common/default.png");
-    private ImageIcon rankingTitleImage = new ImageIcon(IMG_PATH + "element/ranking/ranking_title_lbl4.png");
+    private final String IMG_PATH = "/images/";
+    private ImageIcon backgroundImage = new ImageIcon(getClass().getResource(IMG_PATH + "background/common/default.png"));
+    private ImageIcon rankingTitleImage = new ImageIcon(getClass().getResource(IMG_PATH + "element/ranking/ranking_title_lbl4.png"));
     // JFrame
     private JFrame frame = null;
 
@@ -156,7 +156,7 @@ public class RankingPanel extends JPanel {
                 frame.getContentPane().add(new MenuPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
+                SoundManager.getAudio().play("/sounds/back_btn.wav");
                 System.out.println("[메뉴 화면]");
             }
         });

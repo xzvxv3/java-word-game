@@ -11,8 +11,7 @@ import java.awt.event.ActionListener;
 
 public class ItemPanel extends JPanel {
     // 이미지
-    private final String IMG_PATH = "resources/images/";
-
+    private final String IMG_PATH = "/images/";
     // 무기 버튼
     private SwordBtn swordBtn = new SwordBtn();
     // 포션 버튼
@@ -95,13 +94,13 @@ public class ItemPanel extends JPanel {
             setLocation(30, 30);
 
             // 무기 잠금 상태
-            setIcon(new ImageIcon(IMG_PATH + "button/ingame/SwordOFF.png"));
+            setIcon(new ImageIcon(getClass().getResource(IMG_PATH + "button/ingame/SwordOFF.png")));
 
             // 버튼 이벤트 리스너 추가
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    SoundManager.getAudio().play("resources/sounds/sword_btn.wav");
+                    SoundManager.getAudio().play("/sounds/sword_btn.wav");
                     // 무기를 바꿀 수 있는 상태라면
                     if(scorePanel.isPossibleChangeWeapon()) {
                         System.out.println("[무기 사용]");
@@ -118,7 +117,7 @@ public class ItemPanel extends JPanel {
 
         // 무기 사용 중 이미지로 변경
         public void setSwordON() {
-            ImageIcon swordONIcon = new ImageIcon(IMG_PATH + "button/ingame/SwordON.png");
+            ImageIcon swordONIcon = new ImageIcon(getClass().getResource(IMG_PATH + "button/ingame/SwordON.png"));
             setIcon(swordONIcon);
         }
     }
@@ -162,7 +161,7 @@ public class ItemPanel extends JPanel {
             setSize(100, 100);
             setLocation(30, 160);
             // 포션 이미지 설정
-            setIcon(new ImageIcon(IMG_PATH + "button/ingame/Potion.png"));
+            setIcon(new ImageIcon(getClass().getResource(IMG_PATH + "button/ingame/Potion.png")));
 
             // 클릭시 Man의 HP 20 증가
             addActionListener(new ActionListener() {
@@ -175,7 +174,7 @@ public class ItemPanel extends JPanel {
                     if(healCount == 3) return;
                     System.out.println("[포션 사용]");
 
-                    SoundManager.getAudio().play("resources/sounds/potion.wav");
+                    SoundManager.getAudio().play("/sounds/potion.wav");
 
                     // 주인공 체력바 충전
                     scorePanel.healManHP();
@@ -188,7 +187,7 @@ public class ItemPanel extends JPanel {
 
                     // 포션을 3개 먹었다면, 'X' 표시를 남김
                     if(healCount == 3) {
-                        setIcon(new ImageIcon(IMG_PATH + "button/ingame/PotionEmpty.png"));
+                        setIcon(new ImageIcon(getClass().getResource(IMG_PATH + "button/ingame/PotionEmpty.png")));
                     }
                 }
             });
@@ -225,13 +224,13 @@ public class ItemPanel extends JPanel {
         public TimeBtn() {
             setSize(100, 100);
             setLocation(30, 290);
-            setIcon(new ImageIcon(IMG_PATH + "button/ingame/TimeOFF.png"));
+            setIcon(new ImageIcon(getClass().getResource(IMG_PATH + "button/ingame/TimeOFF.png")));
 
             // 클릭 시 시간을 3초동안 멈추게 함
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    SoundManager.getAudio().play("resources/sounds/time_btn.wav");
+                    SoundManager.getAudio().play("/sounds/time_btn.wav");
                     // 사용자의 편의를 위해 단어 입력 칸으로 초점 맞춤
                     inputPanel.requestFocusOnTextField();
 
@@ -243,7 +242,7 @@ public class ItemPanel extends JPanel {
 
                     // 타입 스탑 아이템을 3번 사용했다면 'X' 이미지 표시
                     if(timeCount == 3) {
-                        setIcon(new ImageIcon(IMG_PATH + "button/ingame/PotionEmpty.png"));
+                        setIcon(new ImageIcon(getClass().getResource(IMG_PATH + "button/ingame/PotionEmpty.png")));
                     }
 
                     // 단어를 멈추게함
@@ -284,7 +283,7 @@ public class ItemPanel extends JPanel {
         backBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
+                SoundManager.getAudio().play("/sounds/back_btn.wav");
                 frame.getContentPane().removeAll();
                 frame.getContentPane().add(new SelectModePanel(frame, userManager, loginManager), BorderLayout.CENTER);
                 frame.revalidate();
@@ -298,7 +297,7 @@ public class ItemPanel extends JPanel {
                 }
 
                 // 모드에 따른 현재 유저의 랭킹 갱신 (words 파일인 경우에만 점수를 갱신)
-                if(SettingsManager.getInstance().getCurrentWordBookPath().equals("resources/words/words.txt")) {
+                if(SettingsManager.getInstance().getCurrentWordBookPath().equals("/words/words.txt")) {
                     // 유저 점수 갱신
                     user.updateCurrentScore(characterManager.getMonsterType(), user.getCurrentScore());
                     // 랭킹에 업데이트

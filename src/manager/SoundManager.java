@@ -4,6 +4,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import java.io.File;
+import java.net.URL;
 
 // 사운드 관리자, 싱글톤 패턴 사용
 public class SoundManager {
@@ -35,7 +36,13 @@ public class SoundManager {
 
         try {
             // 파일 불러오기
-            File soundFile = new File(fileName);
+            URL soundURL = getClass().getResource(fileName);
+
+            if(soundURL == null) {
+                System.out.println("[사운드 파일 찾지 못함] 경로: " + fileName);
+                return;
+            }
+
             // 소리를 재생할 도구
             final Clip clip = AudioSystem.getClip();
 
@@ -50,7 +57,7 @@ public class SoundManager {
                 }
             });
             // 오디로 파일 열어서 플레이어(Clip)에 장착
-            clip.open(AudioSystem.getAudioInputStream(soundFile));
+            clip.open(AudioSystem.getAudioInputStream(soundURL));
             // 재생 시작
             clip.start();
         } catch (Exception e) {

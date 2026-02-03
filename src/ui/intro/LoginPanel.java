@@ -15,15 +15,15 @@ import java.awt.event.ActionListener;
 
 public class LoginPanel extends JPanel {
     // 이미지 기본 경로
-    private final String IMG_PATH = "resources/images/";
+    private final String IMG_PATH = "/images/";
 
     // 배경화면 이미지
-    private ImageIcon backgroundImage = new ImageIcon(IMG_PATH + "background/ingame/normalday.png");
+    private ImageIcon backgroundImage = new ImageIcon(getClass().getResource(IMG_PATH + "background/ingame/normalday.png"));
     // 게임 제목 이미지
-    private ImageIcon gameTitleImage = new ImageIcon(IMG_PATH + "element/intro/game_title_lbl.png");
+    private ImageIcon gameTitleImage = new ImageIcon(getClass().getResource(IMG_PATH + "element/intro/game_title_lbl.png"));
     // id, password 이미지
-    private ImageIcon idImage = new ImageIcon(IMG_PATH + "element/intro/id_lbl.png");
-    private ImageIcon passwordImage = new ImageIcon(IMG_PATH + "element/intro/password_lbl.png");
+    private ImageIcon idImage = new ImageIcon(getClass().getResource(IMG_PATH + "element/intro/id_lbl.png"));
+    private ImageIcon passwordImage = new ImageIcon(getClass().getResource(IMG_PATH + "element/intro/password_lbl.png"));
     // id, password 입력칸
     private JTextField idTextField = new GameTextField();
     private JPasswordField passwordTextField = new JPasswordField(20); // Password 입력칸
@@ -97,7 +97,7 @@ public class LoginPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 stopMotion();
-                SoundManager.getAudio().play("resources/sounds/login_btn.wav");
+                SoundManager.getAudio().play("/sounds/login_btn.wav");
                 id = idTextField.getText(); // id
                 password = String.valueOf(passwordTextField.getPassword()); // password
                 if(loginManager.login(id, password)) {
@@ -118,7 +118,7 @@ public class LoginPanel extends JPanel {
                 frame.getContentPane().add(new SignUpPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
 
                 System.out.println("[회원가입 화면]");
             }
@@ -128,7 +128,7 @@ public class LoginPanel extends JPanel {
         exitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SoundManager.getAudio().play("resources/sounds/click_btn.wav");
+                SoundManager.getAudio().play("/sounds/click_btn.wav");
 
                 JLabel label = new JLabel("게임을 종료합니다");
                 label.setFont(new Font("맑은 고딕", Font.BOLD, 18)); // 폰트와 크기 설정 (더 크게)

@@ -11,7 +11,7 @@ public class SettingsManager {
     // 생성자 생성 불가능
     private SettingsManager() {
         // 초기값 설정 (기본 단어장)
-        this.currentWordBookPath = "resources/words/words.txt";
+        this.currentWordBookPath = "/words/words.txt";
     }
 
     // 인스턴스 반환

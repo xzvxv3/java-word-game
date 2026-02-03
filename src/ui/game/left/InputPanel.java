@@ -117,7 +117,7 @@ public class InputPanel extends JPanel {
 
                     // 캐릭터가 빈손일 경우
                     if(characterManager.getManWeapon() == WeaponType.EMPTY) {
-                        SoundManager.getAudio().play("resources/sounds/punch01.wav");
+                        SoundManager.getAudio().play("/sounds/punch01.wav");
                         switch (r) {
                             case 0 : characterManager.getMan().setMotion(MotionType.MAN_ATTACK01); break;
                             case 1 : characterManager.getMan().setMotion(MotionType.MAN_ATTACK02); break;
@@ -129,7 +129,7 @@ public class InputPanel extends JPanel {
                     }
                     // 캐릭터가 무기를 가지고 있는 경우
                     else if(characterManager.getManWeapon() == WeaponType.SWORD) {
-                        SoundManager.getAudio().play("resources/sounds/sword.wav");
+                        SoundManager.getAudio().play("/sounds/sword.wav");
                         switch (r) {
                             case 0 : characterManager.getMan().setMotion(MotionType.MAN_SWORD_ATTACK01); break;
                             case 1 : characterManager.getMan().setMotion(MotionType.MAN_SWORD_ATTACK02); break;
@@ -153,7 +153,7 @@ public class InputPanel extends JPanel {
                         else if(characterManager.getCurrentManHP() <= 0) characterManager.getEnemy().stop();
 
                         // 모드에 따른 현재 유저의 랭킹 갱신
-                        if(SettingsManager.getInstance().getCurrentWordBookPath().equals("resources/words/words.txt")) {
+                        if(SettingsManager.getInstance().getCurrentWordBookPath().equals("/words/words.txt")) {
                             // 유저 점수 갱신
                             user.updateCurrentScore(characterManager.getMonsterType(), user.getCurrentScore());
                             // 랭킹에 업데이트
@@ -165,7 +165,7 @@ public class InputPanel extends JPanel {
                 // Reaper 몬스터 한정 스킬 발동
                 else if(characterManager.getMonsterType() == MonsterType.REAPER) {
                     System.out.println("[Reaper 스킬 발동!]");
-                    SoundManager.getAudio().play("resources/sounds/reaper_skill.wav");
+                    SoundManager.getAudio().play("/sounds/reaper_skill.wav");
                     characterManager.useReaperSkill();
                     wordManager.useReaperSkill();
                 }

@@ -14,11 +14,11 @@ import java.util.Vector;
 
 public class SettingsPanel extends JPanel {
     // 이미지 기본 경로
-    private final String IMG_PATH = "resources/images/";
+    private final String IMG_PATH = "/images/";
     // 배경화면 이미지 경로
-    private ImageIcon backgroundImage = new ImageIcon(IMG_PATH + "background/common/default.png");
+    private ImageIcon backgroundImage = new ImageIcon(getClass().getResource(IMG_PATH + "background/common/default.png"));
     // 설정 제목 이미지 경로
-    private ImageIcon settingsTitleImage = new ImageIcon(IMG_PATH + "element/settings/settings_title_lbl.png");
+    private ImageIcon settingsTitleImage = new ImageIcon(getClass().getResource(IMG_PATH + "element/settings/settings_title_lbl.png"));
 
     // JFrame
     private JFrame frame = null;
@@ -161,7 +161,7 @@ public class SettingsPanel extends JPanel {
                 frame.getContentPane().add(new MenuPanel(frame, loginManager, userManager), BorderLayout.CENTER);
                 frame.revalidate();
                 frame.repaint();
-                SoundManager.getAudio().play("resources/sounds/back_btn.wav");
+                SoundManager.getAudio().play("/sounds/back_btn.wav");
                 System.out.println("[메뉴 화면]");
             }
         });
@@ -177,7 +177,7 @@ public class SettingsPanel extends JPanel {
                 // 사용자가 마우스로 클릭하여 선택한 값을 가져옴
                 String selectedWordBook = wordBookNameList.getSelectedValue();
                 // 단어장 경로
-                currentWordBookPath = "resources/words/" + selectedWordBook + ".txt";
+                currentWordBookPath = "/words/" + selectedWordBook + ".txt";
                 // 앞으로 이 단어장으로 게임이 시작됨. SettingsManager에게 알림. (싱글톤 패턴)
                 SettingsManager.getInstance().setCurrentWordBookPath(currentWordBookPath);
                 // 단어 목록 최신화
@@ -203,7 +203,7 @@ public class SettingsPanel extends JPanel {
                 }
 
                 // 파일의 경로 생성
-                String path = "resources/words/" + name + ".txt";
+                String path = "/words/" + name + ".txt";
                 // 파일 생성
                 File newFile = new File(path);
 
@@ -273,17 +273,24 @@ public class SettingsPanel extends JPanel {
     private void updateWordList() {
         // 텍스트를 담는 벡터
         Vector<String> textVector = new Vector<>();
-        try {
-            // 파일을 읽음
-            Scanner sc = new Scanner(new FileReader(currentWordBookPath));
-            // 파일에 있는 모든 내용을 벡터에 담음
-            while(sc.hasNext()) { textVector.add(sc.nextLine()); }
-            // 스캐너 닫기
-            sc.close();
+        String path = SettingsManager.getInstance().getCurrentWordBookPath();
 
-        } catch(FileNotFoundException exception) {
-            System.out.println("No File.");
-            return;
+        try {
+            InputStream is = getClass().getResourceAsStream(path); // 리소스에서 스트림 추출
+            if (is == null) {
+                System.out.println("파일을 찾을 수 없습니다: " + path);
+                return;
+            }
+
+            // 한글 깨짐 방지를 위해 UTF-8 설정 필수
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                textVector.add(line);
+            }
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         // 새로운 데이터를 담은 JList 생성

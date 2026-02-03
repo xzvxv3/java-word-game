@@ -5,9 +5,9 @@ import javax.swing.*;
 public class GameImageButton extends JButton {
     public GameImageButton(String defaultIconPath, String rolloverIconPath) {
         // 평소의 이미지
-        setIcon(new ImageIcon(defaultIconPath));
+        setIcon(new ImageIcon(getClass().getResource(defaultIconPath)));
         // Rollover 상태의 이미지
-        setRolloverIcon(new ImageIcon(rolloverIconPath));
+        setRolloverIcon(new ImageIcon(getClass().getResource(rolloverIconPath)));
 
         // 버튼의 테두리 제거
         setBorderPainted(false);
